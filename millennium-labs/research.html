@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Millennium Research</title>
+<meta name="description" content="What the corpus measures: specification gaming on verified math, weakening attractors, and the strength-structured formalization lattice.">
+<meta name="theme-color" content="#0A0C0B">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Millennium Research">
+<meta property="og:description" content="Machine-verified mathematics for frontier models.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<script defer src="main.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page-progress" id="page-progress" aria-hidden="true"></div>
+
+<header class="site-nav" id="site-nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="index.html" aria-label="Millennium Research — home">
+      <img class="mark-img" src="assets/logo-nav.png" alt="" width="160" height="110" aria-hidden="true">
+      <span>Millennium&nbsp;Research</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <ul>
+        <li><a href="thesis.html">Thesis</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="research.html" class="is-active" aria-current="page">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Access</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="menu-overlay" aria-label="Open menu">
+      <span class="nav-toggle-line" aria-hidden="true"></span>
+      <span class="nav-toggle-line" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="menu-overlay" id="menu-overlay" hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        <li><a href="thesis.html">Thesis</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="research.html" aria-current="page">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Access</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="subpage">
+
+<section class="section" id="research" aria-labelledby="research-title">
+    <div class="container">
+      <h2 id="research-title" data-reveal>What the corpus measures.</h2>
+      <div class="research-rows">
+        <article class="research-row" data-reveal>
+          <span class="kicker">measurement 01</span>
+          <h3>Specification gaming on verified math</h3>
+          <p>Verifiable rewards make one kind of exploit concrete: the gaps in the verifier itself. The corpus is built to find and label the cases where a formal proof satisfies the checker but violates intent.</p>
+        </article>
+        <article class="research-row" data-reveal>
+          <span class="kicker">measurement 02</span>
+          <h3>Weakening attractors in self-improving reasoners</h3>
+          <p>When a model trains on math it verifies itself, it can drift toward statements that are weaker but easier to prove. The strength-structured lattice makes that drift measurable.</p>
+        </article>
+        <article class="research-row research-keystone" data-reveal>
+          <div class="keystone-text">
+            <span class="kicker">measurement 03 · keystone</span>
+            <h3>The strength-structured lattice</h3>
+            <p>We organize proofs not as pass/fail but in a lattice ordered by logical strength — so anyone using the corpus can measure <em>how strong</em> a model&rsquo;s verified reasoning actually is, not just <em>whether</em> it passed.</p>
+          </div>
+          <figure class="keystone-figure" aria-hidden="true">
+            <svg class="lattice" viewBox="0 0 220 132" focusable="false">
+              <path class="lat-e" d="M110 18 L40 66 M110 18 L110 66 M110 18 L180 66 M40 66 L75 114 M110 66 L75 114 M110 66 L145 114 M180 66 L145 114"/>
+              <circle class="lat-n lat-apex" cx="110" cy="18" r="7"/>
+              <circle class="lat-n" cx="40" cy="66" r="6"/>
+              <circle class="lat-n" cx="110" cy="66" r="6"/>
+              <circle class="lat-n" cx="180" cy="66" r="6"/>
+              <circle class="lat-n" cx="75" cy="114" r="6"/>
+              <circle class="lat-n" cx="145" cy="114" r="6"/>
+            </svg>
+            <figcaption class="lattice-cap">statements ordered by logical strength</figcaption>
+          </figure>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="footer-mark">
+      <img class="mark-img mark-img-sm" src="assets/logo-nav.png" alt="" width="160" height="110" aria-hidden="true">
+      <span class="footer-name">Millennium&nbsp;Research</span>
+    </span>
+    <span class="footer-copy">© 2026 Millennium Research</span>
+  </div>
+</footer>
+
+</body>
+</html>
