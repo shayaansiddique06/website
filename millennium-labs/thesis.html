@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thesis — Millennium Research</title>
+<meta name="description" content="Correct is not the same as measurable: why a machine-checked corpus must be structured along the axis the checker ignores — faithfulness.">
+<meta name="theme-color" content="#0A0C0B">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Millennium Research">
+<meta property="og:description" content="Machine-verified mathematics for frontier models.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<script defer src="main.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page-progress" id="page-progress" aria-hidden="true"></div>
+
+<header class="site-nav" id="site-nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="index.html" aria-label="Millennium Research — home">
+      <img class="mark-img" src="assets/logo-nav.png" alt="" width="160" height="110" aria-hidden="true">
+      <span>Millennium&nbsp;Research</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <ul>
+        <li><a href="thesis.html" class="is-active" aria-current="page">Thesis</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Access</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="menu-overlay" aria-label="Open menu">
+      <span class="nav-toggle-line" aria-hidden="true"></span>
+      <span class="nav-toggle-line" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="menu-overlay" id="menu-overlay" hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        <li><a href="thesis.html" aria-current="page">Thesis</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Access</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="subpage">
+
+<section class="section" id="thesis" aria-labelledby="thesis-title">
+    <div class="container">
+      <div class="thesis-grid">
+        <div class="thesis-prose">
+          <h2 id="thesis-title" data-reveal>Correct isn&rsquo;t the same as measurable.</h2>
+          <p data-reveal>Reinforcement learning from verifiable rewards was a breakthrough for math and code: instead of a learned judge that can be fooled, a deterministic checker decides whether an answer is right. But it didn&rsquo;t solve everything. Models still game what the checker fails to enforce — a proof can compile cleanly while proving the wrong theorem. Machine-checking alone isn&rsquo;t enough. To actually measure reasoning, the corpus has to be organized along the one axis the checker ignores: faithfulness — whether a formal proof captures what the original theorem meant.</p>
+        </div>
+        <ul class="thesis-callouts" data-reveal-group>
+          <li data-reveal><span class="callout-label">Compiles ≠ faithful</span> — a Lean proof can typecheck while proving the wrong statement.</li>
+          <li data-reveal><span class="callout-label">Faithfulness is its own axis</span> — something you measure, not assume.</li>
+          <li data-reveal><span class="callout-label">Strength-structured lattice</span> — proofs organized by logical strength, not just pass/fail.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="footer-mark">
+      <img class="mark-img mark-img-sm" src="assets/logo-nav.png" alt="" width="160" height="110" aria-hidden="true">
+      <span class="footer-name">Millennium&nbsp;Research</span>
+    </span>
+    <span class="footer-copy">© 2026 Millennium Research</span>
+  </div>
+</footer>
+
+</body>
+</html>
