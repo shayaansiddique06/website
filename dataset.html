@@ -71,21 +71,12 @@
       <!-- Fallback values below; source of truth: DATASET constant in main.js -->
       <ul class="stats" id="stats" data-reveal-group>
         <li class="stat" data-verdict="faithful" data-reveal>
-          <span class="stat-num" data-stat="faithful">437</span>
+          <span class="stat-num" data-stat="faithful">500+</span>
           <span class="stat-label">Faithful</span>
         </li>
         <li class="stat" data-verdict="unfaithful" data-reveal>
-          <span class="stat-num" data-stat="unfaithful">822</span>
+          <span class="stat-num" data-stat="unfaithful">2,000+</span>
           <span class="stat-label">Unfaithful</span>
-          <span class="stat-sub" data-stat-note="unfaithful">91 human · 731 agent-filtered</span>
-        </li>
-        <li class="stat" data-verdict="uncertain" data-reveal>
-          <span class="stat-num" data-stat="uncertain">48</span>
-          <span class="stat-label">Uncertain</span>
-        </li>
-        <li class="stat" data-verdict="pending" data-reveal>
-          <span class="stat-num" data-stat="pending">7,734</span>
-          <span class="stat-label">Pending</span>
         </li>
       </ul>
 
@@ -93,8 +84,6 @@
         <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
         <button type="button" class="chip" data-filter="faithful" aria-pressed="false">Faithful</button>
         <button type="button" class="chip" data-filter="unfaithful" aria-pressed="false">Unfaithful</button>
-        <button type="button" class="chip" data-filter="uncertain" aria-pressed="false">Uncertain</button>
-        <button type="button" class="chip" data-filter="pending" aria-pressed="false">Pending</button>
       </div>
       <p class="visually-hidden" id="filter-status" role="status" aria-live="polite"></p>
 
@@ -149,54 +138,6 @@ theorem primes_three_mod_four :
               </div>
             </div>
             <footer class="card-meta">arXiv:2311.07912 · verdict at stage 3 · back-translation</footer>
-          </article>
-        </li>
-
-        <li class="card" data-verdict="uncertain">
-          <article aria-label="Theorem sample, verdict uncertain">
-            <header class="card-head">
-              <span class="card-id">thm:2409.11842-C2</span>
-              <span class="badge" data-verdict="uncertain">uncertain</span>
-            </header>
-            <div class="card-panels">
-              <div class="panel panel-tex">
-                <span class="panel-cap">source · LaTeX</span>
-                <p class="tex">For all \(x, y\) in an inner product space \(V\), \(\lvert \langle x, y \rangle \rvert \le \lVert x \rVert \, \lVert y \rVert\).</p>
-              </div>
-              <div class="panel panel-lean">
-                <span class="panel-cap">formalization · Lean 4</span>
-<pre><code class="language-lean">-- scope narrowed to real Euclidean space
-theorem cauchy_schwarz {n : ℕ}
-    (x y : EuclideanSpace ℝ (Fin n)) :
-    |⟪x, y⟫_ℝ| ≤ ‖x‖ * ‖y‖ :=
-  abs_inner_le_norm ℝ x y</code></pre>
-              </div>
-            </div>
-            <footer class="card-meta">arXiv:2409.11842 · verdict at stage 4 · LLM tie-breaker</footer>
-          </article>
-        </li>
-
-        <li class="card" data-verdict="pending">
-          <article aria-label="Theorem sample, verdict pending">
-            <header class="card-head">
-              <span class="card-id">thm:2502.00318-P5</span>
-              <span class="badge" data-verdict="pending">pending</span>
-            </header>
-            <div class="card-panels">
-              <div class="panel panel-tex">
-                <span class="panel-cap">source · LaTeX</span>
-                <p class="tex">Every graph \(G\) on \(n\) vertices with more than \(n^2/4\) edges contains a triangle.</p>
-              </div>
-              <div class="panel panel-lean">
-                <span class="panel-cap">formalization · Lean 4</span>
-<pre><code class="language-lean">theorem mantel {n : ℕ} (G : SimpleGraph (Fin n))
-    [DecidableRel G.Adj]
-    (h : 4 * G.edgeFinset.card &gt; n ^ 2) :
-    ∃ s, G.IsNClique 3 s := by
-  sorry</code></pre>
-              </div>
-            </div>
-            <footer class="card-meta">arXiv:2502.00318 · awaiting stage 1 · compile</footer>
           </article>
         </li>
 
