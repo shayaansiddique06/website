@@ -53,7 +53,7 @@ function initHero() {
 
   let particles = [];
   let rafId = null;
-  let logoImg = null;   /* the real mark (assets/logo-mark.jpg) once loaded */
+  let logoImg = null;   /* the real mark (assets/logo-mark.png) once loaded */
   let cssW = 0, cssH = 0;
   let inView = true, tabVisible = !document.hidden;
   let assembleT0 = 0;
@@ -294,7 +294,7 @@ function initHero() {
   const img = new Image();
   img.onload = () => { logoImg = img; imageSettled = true; boot(true); };
   img.onerror = () => { imageSettled = true; boot(true); };
-  img.src = 'assets/logo-mark.jpg';
+  img.src = 'assets/logo-mark.png';
 
   /* Pause when the hero leaves the viewport. */
   new IntersectionObserver((entries) => {
@@ -570,10 +570,6 @@ function initPipeline() {
  * ========================================================================== */
 function formatNum(n) { return n.toLocaleString('en-US'); }
 
-/* Stats representing an open-ended lower bound render with a trailing '+'. */
-const STAT_SUFFIX = { faithful: '+', unfaithful: '+' };
-function statDisplay(key, n) { return formatNum(n) + (STAT_SUFFIX[key] || ''); }
-
 function initStats() {
   const targets = {
     faithful: DATASET.faithful,
@@ -581,7 +577,7 @@ function initStats() {
   };
 
   const els = $$('.stat-num').filter((el) => targets[el.dataset.stat] !== undefined);
-  els.forEach((el) => { el.textContent = statDisplay(el.dataset.stat, targets[el.dataset.stat]); });
+  els.forEach((el) => { el.textContent = formatNum(targets[el.dataset.stat]) + '+'; });
 
   if (reducedMotion.matches) return;   /* final values, no animation */
 
@@ -597,7 +593,7 @@ function initStats() {
       const t = Math.min(1, (now - t0) / COUNT_UP_MS);
       const k = easeOutExpo(t);
       els.forEach((el) => {
-        el.textContent = statDisplay(el.dataset.stat, Math.round(targets[el.dataset.stat] * k));
+        el.textContent = formatNum(Math.round(targets[el.dataset.stat] * k)) + '+';
       });
       if (t < 1) requestAnimationFrame(frame);
     }
@@ -790,7 +786,7 @@ function initRevealFallback() {
     });
     $$('.stat-num').forEach((el) => {
       const k = el.dataset.stat;
-      if (DATASET[k] !== undefined) el.textContent = statDisplay(k, DATASET[k]);
+      if (DATASET[k] !== undefined) el.textContent = formatNum(DATASET[k]);
     });
     $$('#cards .card.pre-check').forEach((c) => c.classList.remove('pre-check'));
     $$('#pipeline-stages .stage').forEach((s) => s.classList.add('is-active'));

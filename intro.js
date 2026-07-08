@@ -77,6 +77,7 @@
   const pctEl = document.getElementById('intro-pct');
   const barEl = document.getElementById('intro-bar');
   const logoEl = document.getElementById('intro-logo');
+  const scrimEl = document.getElementById('intro-scrim');
   const copyEl = document.getElementById('intro-copy');
   const ctasEl = document.getElementById('intro-ctas');
   const scrollBtn = document.getElementById('intro-scroll');
@@ -101,7 +102,7 @@
     if (io) io.disconnect();
     if (ro) ro.disconnect();
     if (renderer) renderer.dispose();
-    for (const el of [logoEl, uiEl, barEl, canvas, bgEl, copyEl]) {
+    for (const el of [logoEl, uiEl, barEl, canvas, bgEl, copyEl, scrimEl]) {
       if (el) el.removeAttribute('style');
     }
     for (const el of copyParts) el.removeAttribute('style');
@@ -137,9 +138,15 @@
   let VH = 1, sectionTop = 0, runway = 1, homeW = 320;
   let finalBox = null;
 
+  /* Portrait mark: aspect from the loaded image, with the real ratio as the
+     pre-load fallback. Widths are capped by height so the mark never
+     overflows the stage. */
+  const logoAR = () => (logoEl.naturalHeight && logoEl.naturalWidth)
+    ? logoEl.naturalHeight / logoEl.naturalWidth : 1200 / 730;
+
   function measureFinalBox() {
     const W = stage.clientWidth, H = stage.clientHeight;
-    if (mobileMQ.matches) return { cx: W / 2, cy: H * 0.30, w: W * 0.86 };
+    if (mobileMQ.matches) return { cx: W / 2, cy: H * 0.30, w: Math.min(W * 0.86, (H * 0.44) / logoAR()) };
     /* Measure content boxes, not full-width rows — .hero-ctas spans the
        container; its children are the real content edge. */
     let right = 0;
@@ -149,7 +156,7 @@
     }
     const left = Math.max(right + 32, W / 2);
     const avail = Math.max(W - left - 24, 240);
-    return { cx: left + avail / 2, cy: H * 0.52, w: Math.min(avail, 680) };
+    return { cx: left + avail / 2, cy: H * 0.52, w: Math.min(avail, 680, (H * 0.62) / logoAR()) };
   }
 
   function measure() {
@@ -157,15 +164,15 @@
     sectionTop = section.offsetTop;
     const stageH = stage.offsetHeight || VH;
     runway = Math.max(1, section.offsetHeight - stageH);
-    homeW = Math.min(stage.clientWidth * 0.44, 560);
+    homeW = Math.min(stage.clientWidth * 0.44, 560, ((stage.offsetHeight || VH) * 0.56) / logoAR());
     logoEl.style.width = homeW + 'px';
     finalBox = measureFinalBox();
   }
 
-  /* ------------------------- logo: JPG → alpha -----------------------------
-     The mark ships as a JPG on black. Convert to a real alpha PNG so it
-     composites cleanly over the scene; on failure the mix-blend fallback
-     still reads correctly. */
+  /* ------------------------- logo: ensure alpha ---------------------------
+     If the mark ships as opaque art on black (JPG), key it to real alpha so
+     it composites cleanly over the scene. Already-transparent art (PNG) is
+     used as-is — re-normalizing it would blow the shading out flat. */
   function makeAlphaLogo() {
     if (logoEl.classList.contains('is-alpha')) return;
     try {
@@ -176,19 +183,28 @@
       g.drawImage(logoEl, 0, 0);
       const d = g.getImageData(0, 0, c.width, c.height);
       const px = d.data;
-      for (let i = 0; i < px.length; i += 4) {
-        const m = Math.max(px[i], px[i + 1], px[i + 2]);
-        if (m < 10) { px[i + 3] = 0; continue; }
-        const s = 255 / m;
-        px[i]     = Math.min(255, px[i] * s);
-        px[i + 1] = Math.min(255, px[i + 1] * s);
-        px[i + 2] = Math.min(255, px[i + 2] * s);
-        px[i + 3] = m;
+      let hasAlpha = false;
+      for (let i = 3; i < px.length; i += 4) {
+        if (px[i] < 250) { hasAlpha = true; break; }
       }
-      g.putImageData(d, 0, 0);
-      logoEl.classList.add('is-alpha');
-      logoEl.src = c.toDataURL('image/png');
-    } catch (_) { /* keep the mix-blend JPG */ }
+      if (hasAlpha) {
+        logoEl.classList.add('is-alpha');
+      } else {
+        for (let i = 0; i < px.length; i += 4) {
+          const m = Math.max(px[i], px[i + 1], px[i + 2]);
+          if (m < 10) { px[i + 3] = 0; continue; }
+          const s = 255 / m;
+          px[i]     = Math.min(255, px[i] * s);
+          px[i + 1] = Math.min(255, px[i + 1] * s);
+          px[i + 2] = Math.min(255, px[i + 2] * s);
+          px[i + 3] = m;
+        }
+        g.putImageData(d, 0, 0);
+        logoEl.classList.add('is-alpha');
+        logoEl.src = c.toDataURL('image/png');
+      }
+    } catch (_) { /* keep the mix-blend fallback */ }
+    if (!dead) measure();
   }
   if (logoEl.complete && logoEl.naturalWidth) makeAlphaLogo();
   else logoEl.addEventListener('load', makeAlphaLogo, { once: true, signal: ac.signal });
@@ -392,14 +408,16 @@
       cy += (finalBox.cy - cy) * k;
       w += (finalBox.w - w) * k;
     }
-    const ar = logoEl.naturalHeight && logoEl.naturalWidth
-      ? logoEl.naturalHeight / logoEl.naturalWidth : 330 / 480;
+    const ar = logoAR();
     const h0 = homeW * ar;
     const s = (0.9 + 0.1 * reveal) * (w / homeW);
     logoEl.style.transform =
       'translate(' + (cx - homeW / 2).toFixed(1) + 'px,' + (cy - h0 / 2).toFixed(1) + 'px) scale(' + s.toFixed(4) + ')';
     logoEl.style.opacity = reveal.toFixed(3);
     logoEl.style.filter = 'blur(' + (6 * (1 - reveal)).toFixed(1) + 'px)';
+
+    /* Readability scrim under the copy rises with it. */
+    if (scrimEl) scrimEl.style.opacity = rise(c).toFixed(3);
 
     /* Hero copy rises in, staggered. */
     if (copyParts.length) {

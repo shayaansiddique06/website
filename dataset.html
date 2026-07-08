@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dataset — Millennium Research</title>
+<title>Dataset · Millennium Research</title>
 <meta name="description" content="A live snapshot of verification verdicts across the current formalization run.">
 <meta name="theme-color" content="#0A0C0B">
 <meta name="color-scheme" content="dark">
@@ -30,7 +30,7 @@
 
 <header class="site-nav" id="site-nav">
   <div class="nav-inner">
-    <a class="wordmark" href="index.html" aria-label="Millennium Research — home">
+    <a class="wordmark" href="index.html" aria-label="Millennium Research home">
       <img class="mark-img" src="assets/logo-nav.png" alt="" width="160" height="110" aria-hidden="true">
       <span>Millennium&nbsp;Research</span>
     </a>
@@ -38,7 +38,6 @@
       <ul>
         <li><a href="thesis.html">Thesis</a></li>
         <li><a href="dataset.html" class="is-active" aria-current="page">Dataset</a></li>
-        <li><a href="research.html">Research</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="contact.html">Access</a></li>
       </ul>
@@ -53,7 +52,6 @@
       <ul>
         <li><a href="thesis.html">Thesis</a></li>
         <li><a href="dataset.html" aria-current="page">Dataset</a></li>
-        <li><a href="research.html">Research</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="contact.html">Access</a></li>
       </ul>
@@ -65,20 +63,8 @@
 
 <section class="section" id="dataset" aria-labelledby="dataset-title">
     <div class="container">
-      <h2 id="dataset-title" data-reveal>The corpus, as it stands.</h2>
+      <h2 id="dataset-title" data-reveal>An example of the corpus, as it stands.</h2>
       <p class="section-sub" data-reveal>A live snapshot of verification verdicts across the current formalization run.</p>
-
-      <!-- Fallback values below; source of truth: DATASET constant in main.js -->
-      <ul class="stats" id="stats" data-reveal-group>
-        <li class="stat" data-verdict="faithful" data-reveal>
-          <span class="stat-num" data-stat="faithful">500+</span>
-          <span class="stat-label">Faithful</span>
-        </li>
-        <li class="stat" data-verdict="unfaithful" data-reveal>
-          <span class="stat-num" data-stat="unfaithful">2,000+</span>
-          <span class="stat-label">Unfaithful</span>
-        </li>
-      </ul>
 
       <div class="filters" role="group" aria-label="Filter theorem samples by verdict" data-reveal>
         <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
@@ -94,7 +80,6 @@
         <li class="card" data-verdict="faithful">
           <article aria-label="Theorem sample, verdict faithful">
             <header class="card-head">
-              <span class="card-id">thm:2406.01940-L3</span>
               <span class="badge" data-verdict="faithful">faithful</span>
             </header>
             <div class="card-panels">
@@ -111,14 +96,12 @@
     Real.sqrt_nonneg (a * b), sq_nonneg (a - b)]</code></pre>
               </div>
             </div>
-            <footer class="card-meta">arXiv:2406.01940 · verdict at stage 2 · symbolic equivalence</footer>
           </article>
         </li>
 
         <li class="card" data-verdict="unfaithful">
           <article aria-label="Theorem sample, verdict unfaithful">
             <header class="card-head">
-              <span class="card-id">thm:2311.07912-T1</span>
               <span class="badge" data-verdict="unfaithful">unfaithful</span>
             </header>
             <div class="card-panels">
@@ -137,14 +120,12 @@ theorem primes_three_mod_four :
   exact ⟨p, hle, hp⟩</code></pre>
               </div>
             </div>
-            <footer class="card-meta">arXiv:2311.07912 · verdict at stage 3 · back-translation</footer>
           </article>
         </li>
 
         <li class="card" data-verdict="faithful">
           <article aria-label="Theorem sample, verdict faithful">
             <header class="card-head">
-              <span class="card-id">thm:2408.15221-L1</span>
               <span class="badge" data-verdict="faithful">faithful</span>
             </header>
             <div class="card-panels">
@@ -160,7 +141,6 @@ theorem primes_three_mod_four :
     using Nat.coprime_succ_self n</code></pre>
               </div>
             </div>
-            <footer class="card-meta">arXiv:2408.15221 · verdict at stage 2 · symbolic equivalence</footer>
           </article>
         </li>
 

@@ -189,20 +189,16 @@ p{ max-width: 65ch; }
 }
 .belt-viewport{
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
 }
 .belt-track{
   display: flex;
-  width: max-content;
-  animation: belt-roll 42s linear infinite;
+  width: 100%;
+  justify-content: center;
 }
-.belt-viewport:hover .belt-track{ animation-play-state: paused; }
 .belt-group{
   display: flex;
   align-items: center;
   gap: clamp(40px, 6vw, 84px);
-  padding-right: clamp(40px, 6vw, 84px);
 }
 .belt-logo{
   height: clamp(24px, 3vw, 32px);
@@ -211,16 +207,6 @@ p{ max-width: 65ch; }
   transition: opacity var(--dur-state) var(--ease-std);
 }
 .belt-viewport:hover .belt-logo{ opacity: 0.72; }
-@keyframes belt-roll{
-  from{ transform: translateX(0); }
-  to{ transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce){
-  .belt-track{ animation: none; width: 100%; flex-wrap: wrap; justify-content: center; row-gap: 28px; }
-  .belt-group{ padding-right: 0; }
-  .belt-group + .belt-group{ display: none; }
-  .belt-viewport{ -webkit-mask-image: none; mask-image: none; }
-}
 
 .section-sub{
   color: var(--text-muted);
@@ -623,7 +609,7 @@ html.js [data-reveal].is-visible{
 /* ------------------------------ Dataset ----------------------------------- */
 .stats{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   margin-bottom: 64px;
 }
@@ -717,7 +703,7 @@ html.js [data-reveal].is-visible{
 .card[hidden]{ display: none; }
 
 .card-head{
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: flex-end;
   gap: 16px;
   margin-bottom: 16px;
 }
@@ -1069,6 +1055,28 @@ html[data-intro-mode="timed"]  #intro{ height: 100vh; height: 100dvh; }
 }
 .intro-logo.is-alpha{ mix-blend-mode: normal; }
 
+/* Readability scrim — darkens the scene under the hero copy once it has
+   risen in, so the muted grey sub-copy stays legible over the surface.
+   Opacity is driven per-frame by intro.js alongside the copy reveal. */
+.intro-scrim{
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg,
+    rgba(10,12,11,0.94) 0%,
+    rgba(10,12,11,0.84) 34%,
+    rgba(10,12,11,0.40) 54%,
+    transparent 70%);
+}
+@media (max-width: 767px){
+  .intro-scrim{
+    background: linear-gradient(0deg,
+      rgba(10,12,11,0.94) 0%,
+      rgba(10,12,11,0.82) 42%,
+      transparent 78%);
+  }
+}
+
 /* Hero copy — lives on the stage, rises in as the surface calms.
    Reuses the site's hero type styles (.hero-copy / .hero-sub / .hero-ctas). */
 .intro-copy{
@@ -1180,10 +1188,12 @@ html:not(.js) #intro .intro-stage{
 #intro.intro-fallback .intro-bar,
 #intro.intro-fallback .intro-ui,
 #intro.intro-fallback .intro-scroll,
+#intro.intro-fallback .intro-scrim,
 html:not(.js) #intro #intro-canvas,
 html:not(.js) #intro .intro-bar,
 html:not(.js) #intro .intro-ui,
-html:not(.js) #intro .intro-scroll{
+html:not(.js) #intro .intro-scroll,
+html:not(.js) #intro .intro-scrim{
   display: none;
 }
 #intro.intro-fallback .intro-copy,
@@ -1200,14 +1210,14 @@ html:not(.js) #intro .intro-logo{
   opacity: 1;
   filter: none;
   left: auto; right: 5%; top: 50%;
-  width: min(38vw, 620px);
+  width: min(38vw, 620px, 42vh);
   transform: translateY(-50%);
 }
 @media (max-width: 767px){
   #intro.intro-fallback .intro-logo,
   html:not(.js) #intro .intro-logo{
     left: 50%; right: auto; top: 24%;
-    width: 72vw;
+    width: min(72vw, 32vh);
     transform: translate(-50%, -50%);
   }
 }
