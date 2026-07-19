@@ -44,6 +44,11 @@
     var t = 14.134725;        // start at the first zero, for the mythology
     var SPEED = 0.0035;       // dt per frame
     var running = true;
+    // The figure's center is pinned to a fixed anchor every frame; only the
+    // scale adapts, smoothed hard so it breathes rather than jumps. Snapped
+    // on resize.
+    var smScale = null;
+    var FOLLOW = 0.004;
 
     // Precomputed per-term values, refreshed when t changes.
     var logn = new Float64Array(TERMS + 1);
@@ -87,12 +92,24 @@
         if (pts[i][1] > maxY) maxY = pts[i][1];
       }
       var span = Math.max(maxX - minX, maxY - minY, 0.75);
-      // The figure claims ~55% of the shorter viewport side.
-      var scale = (Math.min(w, h) * 0.55) / span;
-      // Sit the spiral in the right third on wide screens, center on narrow.
+      // The figure claims ~55% of the shorter viewport side. Scale is
+      // smoothed so it breathes rather than jumps.
+      var targetScale = (Math.min(w, h) * 0.55) / span;
+      if (smScale === null) smScale = targetScale;
+      smScale += (targetScale - smScale) * FOLLOW;
+      var scale = smScale;
+
+      // Pin the BRIGHT part of the figure to the anchor every frame: the
+      // centroid of the lit tail (the last ~45% of the walk, which carries
+      // nearly all the alpha). The faint drift arm may wander behind it,
+      // but the glowing object itself never moves.
+      var litFrom = Math.floor(TERMS * 0.55);
+      var bcx = 0, bcy = 0, bn = 0;
+      for (var j = litFrom; j <= TERMS; j++) { bcx += pts[j][0]; bcy += pts[j][1]; bn++; }
+      bcx /= bn; bcy /= bn;
       var anchorX = w > 820 ? w * 0.72 : w * 0.5;
-      var cx = anchorX - ((minX + maxX) / 2) * scale;
-      var cy = h * 0.5 + ((minY + maxY) / 2) * scale;
+      var cx = anchorX - bcx * scale;
+      var cy = h * 0.5 + bcy * scale;
 
       // Trail: age-cubed alpha — the early drift arm stays a whisper, the
       // curling head carries the light.
@@ -148,7 +165,11 @@
       }, { threshold: 0.05 }).observe(canvas);
     }
 
-    window.addEventListener("resize", function () { sizeCanvas(canvas); draw(); });
+    window.addEventListener("resize", function () {
+      sizeCanvas(canvas);
+      smScale = null; // snap the scale at the new size
+      draw();
+    });
     boot();
   }
 
