@@ -118,6 +118,14 @@
               color var(--dur-hover) var(--ease-out);
 }
 .mr-btn:hover{ border-color: var(--accent); color: var(--accent-bright); }
+.mr-inline-link{
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  text-decoration: none;
+}
+.mr-inline-link:hover{ color: var(--accent-bright); }
 .mr-btn--solid{
   background: var(--accent);
   border-color: var(--accent);
