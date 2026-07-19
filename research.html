@@ -61,6 +61,7 @@
 <section class="section" id="research" aria-labelledby="research-title">
     <div class="container">
       <h2 id="research-title" data-reveal>What we measure, and what we found.</h2>
+      <div class="research-layout">
       <div class="research-rows">
         <article class="research-row" data-reveal>
           <h3>Benchmark audits</h3>
@@ -78,7 +79,23 @@
           <h3>The instrument itself</h3>
           <p>An evaluator you can&rsquo;t calibrate is an opinion. Ours is measured against 886 frozen human verdicts: flag precision between 76.7 and 100 percent per corpus, recall 78.3 percent against expert corrections, and the false-positive classes named and published. Counterexample-backed flags have been upheld by human review 121 times out of 121.</p>
         </article>
-        <article class="research-row research-keystone" data-reveal>
+
+      </div>
+      <aside class="research-aside" data-reveal aria-label="Flag rates across audits">
+        <svg class="ratefig" viewBox="0 0 320 212" role="img" aria-label="Share of statements flagged unfaithful, per audited corpus and system">
+          <text class="rf-group" x="0" y="12">benchmarks</text>
+          <text class="rf-label" x="0" y="34">miniF2F</text><rect class="rf-bar" x="92" y="24" width="99" height="13" rx="2"/><text class="rf-val" x="197" y="34">28.3%</text>
+          <text class="rf-label" x="0" y="60">miniF2F v2</text><rect class="rf-bar" x="92" y="50" width="70" height="13" rx="2"/><text class="rf-val" x="168" y="60">20.1%</text>
+          <text class="rf-label" x="0" y="86">ProofNet#</text><rect class="rf-bar" x="92" y="76" width="85" height="13" rx="2"/><text class="rf-val" x="183" y="86">24.3%</text>
+          <text class="rf-group" x="0" y="122">autoformalizers</text>
+          <text class="rf-label" x="0" y="144">StepFun</text><rect class="rf-bar rf-sys" x="92" y="134" width="116" height="13" rx="2"/><text class="rf-val" x="214" y="144">33.0%</text>
+          <text class="rf-label" x="0" y="170">Kimina</text><rect class="rf-bar rf-sys" x="92" y="160" width="128" height="13" rx="2"/><text class="rf-val" x="226" y="170">36.5%</text>
+          <text class="rf-label" x="0" y="196">Herald*</text><rect class="rf-bar rf-sys" x="92" y="186" width="194" height="13" rx="2"/><text class="rf-val" x="292" y="196">55.5%</text>
+        </svg>
+        <p class="ratefig-cap">share of statements flagged unfaithful by the screen, per corpus. *Herald sampled at its native temperature, one draw per problem.</p>
+      </aside>
+      </div>
+              <article class="research-row research-keystone" data-reveal>
           <div class="keystone-text">
             <h3>The strength-structured lattice</h3>
             <p>Where this goes next. Proofs organized in a lattice ordered by logical strength, not pass/fail, so a model&rsquo;s verified reasoning can be measured for <em>how much</em> it proved. It also exposes a failure mode we expect to matter: models that train on self-verified math drifting toward weaker statements that are easier to prove.</p>
@@ -96,7 +113,6 @@
             <figcaption class="lattice-cap">statements ordered by logical strength</figcaption>
           </figure>
         </article>
-      </div>
     </div>
   </section>
 
