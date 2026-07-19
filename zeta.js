@@ -76,31 +76,46 @@
 
       var pts = pathPoints(t);
 
-      // Fit: the walk lives roughly in [-1, 4] x [-3, 2]; center on the
-      // endpoint's neighborhood so the curling head stays in frame.
+      // Fit: center on the walk's bounding box so the whole figure — drift
+      // arm and curling head together — sits as one balanced object.
       var head = pts[TERMS];
-      var scale = Math.min(w, h) * 0.26;
+      var minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+      for (var i = 0; i <= TERMS; i++) {
+        if (pts[i][0] < minX) minX = pts[i][0];
+        if (pts[i][0] > maxX) maxX = pts[i][0];
+        if (pts[i][1] < minY) minY = pts[i][1];
+        if (pts[i][1] > maxY) maxY = pts[i][1];
+      }
+      var span = Math.max(maxX - minX, maxY - minY, 0.75);
+      // The figure claims ~55% of the shorter viewport side.
+      var scale = (Math.min(w, h) * 0.55) / span;
       // Sit the spiral in the right third on wide screens, center on narrow.
-      var anchorX = w > 820 ? w * 0.74 : w * 0.5;
-      var cx = anchorX - head[0] * scale * 0.5;
-      var cy = h * 0.46 + head[1] * scale * 0.5;
+      var anchorX = w > 820 ? w * 0.72 : w * 0.5;
+      var cx = anchorX - ((minX + maxX) / 2) * scale;
+      var cy = h * 0.5 + ((minY + maxY) / 2) * scale;
 
-      // Trail: draw segments with age-based alpha so early terms fade.
-      ctx.lineWidth = 1.25;
+      // Trail: age-cubed alpha — the early drift arm stays a whisper, the
+      // curling head carries the light.
+      ctx.lineWidth = 1.6;
       ctx.lineCap = "round";
       for (var n = 1; n <= TERMS; n++) {
         var a = n / TERMS;
-        ctx.strokeStyle = "rgba(33,196,106," + (0.07 + 0.62 * a * a) + ")";
+        ctx.strokeStyle = "rgba(33,196,106," + (0.05 + 0.8 * a * a * a) + ")";
         ctx.beginPath();
-        ctx.moveTo(cx + pts[n - 1][0] * scale * 0.5, cy - pts[n - 1][1] * scale * 0.5);
-        ctx.lineTo(cx + pts[n][0] * scale * 0.5, cy - pts[n][1] * scale * 0.5);
+        ctx.moveTo(cx + pts[n - 1][0] * scale, cy - pts[n - 1][1] * scale);
+        ctx.lineTo(cx + pts[n][0] * scale, cy - pts[n][1] * scale);
         ctx.stroke();
       }
 
-      // The head: a brighter point where the sum currently lands.
+      // The head: a brighter point with a soft halo where the sum lands.
+      var hx = cx + head[0] * scale, hy = cy - head[1] * scale;
+      ctx.fillStyle = "rgba(59,227,138,0.18)";
+      ctx.beginPath();
+      ctx.arc(hx, hy, 9, 0, Math.PI * 2);
+      ctx.fill();
       ctx.fillStyle = "rgba(59,227,138,0.95)";
       ctx.beginPath();
-      ctx.arc(cx + head[0] * scale * 0.5, cy - head[1] * scale * 0.5, 2.5, 0, Math.PI * 2);
+      ctx.arc(hx, hy, 3, 0, Math.PI * 2);
       ctx.fill();
 
       // Origin marker: where ζ would sit if the sum vanished (a zero).
