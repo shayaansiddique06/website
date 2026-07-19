@@ -151,7 +151,7 @@
 
 .zeta-divider{
   position: relative;
-  height: 24px;
+  height: 40px;
   margin: 0 auto;
   max-width: 1180px;
   padding: 0 24px;
@@ -159,8 +159,27 @@
   align-items: center;
   gap: 16px;
 }
-.zeta-divider svg{ flex: 1; width: 100%; min-width: 0; height: 24px; overflow: visible; }
-.zd-line{ stroke: var(--border); stroke-width: 1; }
+.zeta-divider svg{ flex: 1; width: 100%; min-width: 0; height: 40px; overflow: visible; }
+.zd-base{ stroke: var(--border); stroke-width: 1; }
+.zd-curve{
+  fill: none;
+  stroke: var(--accent-dim);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  transition: stroke-dashoffset 2.2s ease 0.15s;
+}
+.zeta-divider.is-lit .zd-curve{ stroke-dashoffset: 0; }
+.zd-zero{
+  fill: var(--accent);
+  opacity: 0;
+  transform: scale(0.2);
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.zeta-divider.is-lit .zd-zero{ opacity: 1; transform: none; }
 .zd-tick{
   stroke: var(--accent-dim);
   stroke-width: 1.5;
