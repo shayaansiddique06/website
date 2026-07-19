@@ -57,7 +57,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
         <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">{{ heroB }}</div>
         <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Certified faithful pairs</div>
-        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">292 theorems · 300 definitions · novelty-gated</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">theorems and definitions · novelty-gated</div>
       </div>
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
         <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">{{ heroC }}</div>
@@ -131,7 +131,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
   <div style="max-width:1160px;margin:0 auto;padding:46px 22px 34px">
     <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Example Inspector</div>
     <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Straight from the corpus</h2>
-    <p style="margin:0 0 18px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Every example below is verbatim from the corpus: the arXiv paper, the Lean draft, the frontier judge&#8217;s back-translation, and the human verdict of record. The flagged ones are from the <b>consensus-breaking section</b>: both frontier judges passed them and a human caught them.</p>
+    <p style="margin:0 0 18px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Every example below is verbatim from the corpus: the source paper, the Lean draft, the frontier judge&#8217;s back-translation, and the human verdict of record. The flagged ones are from the <b>consensus-breaking section</b>: both frontier judges passed them and a human caught them.</p>
     <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;display:flex;flex-wrap:wrap;overflow:hidden">
       <div class="mr-scroll" style="flex:1 1 272px;min-width:272px;border-right:1px solid #1C1F27;max-height:560px;overflow-y:auto">
         <div style="padding:12px 16px;border-bottom:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">{{ pairsMeta }}</div>
@@ -144,7 +144,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin-top:7px">
               <span style="font-size:10.5px;font-weight:600;color:{{ p.tagColor }};background:{{ p.tagBg }};border-radius:5px;padding:2.5px 7px">{{ p.tag }}</span>
-              <span style="margin-left:auto;font-size:10.5px;color:#565D6E">{{ p.src }}</span>
+              
             </div>
           </div>
         </sc-for>
@@ -152,14 +152,14 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
       <div style="flex:2.2 1 440px;min-width:min(100%,340px);padding:20px 22px">
         <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
           <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:16px;font-weight:700;color:#E6E8EE">{{ selId }}</span>
-          <span style="font-size:11.5px;color:#8B93A7">{{ selSrc }}</span>
+          
           <span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">{{ selKind }}</span>
         </div>
         <div style="margin-top:14px;border-radius:10px;padding:13px 15px;background:{{ selVBg }};border:1px solid {{ selVBd }}">
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
             <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:{{ selVColor }}">{{ selVLabel }}</span>
             <sc-if value="{{ selCatOn }}" hint-placeholder-val="{{ false }}">
-              <span style="font-size:10.5px;font-weight:600;color:{{ selCatColor }};border:1px solid {{ selCatColor }};border-radius:999px;padding:2.5px 9px">{{ selCatLabel }}</span>
+              <span style="font-size:11px;font-weight:600;color:{{ selCatColor }}">{{ selCatLabel }}</span>
             </sc-if>
           </div>
           <div style="margin-top:9px;font-size:13px;line-height:1.55;color:#C9CEDF">{{ selDiag }}</div>
@@ -233,17 +233,16 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
         <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">LLM judges miss what humans catch</div>
-        <div style="display:flex;align-items:center;gap:20px;margin:20px 0 16px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:24px;margin:20px 0 16px">
           <div style="position:relative;flex:none;width:148px;height:148px;border-radius:50%;background:conic-gradient(#EF4444 0 23.4%,rgba(34,197,94,.28) 23.4% 100%)">
             <div style="position:absolute;inset:26px;border-radius:50%;background:#12141A;display:flex;flex-direction:column;align-items:center;justify-content:center">
               <span style="font-size:22px;font-weight:800;letter-spacing:-.02em;color:#EF4444">23.4%</span>
               <span style="font-size:9.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7;margin-top:3px">escape rate</span>
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:8px;min-width:150px">
+          <div style="display:flex;flex-direction:column;gap:10px;flex:1;min-width:0">
             <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#9CA3AF"><span style="flex:none;width:9px;height:9px;border-radius:2.5px;background:#EF4444"></span>Theorems<span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;color:#B6BDCF">17.0%</span></span>
             <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#9CA3AF"><span style="flex:none;width:9px;height:9px;border-radius:2.5px;background:#F97316"></span>Definitions<span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;color:#B6BDCF">35.6%</span></span>
-            <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#9CA3AF"><span style="flex:none;width:9px;height:9px;border-radius:2.5px;background:#6B7280"></span>Judge-vs-judge agreement<span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;color:#B6BDCF">low</span></span>
           </div>
         </div>
         <p style="margin:0;font-size:12.5px;line-height:1.6;color:#8B93A7"><span style="color:#C9CEDF">23.4% of human-rejected pairs pass both frontier judges under strict consensus.</span> An eval gold-labeled by an LLM judge inherits exactly this blind spot. That is why our gold tier is human, triple-reviewed, and blind.</p>
@@ -258,7 +257,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
           <div style="display:flex;align-items:baseline"><span style="font-size:12px;color:#C9CEDF">Hard-cheat rate, current era</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;font-weight:600;color:#E6E8EE">3%</span></div>
           <div style="height:18px;border-radius:5px;background:#1A1D25;margin-top:6px"><div style="height:100%;width:14.3%;border-radius:5px;background:#22C55E"></div></div>
         </div>
-        <div style="margin-top:18px"><span style="display:inline-block;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.35);color:#4ADE80;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px">measured on human verdicts, era over era</span></div>
+        <div style="margin-top:18px;font-size:11.5px;font-weight:600;color:#4ADE80">measured on human verdicts, era over era</div>
         <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">The negatives span every era, so the suite contains both the crude cheats early systems make and the subtle drift strong systems still make: the failure distribution a buyer faces.</p>
       </div>
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
@@ -272,7 +271,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
       <div style="margin-top:14px;border:1px solid #1C1F27;border-radius:10px;padding:13px 16px">
         <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.14em;color:#565D6E">Known limits, stated plainly</div>
         <div style="display:flex;flex-direction:column;gap:6px;margin-top:9px">
-          <div style="display:flex;gap:9px;font-size:11.5px;color:#8B93A7;line-height:1.55"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#565D6E;margin-top:6px"></span><span>Our negatives originate from one production system; cross-system coverage comes from scoring external corpora (benchmark audit below).</span></div>
+          <div style="display:flex;gap:9px;font-size:11.5px;color:#8B93A7;line-height:1.55"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#565D6E;margin-top:6px"></span><span>Our in-house negatives originate from one production system; external coverage now spans three public benchmarks and three open autoformalizers (audits below).</span></div>
           <div style="display:flex;gap:9px;font-size:11.5px;color:#8B93A7;line-height:1.55"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#565D6E;margin-top:6px"></span><span>Blind multi-rater gold labeling is in progress; inter-rater &#954; ships only once measured.</span></div>
           <div style="display:flex;gap:9px;font-size:11.5px;color:#8B93A7;line-height:1.55"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#565D6E;margin-top:6px"></span><span>Consensus-section class shares are approximate at n=59.</span></div>
         </div>
@@ -304,7 +303,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#B6BDCF">{{ b.n }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#E6E8EE">{{ b.flagged }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#F87171">{{ b.ce }}</div>
-              <div><span style="display:inline-block;font-size:10.5px;font-weight:600;color:{{ b.pillColor }};border:1px solid {{ b.pillBorder }};background:{{ b.pillBg }};border-radius:999px;padding:3px 9px">{{ b.pill }}</span></div>
+              <div><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
               <div style="font-size:12px;color:#9DA6BD;line-height:1.5">{{ b.notes }}</div>
             </div>
           </sc-for>
@@ -326,7 +325,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
           <div style="display:flex;align-items:baseline"><span style="font-size:12px;color:#C9CEDF">Flags cleared where they didn&#8217;t</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;font-weight:600;color:#E6E8EE">11.1% <span style="color:#565D6E;font-weight:400">(1/9)</span></span></div>
           <div style="height:18px;border-radius:5px;background:#1A1D25;margin-top:6px"><div style="height:100%;width:11.1%;border-radius:5px;background:#6B7280"></div></div>
         </div>
-        <div style="margin-top:18px"><span style="display:inline-block;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.35);color:#4ADE80;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px">paired control · n=487 aligned statements</span></div>
+        <div style="margin-top:18px;font-size:11.5px;font-weight:600;color:#4ADE80">paired control · n=487 aligned statements</div>
         <p style="margin:14px 0 0;font-size:11.5px;line-height:1.65;color:#565D6E">Honest floor: judges are stochastic, so unchanged statements still flip flags between any two runs (5.3% &#8594; 11.8% here). That is why we publish the differential, never the raw drop.</p>
       </div>
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
@@ -359,12 +358,12 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#B6BDCF">{{ b.n }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#E6E8EE">{{ b.flagged }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#F87171">{{ b.ce }}</div>
-              <div><span style="display:inline-block;font-size:10.5px;font-weight:600;color:{{ b.pillColor }};border:1px solid {{ b.pillBorder }};background:{{ b.pillBg }};border-radius:999px;padding:3px 9px">{{ b.pill }}</span></div>
+              <div><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
               <div style="font-size:12px;color:#9DA6BD;line-height:1.5">{{ b.notes }}</div>
             </div>
           </sc-for>
           <div style="display:flex;flex-wrap:wrap;gap:18px;padding:11px 16px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#565D6E">
-            <span>measured 2026-07-19 · identical protocol to the benchmark audit · verbatim upstream prompts, params in a committed manifest · elaborates in our mathlib pin: 81.3% / 55.9% / 88.1% (environment-sensitive; not counted as defects)</span><span>our own drafter is deliberately absent: we referee this table, we do not compete in it</span>
+            <span>measured 2026-07-19 · identical protocol to the benchmark audit · verbatim upstream prompts, params in a committed manifest · elaborates in our mathlib pin: 81.3% / 55.9% / 88.1% (environment-sensitive; not counted as defects)</span>
           </div>
         </div>
       </div>
@@ -491,24 +490,24 @@ class Component extends DCLogic {
     ];
     this.AUDIT = [
       {name:'miniF2F (v1)', sub:'cat-searcher/minif2f-lean4 · Apache-2.0 · both splits', n:'488', flagged:'138 · 28.3%', ce:'14',
-       pill:'76.7% verified · 23/30 (CI 59.1–88.2%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       pill:'76.7% verified (CI 59.1–88.2%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
        notes:'Hand-verified: 23/30 flags correct, 14/14 counterexample flags confirmed, 2 previously unreported defects found. Honest recall 72/92 = 78.3%, including 10 expert corrections that broke a sound statement.'},
       {name:'miniF2F-v2s (expert-corrected)', sub:'roozbeh-yz/miniF2F_v2 · Apache-2.0 · v1 framing kept', n:'488', flagged:'99 · 20.3%', ce:'21',
-       pill:'76.7% verified · 23/30 (CI 59.1–88.2%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       pill:'76.7% verified (CI 59.1–88.2%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
        notes:'Hand-verified: 23/30 flags correct, all 20 counterexample flags confirmed, 0 misses in 10 pass controls. Every false flag traces to one disclosed signal class.'},
       {name:'ProofNet#', sub:'PAug/ProofNetSharp · MIT', n:'371', flagged:'90 · 24.3%', ce:'51',
-       pill:'100% verified · 30/30 (CI 88.6–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       pill:'100% verified (CI 88.6–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
        notes:'Hand-verified: 30/30 counterexample-backed flags correct, 0 misses in 10 pass controls. Across all three corpora, 64 of 64 counterexample flags are human-confirmed.'}
     ];
     this.AUTOSYS = [
       {name:'StepFun-Formalizer 7B', sub:'stepfun-ai · Apache-2.0 · greedy, one draft', n:'488', flagged:'159 · 33.0%', ce:'55',
-       pill:'100% verified · 20/20 (CI 83.9–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       pill:'100% verified (CI 83.9–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
        notes:'Hand-verified: 20/20 sampled flags correct (19 counterexample-backed), 0 misses in 10 pass controls. 6 of 488 runs returned empty output; counted separately, not scored.'},
       {name:'Kimina-Autoformalizer 7B', sub:'AI-MO / Project Numina · Apache-2.0 · greedy, one draft', n:'488', flagged:'178 · 36.5%', ce:'70',
-       pill:'100% verified · 20/20 (CI 83.9–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       pill:'100% verified (CI 83.9–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
        notes:'Hand-verified: 20/20 sampled flags correct (18 counterexample-backed), 0 misses in 10 pass controls. The most counterexample-bearing flags of the two greedy systems.'},
       {name:'Herald translator', sub:'FrenzyMath · Apache-2.0 · native temperature 0.99, one sample', n:'488', flagged:'271 · 55.5%', ce:'149',
-       pill:'100% verified · 20/20 (CI 83.9–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       pill:'100% verified (CI 83.9–100%)', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
        notes:'Hand-verified: 20/20 sampled flags correct, all counterexample-backed, 0 control misses. Read as single-draw reliability: Herald’s own pipeline samples 128 candidates and keeps what compiles, so this row is not comparable to its published pass rate, and says so.'}
     ];
     this.CAT = {
@@ -517,42 +516,42 @@ class Component extends DCLogic {
       abstract: ['Over-abstraction', '#EC4899']
     };
     this.PAIRS = [
-      {id:'MR-1499', kind:'theorem', verdict:'escaped', cat:'fragment', src:'arXiv:2411.00012',
+      {id:'MR-1499', kind:'theorem', verdict:'escaped', cat:'fragment',
        latex:'Let p be an odd prime. If p | (k²+1) for 1 ≤ k ≤ n, then p ≡ 1 (mod 4).',
        lean:'theorem prime_dvd_sq_add_one_imp_one_mod_four\n    {p k : ℕ} (hp : p.Prime) (hodd : Odd p)\n    (hk : p ∣ k^2 + 1) : p % 4 = 1 := by\n  sorry',
        diag:'The informal statement constrains a whole range 1 ≤ k ≤ n; the Lean keeps a single unconstrained k: a true classical fact, but not the paper’s lemma. Both frontier judges passed it.',
        reason:'Let p and k be natural numbers. Suppose p is prime and odd, and p divides k² + 1. Then p mod 4 = 1.',
        consensus:'Judge A (v1 prompt): faithful. Judge B (checklist prompt, different frontier model): faithful. The pair enters the consensus-breaking section because the human verdict of record is unfaithful.',
        reviewer:'Rejected in review · reviewer: Will'},
-      {id:'MR-10988', kind:'theorem', verdict:'escaped', cat:'context', src:'arXiv:2410.10824',
+      {id:'MR-10988', kind:'theorem', verdict:'escaped', cat:'context',
        latex:'If p is a prime integer such that f(p) ≠ 0, then ⟨f⟩ is a prime ideal of 𝒶.',
        lean:'theorem span_prime_of_prime_eval_ne_zero\n    (f : ArithmeticFunction ℂ) (p : ℕ) (hp : p.Prime) (hfp : f p ≠ 0) :\n    (Ideal.span {f}).IsPrime := by\n  sorry',
        diag:'The paper’s f lives in a specific family fixed earlier in the section; the Lean quantifies over every arithmetic function, where the claim fails. The load-bearing context is off-screen; this is the leading escape class.',
        reason:'Let f be an arithmetic function with complex values, and let p be a natural number that is prime. Suppose f(p) ≠ 0. Then the ideal generated by {f} (in the ring of arithmetic functions ℂ) is a prime ideal.',
        consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: unfaithful; consensus-breaking.',
        reviewer:'Rejected in review · reviewer: ibbymian'},
-      {id:'MR-2237', kind:'theorem', verdict:'escaped', cat:'abstract', src:'arXiv:2407.00427',
+      {id:'MR-2237', kind:'theorem', verdict:'escaped', cat:'abstract',
        latex:'We have |V₁| ≥ (α/2)n, and hence, |V₂| ≤ (1 − α/2)n.',
        lean:'theorem V1_V2_bounds (n : ℕ) (α : ℝ) (V1card V2card : ℝ)\n    (hα : 0 < α) (hsum : V1card + V2card = n)\n    (hV1 : V1card ≥ (α / 2) * n) :\n    V2card ≤ (1 - α / 2) * n := by\n  sorry',
        diag:'The vertex sets V₁, V₂ became free real numbers with an assumed sum. Only the arithmetic shell of the paper’s claim survives: provable, and about nothing.',
        reason:'For a natural number n, a real number α > 0, and real numbers V₁card and V₂card such that V₁card + V₂card = n and V₁card ≥ (α/2)n, it holds that V₂card ≤ (1 − α/2)n.',
        consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: unfaithful; consensus-breaking.',
        reviewer:'Rejected in review · reviewer: Will'},
-      {id:'MR-7997', kind:'definition', verdict:'escaped', cat:'context', src:'arXiv:2410.01779',
+      {id:'MR-7997', kind:'definition', verdict:'escaped', cat:'context',
        latex:'z is a unit if rₖₖₖ(z) = 1 for all k ≠ 0.',
        lean:'def IsUnit′ {n : ℕ} (r : ℤ → ℤ → ℤ → (Fin n → ℝ) → ℝ)\n    (z : Fin n → ℝ) : Prop :=\n  ∀ k : ℤ, k ≠ 0 → r k k k z = 1',
        diag:'It reads perfectly, but r is a free parameter, not the paper’s specific correlation function. A definition of “unit” relative to an arbitrary r defines nothing. Definitions escape twice as often as theorems (35.6% vs 17.0%).',
        reason:'Given a natural number n, a function r taking three integers and a point in ℝⁿ to a real number, and a point z in ℝⁿ, IsUnit′ r z holds iff for every nonzero integer k, r k k k z = 1.',
        consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: unfaithful; consensus-breaking.',
        reviewer:'Rejected in review · reviewer: ibbymian'},
-      {id:'MR-8609', kind:'theorem', verdict:'certified', cat:null, src:'arXiv:2410.10824',
+      {id:'MR-8609', kind:'theorem', verdict:'certified', cat:null,
        latex:'The arithmetic ring 𝒶 is a local ring.',
        lean:'theorem arithmetic_ring_isLocalRing :\n    IsLocalRing (ArithmeticFunction ℂ) := by\n  sorry',
        diag:'The paper’s ring is exactly mathlib’s ArithmeticFunction ℂ and the conclusion is the standard IsLocalRing: every piece of the informal claim is pinned to a real mathlib object.',
        reason:'The ring of complex-valued arithmetic functions is a local ring.',
        consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: faithful; certified, confirmed-novel tier.',
        reviewer:'Certified in review · human reviewer of record'},
-      {id:'MR-8618', kind:'theorem', verdict:'certified', cat:null, src:'arXiv:2410.10824',
+      {id:'MR-8618', kind:'theorem', verdict:'certified', cat:null,
        latex:'𝒶 is not a Bézout domain.',
        lean:'theorem arithmeticFunction_not_bezout :\n    ¬ IsBezout (ArithmeticFunction ℂ) := by\n  sorry',
        diag:'Negation of a named mathlib structure on the paper’s exact ring; nothing added, nothing dropped.',
@@ -608,7 +607,6 @@ class Component extends DCLogic {
       return {
         id: p.id, dot: v[1], kind: p.kind, tag, tagColor,
         tagBg: p.verdict === 'certified' ? 'rgba(34,197,94,.10)' : 'rgba(239,68,68,.10)',
-        src: p.src.replace('arXiv:',''),
         bg: sel === p.id ? 'rgba(99,102,241,.07)' : 'transparent',
         onClick: () => this.setState({ sel: p.id })
       };
@@ -627,17 +625,17 @@ class Component extends DCLogic {
         : { name: 'Human review', out: 'certified', color: '#22C55E', bd: 'rgba(34,197,94,.32)', bg: 'rgba(34,197,94,.07)' }
     ];
     return {
-      heroA: this.fmt(Math.round(4051 * e)),
-      heroB: this.fmt(Math.round(592 * e)),
-      heroC: this.fmt(Math.round(3412 * e)),
+      heroA: this.fmt(Math.round(4000 * e)) + '+',
+      heroB: this.fmt(Math.round(590 * e)) + '+',
+      heroC: this.fmt(Math.round(3400 * e)) + '+',
       heroD: (23.4 * e).toFixed(1) + '%',
       nav: { top: this.navH('top'), suite: this.navH('suite'), insp: this.navH('inspector'), impact: this.navH('impact'), audit: this.navH('audit'), deliv: this.navH('deliverables'), pricing: this.navH('pricing') },
       sections: this.SECTIONS,
       audit: this.AUDIT,
       autosys: this.AUTOSYS,
-      pairsMeta: '6 of 4,051 human-verdicted pairs · all verbatim from the corpus',
+      pairsMeta: '6 pairs · all verbatim from the corpus',
       pairs,
-      selId: sp.id, selSrc: 'arXiv:' + sp.src.replace('arXiv:',''), selKind: sp.kind,
+      selId: sp.id, selKind: sp.kind,
       selVLabel: sv[0], selVColor: sv[1], selVBg: sv[2], selVBd: sv[3],
       selCatOn: !!sp.cat,
       selCatLabel: sp.cat ? this.CAT[sp.cat][0] : '',
