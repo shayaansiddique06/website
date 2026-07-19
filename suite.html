@@ -119,7 +119,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
             </div>
           </sc-for>
           <div style="display:flex;flex-wrap:wrap;gap:18px;padding:11px 16px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#565D6E">
-            <span>corpus: <span style="color:#22C55E">590+ certified</span> · <span style="color:#EF4444">3,400+ unfaithful</span> · <span style="color:#F59E0B">uncertain excluded</span></span><span>gold rule: no item is sold or scored without 3 blind human labels</span>
+            <span>gold rule: no item is sold or scored without 3 blind human labels</span>
           </div>
         </div>
       </div>
@@ -216,8 +216,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
           <sc-if value="{{ accH }}" hint-placeholder-val="{{ false }}">
             <div style="padding:0 16px 14px 35px">
               <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:500;color:#C9CEDF">{{ selReviewer }}</div>
-              <div style="margin-top:6px;font-size:12px;line-height:1.6;color:#9DA6BD">Gold triple-review (3 blind raters per item, unanimity or adjudication) is rolling across the suite core. Inter-rater κ ships with the suite once measured; we do not quote agreement numbers we have not earned.</div>
-              <div style="margin-top:6px;font-size:11.5px;line-height:1.6;color:#565D6E">Automated screens may only reject. Marking a pair faithful requires a human. Enforced in code, pinned by tests.</div>
+
             </div>
           </sc-if>
         </div>
@@ -229,7 +228,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
   <div style="max-width:1160px;margin:0 auto;padding:46px 22px 34px">
     <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Measured, Not Promised</div>
     <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">The numbers we publish on ourselves</h2>
-    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:660px;line-height:1.6">Every eval sells trust. Ours ships its own error bars: the judge configuration behind our harness was calibrated against 886 frozen human verdicts (595 faithful / 291 unfaithful), 2026-07-15.</p>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:660px;line-height:1.6">Every eval sells trust. Ours ships its own error bars: the judge configuration behind our harness was calibrated against 886 frozen human verdicts.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
         <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">LLM judges miss what humans catch</div>
@@ -265,7 +264,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
         <div style="display:flex;align-items:baseline;gap:9px;margin-top:16px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">99.8%</span><span style="font-size:12px;color:#8B93A7">rejection precision</span></div>
         <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">Every one of 446 consecutive automated rejections from a full production batch was hand-audited: 445 correct and 1 false rejection, which we found and reopened. The audit itself is part of the product discipline.</p>
         <div style="flex:1"></div>
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.6;color:#565D6E">ProofNet# anchor: 91.4% first-pass validity (published reference harness: 92.4%), 99.5% with the correction loop, n=185 · pipeline ablation, same base model: 92.0% vs 51.5% Lean-valid with the pipeline off, paired n=400, p&#8776;2e-32</div>
+        
       </div>
     </div>
       <div style="margin-top:14px;border:1px solid #1C1F27;border-radius:10px;padding:13px 16px">
@@ -291,7 +290,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
             <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Pairs</div>
             <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Flagged</div>
             <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Counterex.</div>
-            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Verified precision</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Verified precision</div>
             <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Notes</div>
           </div>
           <sc-for list="{{ audit }}" as="b" hint-placeholder-count="3">
@@ -303,7 +302,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#B6BDCF">{{ b.n }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#E6E8EE">{{ b.flagged }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#F87171">{{ b.ce }}</div>
-              <div><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
+              <div style="text-align:right"><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
               <div style="font-size:12px;color:#9DA6BD;line-height:1.5">{{ b.notes }}</div>
             </div>
           </sc-for>
@@ -346,7 +345,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
             <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Problems</div>
             <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Flagged</div>
             <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Counterex.</div>
-            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Verified precision</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Verified precision</div>
             <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Notes</div>
           </div>
           <sc-for list="{{ autosys }}" as="b" hint-placeholder-count="3">
@@ -358,7 +357,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#B6BDCF">{{ b.n }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#E6E8EE">{{ b.flagged }}</div>
               <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#F87171">{{ b.ce }}</div>
-              <div><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
+              <div style="text-align:right"><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
               <div style="font-size:12px;color:#9DA6BD;line-height:1.5">{{ b.notes }}</div>
             </div>
           </sc-for>
@@ -405,7 +404,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
         <div style="display:flex;align-items:center;gap:10px"><span style="font-size:14.5px;font-weight:700;color:#E6E8EE">Consensus-breaking section</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;color:#8B93A7;border:1px solid #23262F;border-radius:5px;padding:2.5px 7px">Hard</span></div>
         <div style="display:flex;align-items:baseline;gap:9px;margin-top:16px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">59</span><span style="font-size:12px;color:#8B93A7">pairs both frontier judges passed; a human rejected (28 theorems, 31 definitions)</span></div>
-        <p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:#8B93A7">A further 19 candidates carry external provenance: independent benchmark experts corrected statements our judges had passed. Class shares below are approximate at this n; we publish counts, not decimals.</p>
+        <p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:#8B93A7">A further 19 candidates carry external provenance: independent benchmark experts corrected statements our judges had passed.</p>
         <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:14px">
           <span title="Missing paper context" style="width:25%;background:#EF4444"></span>
           <span title="Plausible-neighbor statement" style="width:20%;background:#EC4899"></span>
@@ -465,7 +464,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
           <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Custom failure-class sections built from your own system&#8217;s output</span></div>
         </div>
         <div style="flex:1"></div>
-        <div style="margin-top:16px;padding-top:12px;border-top:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.6;color:#565D6E">certification is the only path to a faithful label; screens reject, humans certify</div>
+        
       </div>
     </div>
     <p style="margin:14px 0 0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.7;color:#565D6E">market anchors behind these numbers: expert mathematician time runs $110 to $130 per hour (Mercor); commissioned benchmark problems run $300 to $1,000 (FrontierMath) with top-tier items to $5,000 (Humanity&#8217;s Last Exam); commodity LLM-judge calls run $10 to $20 per thousand (Patronus), and our calibration section shows why those alone are not enough.</p>
