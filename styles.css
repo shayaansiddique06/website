@@ -873,6 +873,7 @@ html.js .math-ready .tex{ opacity: 1; }
 .research-rows{
   display: grid; gap: 0;
 }
+.research-row[id]{ scroll-margin-top: calc(var(--nav-h) + 24px); }
 .research-row{
   padding: 26px 0;
   border-top: 1px solid var(--border);

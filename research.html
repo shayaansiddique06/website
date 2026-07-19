@@ -63,7 +63,7 @@
       <h2 id="research-title" data-reveal>What we measure, and what we found.</h2>
       <div class="research-layout">
       <div class="research-rows">
-        <article class="research-row" data-reveal>
+        <article class="research-row" id="audits" data-reveal>
           <h3>Benchmark audits</h3>
           <p>A full census of miniF2F, the expert-corrected miniF2F v2, and ProofNet#: 1,347 statements, every one screened, every flag verified by hand before anything went public. 76 confirmed defects, filed with the maintainers item by item. See the <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">miniF2F filing</a> and the <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">v2 issue</a>.</p>
         </article>
@@ -75,14 +75,14 @@
           <h3>Specification gaming on verified math</h3>
           <p>The gaps in a verifier are exactly what gets exploited. We keep a growing set of pairs that satisfy the checker and two frontier LLM judges yet fail human review: 59 so far, sorted into named failure classes. Three of those classes now have mechanical detectors that run on everything we score.</p>
         </article>
-        <article class="research-row" data-reveal>
+        <article class="research-row" id="instrument" data-reveal>
           <h3>The instrument itself</h3>
           <p>An evaluator you can&rsquo;t calibrate is an opinion. Ours is measured against 886 frozen human verdicts: flag precision between 76.7 and 100 percent per corpus, recall 78.3 percent against expert corrections, and the false-positive classes named and published. Counterexample-backed flags have been upheld by human review 121 times out of 121.</p>
         </article>
 
       </div>
       <aside class="research-aside" data-reveal aria-label="Flag rates across audits">
-        <svg class="ratefig" viewBox="0 0 320 212" role="img" aria-label="Share of statements flagged unfaithful, per audited corpus and system">
+        <svg class="ratefig" viewBox="0 0 352 212" role="img" aria-label="Share of statements flagged unfaithful, per audited corpus and system">
           <text class="rf-group" x="0" y="12">benchmarks</text>
           <text class="rf-label" x="0" y="34">miniF2F</text><rect class="rf-bar" x="92" y="24" width="99" height="13" rx="2"/><text class="rf-val" x="197" y="34">28.3%</text>
           <text class="rf-label" x="0" y="60">miniF2F v2</text><rect class="rf-bar" x="92" y="50" width="70" height="13" rx="2"/><text class="rf-val" x="168" y="60">20.1%</text>
@@ -92,7 +92,7 @@
           <text class="rf-label" x="0" y="170">Kimina</text><rect class="rf-bar rf-sys" x="92" y="160" width="128" height="13" rx="2"/><text class="rf-val" x="226" y="170">36.5%</text>
           <text class="rf-label" x="0" y="196">Herald*</text><rect class="rf-bar rf-sys" x="92" y="186" width="194" height="13" rx="2"/><text class="rf-val" x="292" y="196">55.5%</text>
         </svg>
-        <p class="ratefig-cap">share of statements flagged unfaithful by the screen, per corpus. *Herald sampled at its native temperature, one draw per problem.</p>
+        <p class="ratefig-cap">share of statements flagged unfaithful by the screen, per corpus.<br>*Herald sampled at its native temperature, one draw per problem.</p>
       </aside>
       </div>
               <article class="research-row research-keystone" data-reveal>
