@@ -93,7 +93,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
   <div style="max-width:1160px;margin:0 auto;padding:56px 22px 34px">
     <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">The Suite</div>
     <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Five sections, and the asset never ships whole</h2>
-    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:660px;line-height:1.6">Scoring-as-a-service: you submit outputs, we return scored reports. Splits are difficulty-calibrated on per-pair judge outcomes and taxonomy-stratified so partial disclosure reveals nothing about the private core.</p>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:660px;line-height:1.6">You submit outputs; we return scored reports. The splits are stratified by difficulty and failure class, so seeing a sample reveals nothing about the private core.</p>
     <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;overflow:hidden">
       <div class="mr-scroll" style="overflow-x:auto">
         <div style="min-width:860px">
@@ -283,7 +283,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
   <div style="max-width:1160px;margin:0 auto;padding:46px 22px 34px">
     <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Public Benchmark Audit</div>
     <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">We ran our screen over the field&#8217;s benchmarks</h2>
-    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">A full census: every statement, no sampling. Flags are evidence-bearing candidates, not verdicts: each carries judge back-translations and, where the probe found one, a concrete counterexample. The &#8220;verified&#8221; column fills only from human spot-check. These corpora have circulated through the field for years; the defects our screen surfaced were sitting in them the whole time, including two no one had reported and ten introduced by the expert correction process itself.</p>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">A full census: every statement, no sampling. A flag is a candidate, not a verdict: each carries judge back-translations and, where the probe found one, a concrete counterexample, and the verified column fills only from human spot-check. These corpora circulated for years; the defects were sitting in them the whole time, including two nobody had reported and ten introduced by the expert corrections themselves.</p>
     <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;overflow:hidden">
       <div class="mr-scroll" style="overflow-x:auto">
         <div style="min-width:900px">
@@ -338,7 +338,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
     </div>
 
     <h2 style="margin:44px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Then we ran it over the field&#8217;s autoformalizers</h2>
-    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Three open autoformalization models, the same 488 miniF2F problems, one draft per system under each model&#8217;s own documented prompt and decoding settings, scored by the identical screen as the benchmark audit above. The point is not a ranking. It is that a large fraction of machine translations that Lean happily accepts do not say what the problem says, every system&#8217;s failures are invisible to a compile check, and each defect below carries evidence a human confirmed.</p>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Three open autoformalizers, the same 488 miniF2F problems, one draft per system under each model&#8217;s own documented prompt and decoding settings, scored by the identical screen as the audit above. The point is not a ranking: a large share of translations Lean accepts do not say what the problem says, and a compile check catches none of it. Every defect below carries evidence a human confirmed.</p>
     <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;overflow:hidden">
       <div class="mr-scroll" style="overflow-x:auto">
         <div style="min-width:900px">
@@ -371,7 +371,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
     </div>
     <div style="margin-top:14px;background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
       <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:9px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">121 / 121</span><span style="font-size:12px;color:#8B93A7">counterexample-backed flags human-confirmed, across every audit we have run: three public benchmarks and three autoformalizers</span></div>
-      <p style="margin:12px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">When this screen produces a concrete counterexample &#8212; values where the Lean statement&#8217;s hypotheses hold and its conclusion fails &#8212; human review has upheld it every single time to date. That class is the backbone of every number we publish.</p>
+      <p style="margin:12px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">When this screen produces a concrete counterexample, values where the hypotheses hold and the conclusion fails, human review has upheld it every time to date. That class is the backbone of every number we publish.</p>
     </div>
   </div>
 </section>
