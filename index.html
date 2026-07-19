@@ -15,7 +15,7 @@
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="home.css?v=5">
+<link rel="stylesheet" href="home.css?v=6">
 <script defer src="zeta.js?v=11"></script>
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -82,7 +82,7 @@
   <!-- ============================== IN BRIEF ============================== -->
   <section class="mr-section" id="brief" aria-label="In brief">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>01 &middot; In brief</span>
+      <span class="mr-kicker" data-mr-reveal>In brief</span>
       <p class="mr-statement" data-mr-reveal>
         The field measures AI on benchmarks whose statements
         <em>don&rsquo;t always say what the math says.</em>
@@ -110,7 +110,7 @@
   <!-- ============================== FINDINGS ============================== -->
   <section class="mr-section" id="findings" aria-label="Findings">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>02 &middot; Findings</span>
+      <span class="mr-kicker" data-mr-reveal>Findings</span>
       <div class="mr-grid" data-mr-reveal>
         <a class="mr-card" href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">
           <span class="mr-card-tag">miniF2F &middot; Lean 4 &middot; 488 statements</span>
@@ -134,8 +134,8 @@
           <span class="mr-card-link">Methodology &rarr;</span>
         </a>
         <a class="mr-card" href="research.html">
-          <span class="mr-card-tag">Autoformalizers &middot; cross-system &middot; 2 &times; 488 outputs</span>
-          <span class="mr-card-num">2<small>&nbsp;systems</small></span>
+          <span class="mr-card-tag">Autoformalizers &middot; cross-system &middot; 3 &times; 488 outputs</span>
+          <span class="mr-card-num">3<small>&nbsp;systems</small></span>
           <h3>Auditing the field&rsquo;s models</h3>
           <p>The same census, run on the outputs of open autoformalization models. Same judges, same probe, same human verification. Results land this week.</p>
           <span class="mr-card-link">In progress &rarr;</span>
@@ -149,7 +149,7 @@
   <!-- ============================= WHAT WE BUILD ========================== -->
   <section class="mr-section" id="build" aria-label="What we build">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>03 &middot; What we build</span>
+      <span class="mr-kicker" data-mr-reveal>What we build</span>
       <div class="mr-twoup" data-mr-reveal>
         <div>
           <h3>The faithfulness eval</h3>
@@ -198,7 +198,7 @@
   <!-- ================================ TEAM ================================ -->
   <section class="mr-section" id="team" aria-label="Team">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>04 &middot; Team</span>
+      <span class="mr-kicker" data-mr-reveal>Team</span>
       <div class="mr-people" data-mr-reveal>
         <div class="mr-person">
           <h3>Ibrahim Mian</h3>
@@ -225,7 +225,7 @@
   <!-- ============================== HORIZON =============================== -->
   <section class="mr-section" id="horizon" aria-label="The horizon">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>05 &middot; The horizon</span>
+      <span class="mr-kicker" data-mr-reveal>The horizon</span>
       <div class="mr-horizon" data-mr-reveal>
         <p class="mr-statement">
           The endgame is a prover that moves
@@ -246,30 +246,47 @@
   <!-- ============================= DISPATCHES ============================= -->
   <section class="mr-section" id="dispatches" aria-label="Dispatches">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>06 &middot; Dispatches</span>
-      <ul class="mr-dispatch" data-mr-reveal>
-        <li>
-          <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">
-            <span class="d-date">JUL 2026</span>
-            <span class="d-title">23 confirmed faithfulness defects filed against miniF2F Lean 4</span>
-            <span class="d-arrow">&rarr;</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">
-            <span class="d-date">JUL 2026</span>
-            <span class="d-title">23 residual defects reported to the miniF2F v2 maintainers</span>
-            <span class="d-arrow">&rarr;</span>
-          </a>
-        </li>
-        <li>
-          <a href="research.html">
-            <span class="d-date">JUL 2026</span>
-            <span class="d-title">Cross-system audit of open autoformalizers: two models, 976 outputs</span>
-            <span class="d-arrow">&rarr;</span>
-          </a>
-        </li>
-      </ul>
+      <span class="mr-kicker" data-mr-reveal>Dispatches</span>
+      <div class="mr-dispatch-grid" data-mr-reveal>
+
+        <a class="mr-dispatch-feature" href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">
+          <span class="d-meta"><span class="d-tag">Filing</span><span class="d-date">JUL 2026</span></span>
+          <h3>Twenty-three confirmed defects in the benchmark the field trains against</h3>
+          <p>
+            A full census of miniF2F Lean 4 &mdash; every flag screened by two
+            independent judges, backed by counterexamples where possible, and
+            confirmed by hand before filing. Statements that are vacuously
+            true, drop half the claim, or encode the wrong quantity, each with
+            per-item evidence the maintainers can act on.
+          </p>
+          <span class="d-link">Read the filing &rarr;</span>
+        </a>
+
+        <ul class="mr-dispatch">
+          <li>
+            <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">
+              <span class="d-meta"><span class="d-tag">Filing</span><span class="d-date">JUL 2026</span></span>
+              <span class="d-title">23 defects that survived expert correction, reported to the miniF2F v2 maintainers</span>
+              <span class="d-arrow">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a href="research.html">
+              <span class="d-meta"><span class="d-tag">Audit</span><span class="d-date">JUL 2026</span></span>
+              <span class="d-title">Cross-system audit of open autoformalizers: three models, 1,464 outputs, one screen</span>
+              <span class="d-arrow">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://x.com/millenniumibby" target="_blank" rel="noopener">
+              <span class="d-meta"><span class="d-tag">Series</span><span class="d-date">ONGOING</span></span>
+              <span class="d-title">Beat our judges: a public quiz &mdash; can you spot the unfaithful formalization?</span>
+              <span class="d-arrow">&rarr;</span>
+            </a>
+          </li>
+        </ul>
+
+      </div>
     </div>
   </section>
 
