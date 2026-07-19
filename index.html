@@ -15,7 +15,7 @@
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="home.css?v=7">
+<link rel="stylesheet" href="home.css?v=8">
 <script defer src="zeta.js?v=11"></script>
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -112,33 +112,33 @@
     <div class="mr-wrap">
       <span class="mr-kicker" data-mr-reveal>Findings</span>
       <div class="mr-grid" data-mr-reveal>
-        <a class="mr-card" href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">
-          <span class="mr-card-tag">miniF2F &middot; Lean 4 &middot; 488 statements</span>
-          <span class="mr-card-num">23<small>&nbsp;defects</small></span>
-          <h3>The benchmark the field trains against</h3>
-          <p>Statements that are vacuously true over the wrong types, drop half the claim, or encode the wrong quantity. Filed publicly with per-item evidence.</p>
-          <span class="mr-card-link">Read the filing &rarr;</span>
-        </a>
-        <a class="mr-card" href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">
-          <span class="mr-card-tag">miniF2F v2 &middot; expert-corrected &middot; 488 statements</span>
-          <span class="mr-card-num">23<small>&nbsp;remain</small></span>
-          <h3>What survives expert correction</h3>
-          <p>The corrections helped: our flag rate fell from 28.3 to 20.1 percent. These are the defects that survived review, including a few the corrections introduced.</p>
-          <span class="mr-card-link">Read the issue &rarr;</span>
-        </a>
         <a class="mr-card" href="research.html">
-          <span class="mr-card-tag">ProofNet# &middot; textbook exercises &middot; 371 statements</span>
-          <span class="mr-card-num">30<small>&nbsp;defects</small></span>
-          <h3>Thirty flags, thirty confirmations</h3>
-          <p>Every statement our screen flagged survived human review. One hundred percent precision on this corpus. Public filing in progress.</p>
+          <span class="mr-card-tag">Screen precision &middot; human-verified &middot; per corpus</span>
+          <span class="mr-card-num">76.7&ndash;100<small>%</small></span>
+          <h3>Every published flag survives a person</h3>
+          <p>Flag samples from every corpus we audit go to human review before a number ships. Verified precision is printed with its confidence interval next to every result.</p>
           <span class="mr-card-link">Methodology &rarr;</span>
         </a>
         <a class="mr-card" href="research.html">
-          <span class="mr-card-tag">Autoformalizers &middot; cross-system &middot; 3 &times; 488 outputs</span>
-          <span class="mr-card-num">3<small>&nbsp;systems</small></span>
-          <h3>Auditing the field&rsquo;s models</h3>
-          <p>Same screen, same problems, three open autoformalizers. Roughly a third of StepFun&rsquo;s and Kimina&rsquo;s translations failed it &mdash; over half of Herald&rsquo;s single-draw outputs. All 60 sampled flags survived human review.</p>
+          <span class="mr-card-tag">Counterexample flags &middot; cumulative record</span>
+          <span class="mr-card-num">121<small>&nbsp;/ 121</small></span>
+          <h3>The evidence class that has never missed</h3>
+          <p>When the screen produces concrete values where the hypotheses hold and the conclusion fails, human review has upheld it every time to date: three benchmarks and three autoformalizers.</p>
           <span class="mr-card-link">Methodology &rarr;</span>
+        </a>
+        <a class="mr-card" href="research.html">
+          <span class="mr-card-tag">Recall &middot; against expert corrections</span>
+          <span class="mr-card-num">78.3<small>%</small></span>
+          <h3>Most of what experts fix, the screen already flagged</h3>
+          <p>Measured against the independent miniF2F v2 correction effort: of 92 confirmed defect corrections, 72 were statements our screen had flagged on its own.</p>
+          <span class="mr-card-link">Methodology &rarr;</span>
+        </a>
+        <a class="mr-card" href="research.html">
+          <span class="mr-card-tag">Public record &middot; benchmarks and autoformalizers</span>
+          <span class="mr-card-num">76<small>&nbsp;defects filed</small></span>
+          <h3>Filed with the maintainers, item by item</h3>
+          <p>Confirmed defects in miniF2F, miniF2F v2, and ProofNet#, each with per-item evidence, plus a three-system audit of open autoformalizers. The filings are public.</p>
+          <span class="mr-card-link">See the filings &rarr;</span>
         </a>
       </div>
     </div>
@@ -165,9 +165,9 @@
             confidence intervals.
           </p>
           <ul class="mr-mono-list">
-            <li><span>screen precision, human-verified</span><b>76.7&ndash;100%</b></li>
-            <li><span>counterexample flags confirmed</span><b>64 / 64</b></li>
-            <li><span>cost per scored pair</span><b>~$0.11</b></li>
+            <li><span>independent judges per pair</span><b>2, strict consensus</b></li>
+            <li><span>evidence per flag</span><b>back-translations + counterexamples</b></li>
+            <li><span>calibration set</span><b>886 frozen human verdicts</b></li>
           </ul>
         </div>
         <div>
@@ -193,32 +193,7 @@
     </div>
   </section>
 
-  <div class="zeta-divider" role="presentation"></div>
 
-  <!-- ================================ TEAM ================================ -->
-  <section class="mr-section" id="team" aria-label="Team">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>Team</span>
-      <div class="mr-people" data-mr-reveal>
-        <div class="mr-person">
-          <h3>Ibrahim Mian</h3>
-          <div class="role">Co-founder</div>
-          <p>Runs the census: the audits, the human verification standard, and the discipline that no claim ships without a person standing behind it.</p>
-        </div>
-        <div class="mr-person">
-          <h3>Shayaan Siddique</h3>
-          <div class="role">Co-founder</div>
-          <p>Builds the measurement machinery: grading systems, verification infrastructure, and the pipeline that turns raw mathematics into certified data.</p>
-        </div>
-      </div>
-      <div class="mr-logo-row" data-mr-reveal aria-label="Affiliations">
-        <img src="assets/logos/brown.png" alt="Brown University">
-        <img src="assets/logos/mit.png" alt="MIT">
-        <img src="assets/logos/princeton.png" alt="Princeton University">
-        <img src="assets/logos/third-kind.png" alt="Third Kind">
-      </div>
-    </div>
-  </section>
 
   <div class="zeta-divider" role="presentation"></div>
 
@@ -243,52 +218,7 @@
     </div>
   </section>
 
-  <!-- ============================= DISPATCHES ============================= -->
-  <section class="mr-section" id="dispatches" aria-label="Dispatches">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>Dispatches</span>
-      <div class="mr-dispatch-grid" data-mr-reveal>
 
-        <a class="mr-dispatch-feature" href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">
-          <span class="d-meta"><span class="d-tag">Filing</span><span class="d-date">JUL 2026</span></span>
-          <h3>Twenty-three confirmed defects in the benchmark the field trains against</h3>
-          <p>
-            A full census of miniF2F Lean 4 &mdash; every flag screened by two
-            independent judges, backed by counterexamples where possible, and
-            confirmed by hand before filing. Statements that are vacuously
-            true, drop half the claim, or encode the wrong quantity, each with
-            per-item evidence the maintainers can act on.
-          </p>
-          <span class="d-link">Read the filing &rarr;</span>
-        </a>
-
-        <ul class="mr-dispatch">
-          <li>
-            <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">
-              <span class="d-meta"><span class="d-tag">Filing</span><span class="d-date">JUL 2026</span></span>
-              <span class="d-title">23 defects that survived expert correction, reported to the miniF2F v2 maintainers</span>
-              <span class="d-arrow">&rarr;</span>
-            </a>
-          </li>
-          <li>
-            <a href="research.html">
-              <span class="d-meta"><span class="d-tag">Audit</span><span class="d-date">JUL 2026</span></span>
-              <span class="d-title">Cross-system audit of open autoformalizers: three models, 1,464 outputs, one screen</span>
-              <span class="d-arrow">&rarr;</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://x.com/millenniumibby" target="_blank" rel="noopener">
-              <span class="d-meta"><span class="d-tag">Series</span><span class="d-date">ONGOING</span></span>
-              <span class="d-title">Beat our judges: a public quiz &mdash; can you spot the unfaithful formalization?</span>
-              <span class="d-arrow">&rarr;</span>
-            </a>
-          </li>
-        </ul>
-
-      </div>
-    </div>
-  </section>
 
 </main>
 
@@ -303,22 +233,8 @@
         </div>
         <p class="ftag">Human-verified evaluations and certified datasets for formal mathematics.</p>
       </div>
-      <div>
-        <h4>SITE</h4>
-        <ul>
-          <li><a href="thesis.html">Thesis</a></li>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="dataset.html">Dataset</a></li>
-          <li><a href="team.html">Team</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>CONTACT</h4>
-        <ul>
-          <li><a href="contact.html">Request access</a></li>
-          <li><a href="https://x.com/millenniumibby" target="_blank" rel="noopener">X</a></li>
-          <li><a href="https://github.com/ibrahimmian36" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
+      <div class="mr-footer-cta">
+        <a class="mr-btn mr-btn--solid" href="contact.html">Request access</a>
       </div>
     </div>
     <div class="mr-footer-legal">

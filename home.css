@@ -312,43 +312,8 @@
 
 /* -------------------------------- team ------------------------------------ */
 
-.mr-people{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-@media (max-width: 720px){ .mr-people{ grid-template-columns: 1fr; } }
 
-.mr-person{
-  background: var(--bg);
-  padding: 32px 30px;
-}
-.mr-person h3{ font-size: 1.1rem; font-weight: 600; }
-.mr-person .role{
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  margin-top: 6px;
-}
-.mr-person p{
-  margin-top: 14px;
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
 
-.mr-logo-row{
-  margin-top: 48px;
-  display: flex;
-  align-items: center;
-  gap: 48px;
-  flex-wrap: wrap;
-  opacity: 0.55;
-}
-.mr-logo-row img{ height: 26px; width: auto; filter: grayscale(1) brightness(1.6); }
 
 /* ------------------------------ horizon ----------------------------------- */
 
@@ -489,11 +454,13 @@
   padding: 56px 0 40px;
 }
 .mr-footer-grid{
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 40px;
+  flex-wrap: wrap;
 }
-@media (max-width: 720px){ .mr-footer-grid{ grid-template-columns: 1fr; } }
+.mr-footer-cta{ flex: none; }
 .mr-footer .fmark{
   display: flex;
   align-items: center;
@@ -513,22 +480,6 @@
   color: var(--text-faint);
   line-height: 1.6;
 }
-.mr-footer h4{
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  color: var(--text-faint);
-  margin-bottom: 14px;
-}
-.mr-footer ul{ list-style: none; margin: 0; padding: 0; }
-.mr-footer ul li{ margin-bottom: 10px; }
-.mr-footer ul a{
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  text-decoration: none;
-}
-.mr-footer ul a:hover{ color: var(--accent); }
 .mr-footer-legal{
   margin-top: 48px;
   padding-top: 20px;

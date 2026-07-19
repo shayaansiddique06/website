@@ -745,6 +745,22 @@ html.js [data-reveal].is-visible{
   grid-template-columns: 1fr;
   gap: 16px;
 }
+
+/* Filtered view: one card per row, with the human verdict rationale shown
+   in the space that opens up beside the pair. */
+.panel-why{ display: none; }
+.cards.is-filtered{ grid-template-columns: 1fr; }
+.cards.is-filtered .card-panels{ grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.cards.is-filtered .panel-why{
+  display: block;
+  border-left: 2px solid var(--accent-dim);
+  padding-left: 18px;
+}
+.panel-why p{ color: var(--text-muted); font-size: 0.9375rem; line-height: 1.65; }
+@media (max-width: 899px){
+  .cards.is-filtered .card-panels{ grid-template-columns: 1fr; }
+  .cards.is-filtered .panel-why{ border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 14px; }
+}
 .panel{ min-width: 0; }
 .panel-cap{
   display: block;
@@ -805,6 +821,55 @@ html.js .math-ready .tex{ opacity: 1; }
 }
 
 /* ------------------------------ Research ---------------------------------- */
+.research-layout{
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 56px;
+  align-items: start;
+}
+@media (max-width: 899px){
+  .research-layout{ grid-template-columns: 1fr; gap: 8px; }
+}
+.research-aside{
+  position: sticky;
+  top: calc(var(--nav-h) + 32px);
+  padding: 28px 24px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+@media (max-width: 899px){
+  .research-aside{ position: static; margin-bottom: 26px; }
+}
+.ratefig{ width: 100%; height: auto; }
+.ratefig .rf-group{
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  fill: var(--text-faint);
+}
+.ratefig .rf-label{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--text-muted);
+}
+.ratefig .rf-val{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--text);
+}
+.ratefig .rf-bar{ fill: var(--accent-dim); }
+.ratefig .rf-bar.rf-sys{ fill: var(--accent); opacity: 0.75; }
+.ratefig-cap{
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--text-faint);
+  max-width: none;
+}
+
 .research-rows{
   display: grid; gap: 0;
 }

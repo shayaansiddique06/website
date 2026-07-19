@@ -611,6 +611,8 @@ function initFilters() {
 
   function apply(filter) {
     chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.filter === filter)));
+    const list = $('#cards');
+    if (list) list.classList.toggle('is-filtered', filter !== 'all');
     let shown = 0;
     cards.forEach((card) => {
       const show = filter === 'all' || card.dataset.verdict === filter;
