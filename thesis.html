@@ -61,12 +61,13 @@
       <div class="thesis-grid">
         <div class="thesis-prose">
           <h2 id="thesis-title" data-reveal>Correct isn&rsquo;t the same as measurable.</h2>
-          <p data-reveal>Reinforcement learning from verifiable rewards was a breakthrough for math and code: instead of a learned judge that can be fooled, a deterministic checker decides whether an answer is right. But it didn&rsquo;t solve everything. Models still game what the checker fails to enforce: a proof can compile cleanly while proving the wrong theorem. Machine-checking alone isn&rsquo;t enough. To actually measure reasoning, the corpus has to be organized along the one axis the checker ignores: faithfulness, whether a formal proof captures what the original theorem meant.</p>
+          <p data-reveal>Verifiable rewards were a breakthrough for math and code: a deterministic checker decides whether an answer is right, and no learned judge gets fooled. But the checker only enforces what it can see. A Lean proof can compile cleanly while proving the wrong theorem, and nothing in the toolchain will object. Measuring reasoning therefore needs a second axis the compiler ignores: faithfulness, whether the formal statement says what the mathematics says.</p>
+          <p data-reveal>We didn&rsquo;t argue this in the abstract. We measured it. The benchmarks the field trains against circulated for years carrying defects nobody had filed. Frontier LLM judges, the standard fallback, passed 59 formalizations that human review rejected. Even expert correction passes introduced ten new errors while fixing others. Every layer of the current stack leaks, which is why our screen ends with a person, and why we publish the instrument&rsquo;s own error rates next to every number it produces.</p>
         </div>
         <ul class="thesis-callouts" data-reveal-group>
           <li data-reveal><span class="callout-label">Compiles ≠ faithful</span> A Lean proof can typecheck while proving the wrong statement.</li>
-          <li data-reveal><span class="callout-label">Faithfulness is its own axis</span> Something you measure, not assume.</li>
-          <li data-reveal><span class="callout-label">Strength-structured lattice</span> Proofs organized by logical strength, not just pass/fail.</li>
+          <li data-reveal><span class="callout-label">Judges leak too</span> 59 pairs passed two frontier judges and failed human review.</li>
+          <li data-reveal><span class="callout-label">Humans close the loop</span> Every published flag is human-confirmed; 121 of 121 counterexample-backed flags upheld.</li>
         </ul>
       </div>
     </div>
