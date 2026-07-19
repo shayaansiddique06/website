@@ -58,20 +58,28 @@
 
 <section class="section" id="research" aria-labelledby="research-title">
     <div class="container">
-      <h2 id="research-title" data-reveal>What the corpus measures.</h2>
+      <h2 id="research-title" data-reveal>What we measure, and what we found.</h2>
       <div class="research-rows">
         <article class="research-row" data-reveal>
-          <h3>Specification gaming on verified math</h3>
-          <p>Verifiable rewards make one kind of exploit concrete: the gaps in the verifier itself. The corpus is built to find and label the cases where a formal proof satisfies the checker but violates intent.</p>
+          <h3>Benchmark audits</h3>
+          <p>A full census of miniF2F, the expert-corrected miniF2F v2, and ProofNet#: 1,347 statements, every one screened, every flag verified by hand before anything went public. 76 confirmed defects, filed with the maintainers item by item. See the <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">miniF2F filing</a> and the <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">v2 issue</a>.</p>
         </article>
         <article class="research-row" data-reveal>
-          <h3>Weakening attractors in self-improving reasoners</h3>
-          <p>When a model trains on math it verifies itself, it can drift toward statements that are weaker but easier to prove. The strength-structured lattice makes that drift measurable.</p>
+          <h3>Cross-system audits</h3>
+          <p>Three open autoformalizers ran the same 488 problems under their own documented prompts and decoding settings. About a third of StepFun&rsquo;s and Kimina&rsquo;s translations failed the faithfulness screen; over half of Herald&rsquo;s single-draw outputs did. All 60 sampled flags survived human review. A compile check catches none of this.</p>
+        </article>
+        <article class="research-row" data-reveal>
+          <h3>Specification gaming on verified math</h3>
+          <p>The gaps in a verifier are exactly what gets exploited. We keep a growing set of pairs that satisfy the checker and two frontier LLM judges yet fail human review: 59 so far, sorted into named failure classes. Three of those classes now have mechanical detectors that run on everything we score.</p>
+        </article>
+        <article class="research-row" data-reveal>
+          <h3>The instrument itself</h3>
+          <p>An evaluator you can&rsquo;t calibrate is an opinion. Ours is measured against 886 frozen human verdicts: flag precision between 76.7 and 100 percent per corpus, recall 78.3 percent against expert corrections, and the false-positive classes named and published. Counterexample-backed flags have been upheld by human review 121 times out of 121.</p>
         </article>
         <article class="research-row research-keystone" data-reveal>
           <div class="keystone-text">
             <h3>The strength-structured lattice</h3>
-            <p>We organize proofs not as pass/fail but in a lattice ordered by logical strength, so anyone using the corpus can measure <em>how strong</em> a model&rsquo;s verified reasoning actually is, not just <em>whether</em> it passed.</p>
+            <p>Where this goes next. Proofs organized in a lattice ordered by logical strength, not pass/fail, so a model&rsquo;s verified reasoning can be measured for <em>how much</em> it proved. It also exposes a failure mode we expect to matter: models that train on self-verified math drifting toward weaker statements that are easier to prove.</p>
           </div>
           <figure class="keystone-figure" aria-hidden="true">
             <svg class="lattice" viewBox="0 0 220 132" focusable="false">

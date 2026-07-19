@@ -152,7 +152,7 @@ p{ max-width: 65ch; }
   padding-inline: clamp(20px, 4vw, 48px);
 }
 .section{
-  padding-block: clamp(64px, 10vw, 128px);
+  padding-block: clamp(48px, 7vw, 88px);
   scroll-margin-top: calc(var(--nav-h) + 16px);
 }
 /* Sub-pages (one section per nav tab): clear the fixed nav, and trim the
@@ -468,7 +468,7 @@ html.js [data-reveal].is-visible{
 .thesis-grid{
   display: grid;
   grid-template-columns: 3fr 2fr;
-  gap: 64px;
+  gap: 48px;
   align-items: start;
 }
 .thesis-callouts{
@@ -806,21 +806,28 @@ html.js .math-ready .tex{ opacity: 1; }
 
 /* ------------------------------ Research ---------------------------------- */
 .research-rows{
-  display: grid; gap: 24px;
+  display: grid; gap: 0;
 }
 .research-row{
-  padding: 32px 0;
+  padding: 26px 0;
   border-top: 1px solid var(--border);
   display: grid; gap: 12px;
 }
 .research-row p{ color: var(--text-muted); max-width: 62ch; }
+.research-row p a{
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-dim);
+}
+.research-row p a:hover{ color: var(--accent-bright); border-bottom-color: var(--accent); }
 
 .research-keystone{
   border: 1px solid var(--border);
   border-left: 2px solid var(--accent-dim);
   border-radius: 8px;
   background: var(--surface);
-  padding: 48px;
+  margin-top: 26px;
+  padding: 36px;
   display: grid;
   grid-template-columns: 3fr 2fr;
   gap: 48px;
