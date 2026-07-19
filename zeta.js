@@ -52,6 +52,20 @@
     return [(er * br + ei * bi) / den, (ei * br - er * bi) / den];
   }
 
+  /* ------------------- Riemann–Siegel Z(t): ζ made real ------------------- */
+
+  function rsTheta(t) {
+    // Asymptotic expansion; plenty for t >= 2 at pixel resolution.
+    return t / 2 * Math.log(t / (2 * Math.PI)) - t / 2 - Math.PI / 8
+         + 1 / (48 * t) + 7 / (5760 * t * t * t);
+  }
+
+  function zOf(t) {
+    // Z(t) = e^{iθ(t)} ζ(1/2+it) is real; its sign changes are the zeros.
+    var z = zetaHalfIt(t), th = rsTheta(t);
+    return Math.cos(th) * z[0] - Math.sin(th) * z[1];
+  }
+
   /* ------------------------------ helpers -------------------------------- */
 
   function sizeCanvas(canvas) {
@@ -194,7 +208,13 @@
     boot();
   }
 
-  /* --------------------- 2. |ζ(1/2+it)| divider curves -------------------- */
+  /* -------------------- 2. Z(t) dividers as progress ----------------------
+     Each divider draws the Riemann–Siegel Z(t) — ζ on the critical line made
+     real — swinging over and under the axis, crossing it exactly at the
+     nontrivial zeros. The curve doubles as a page progress meter: it draws
+     itself as far as you have scrolled, a rider dot marks your position, and
+     every zero you pass lights up.
+     ------------------------------------------------------------------------ */
 
   // Imaginary parts of the first nontrivial zeros of ζ.
   var ZEROS = [14.1347, 21.0220, 25.0109, 30.4249, 32.9351, 37.5862,
@@ -204,24 +224,25 @@
     var divs = document.querySelectorAll(".zeta-divider");
     if (!divs.length) return;
 
-    // Sample |ζ(1/2+it)| once, shared by every divider.
-    var T_MAX = 58, SAMPLES = 460;
-    var abs = new Float64Array(SAMPLES + 1);
+    // Sample Z(t) once, shared by every divider.
+    var T_MIN = 2, T_MAX = 58, SAMPLES = 460;
+    var zs = new Float64Array(SAMPLES + 1);
     var maxAbs = 0;
     for (var i = 0; i <= SAMPLES; i++) {
-      var z = zetaHalfIt(T_MAX * i / SAMPLES);
-      abs[i] = Math.hypot(z[0], z[1]);
-      if (abs[i] > maxAbs) maxAbs = abs[i];
+      zs[i] = zOf(T_MIN + (T_MAX - T_MIN) * i / SAMPLES);
+      if (Math.abs(zs[i]) > maxAbs) maxAbs = Math.abs(zs[i]);
     }
-    var X0 = 8, X1 = 592, YB = 36, AMP = 30;
-    function xOf(t) { return X0 + (X1 - X0) * t / T_MAX; }
+    var X0 = 8, X1 = 592, YM = 20, AMP = 16;
+    function xOf(t) { return X0 + (X1 - X0) * (t - T_MIN) / (T_MAX - T_MIN); }
 
     var dPath = "";
     for (var j = 0; j <= SAMPLES; j++) {
       var x = X0 + (X1 - X0) * j / SAMPLES;
-      var y = YB - AMP * abs[j] / maxAbs;
+      var y = YM - AMP * zs[j] / maxAbs;
       dPath += (j === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
     }
+
+    var parts = []; // {curve, len, rider, dots:[{el,x}]} per divider
 
     divs.forEach(function (el) {
       var svgNS = "http://www.w3.org/2000/svg";
@@ -232,7 +253,7 @@
 
       var base = document.createElementNS(svgNS, "line");
       base.setAttribute("x1", X0); base.setAttribute("x2", X1);
-      base.setAttribute("y1", YB); base.setAttribute("y2", YB);
+      base.setAttribute("y1", YM); base.setAttribute("y2", YM);
       base.setAttribute("class", "zd-base");
       svg.appendChild(base);
 
@@ -241,30 +262,62 @@
       curve.setAttribute("class", "zd-curve");
       svg.appendChild(curve);
 
-      // A dot where the curve touches zero — the nontrivial zeros.
-      ZEROS.forEach(function (z, i) {
+      // A dot at each axis crossing — the nontrivial zeros.
+      var dots = [];
+      ZEROS.forEach(function (z) {
         var dot = document.createElementNS(svgNS, "circle");
-        dot.setAttribute("cx", xOf(z).toFixed(1));
-        dot.setAttribute("cy", YB);
+        var dx = xOf(z);
+        dot.setAttribute("cx", dx.toFixed(1));
+        dot.setAttribute("cy", YM);
         dot.setAttribute("r", "2");
         dot.setAttribute("class", "zd-zero");
-        dot.style.transitionDelay = (reduceMotion ? 0 : 900 + i * 90) + "ms";
         svg.appendChild(dot);
+        dots.push({ el: dot, x: dx });
       });
+
+      // The rider: where you are in the page.
+      var rider = document.createElementNS(svgNS, "circle");
+      rider.setAttribute("r", "2.6");
+      rider.setAttribute("class", "zd-rider");
+      rider.setAttribute("cx", X0);
+      rider.setAttribute("cy", YM);
+      svg.appendChild(rider);
 
       el.appendChild(svg);
 
-      // Draw-on length, via a custom property so the .is-lit rule keeps
-      // control of the offset.
       var L = curve.getTotalLength();
-      curve.style.setProperty("--len", L);
+      curve.style.strokeDasharray = L;
+      curve.style.strokeDashoffset = L;
 
       var label = document.createElement("span");
       label.className = "zd-label";
-      label.textContent = "|ζ(1/2+it)|";
+      label.textContent = "Z(t)";
       el.appendChild(label);
+
+      parts.push({ curve: curve, len: L, rider: rider, dots: dots });
     });
 
+    // Page progress drives every divider identically.
+    function updateProgress() {
+      var doc = document.documentElement;
+      var span = doc.scrollHeight - window.innerHeight;
+      var p = span > 0 ? Math.min(1, Math.max(0, window.scrollY / span)) : 1;
+      parts.forEach(function (part) {
+        part.curve.style.strokeDashoffset = part.len * (1 - p);
+        var pt = part.curve.getPointAtLength(part.len * p);
+        part.rider.setAttribute("cx", pt.x.toFixed(1));
+        part.rider.setAttribute("cy", pt.y.toFixed(1));
+        part.dots.forEach(function (d) {
+          d.el.classList.toggle("passed", d.x <= pt.x + 0.5);
+        });
+      });
+    }
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    updateProgress();
+    setTimeout(updateProgress, 500);
+
+    // Fade each divider in the first time it enters the viewport.
     if ("IntersectionObserver" in window && !reduceMotion) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
