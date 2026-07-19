@@ -52,20 +52,6 @@
     return [(er * br + ei * bi) / den, (ei * br - er * bi) / den];
   }
 
-  /* ------------------- Riemann–Siegel Z(t): ζ made real ------------------- */
-
-  function rsTheta(t) {
-    // Asymptotic expansion; plenty for t >= 2 at pixel resolution.
-    return t / 2 * Math.log(t / (2 * Math.PI)) - t / 2 - Math.PI / 8
-         + 1 / (48 * t) + 7 / (5760 * t * t * t);
-  }
-
-  function zOf(t) {
-    // Z(t) = e^{iθ(t)} ζ(1/2+it) is real; its sign changes are the zeros.
-    var z = zetaHalfIt(t), th = rsTheta(t);
-    return Math.cos(th) * z[0] - Math.sin(th) * z[1];
-  }
-
   /* ------------------------------ helpers -------------------------------- */
 
   function sizeCanvas(canvas) {
@@ -166,11 +152,6 @@
       ctx.beginPath();
       ctx.arc(ox, oy, 4, 0, Math.PI * 2);
       ctx.stroke();
-
-      // Height readout along the critical line.
-      ctx.font = "11px 'JetBrains Mono', monospace";
-      ctx.fillStyle = "rgba(154,166,159,0.55)";
-      ctx.fillText("t = " + t.toFixed(2), ox + 12, oy + 20);
     }
 
     function frame() {
@@ -208,42 +189,49 @@
     boot();
   }
 
-  /* -------------------- 2. Z(t) dividers as progress ----------------------
-     Each divider draws the Riemann–Siegel Z(t) — ζ on the critical line made
-     real — swinging over and under the axis, crossing it exactly at the
-     nontrivial zeros. The curve doubles as a page progress meter: it draws
-     itself as far as you have scrolled, a rider dot marks your position, and
-     every zero you pass lights up.
+  /* ------------------ 2. Fourier-convergence dividers ---------------------
+     Each divider draws the Fourier series of a square wave,
+     (4/π) Σ sin((2k−1)θ)/(2k−1), truncated according to how far down the
+     page you are. At the top it is a single soft sine; as you scroll,
+     harmonics join and the wave sharpens toward the square. Scroll progress
+     IS the convergence of the series — the approximation approaching the
+     true shape.
      ------------------------------------------------------------------------ */
-
-  // Imaginary parts of the first nontrivial zeros of ζ.
-  var ZEROS = [14.1347, 21.0220, 25.0109, 30.4249, 32.9351, 37.5862,
-               40.9187, 43.3271, 48.0052, 49.7738, 52.9703, 56.4462];
 
   function initDividers() {
     var divs = document.querySelectorAll(".zeta-divider");
     if (!divs.length) return;
 
-    // Sample Z(t) once, shared by every divider.
-    var T_MIN = 2, T_MAX = 58, SAMPLES = 460;
-    var zs = new Float64Array(SAMPLES + 1);
-    var maxAbs = 0;
-    for (var i = 0; i <= SAMPLES; i++) {
-      zs[i] = zOf(T_MIN + (T_MAX - T_MIN) * i / SAMPLES);
-      if (Math.abs(zs[i]) > maxAbs) maxAbs = Math.abs(zs[i]);
+    var X0 = 8, X1 = 592, YM = 20, AMP = 12;
+    var SAMPLES = 360;
+    var CYCLES = 2;          // full square-wave periods across the band
+    var MAX_HARMONICS = 22;  // odd harmonics at full depth: up to sin(43θ)
+
+    // Continuous truncation: n whole harmonics plus a fraction of the next,
+    // so the wave sharpens smoothly instead of popping term by term.
+    function wavePath(progress) {
+      var hCont = 1 + progress * (MAX_HARMONICS - 1);
+      var whole = Math.floor(hCont), frac = hCont - whole;
+      var d = "";
+      for (var i = 0; i <= SAMPLES; i++) {
+        var x = X0 + (X1 - X0) * i / SAMPLES;
+        var th = CYCLES * 2 * Math.PI * i / SAMPLES;
+        var s = 0;
+        for (var k = 1; k <= whole; k++) {
+          var m = 2 * k - 1;
+          s += Math.sin(m * th) / m;
+        }
+        if (frac > 0) {
+          var mn = 2 * (whole + 1) - 1;
+          s += frac * Math.sin(mn * th) / mn;
+        }
+        var y = YM - AMP * s * 4 / Math.PI;
+        d += (i === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
+      }
+      return d;
     }
-    var X0 = 8, X1 = 592, YM = 20, AMP = 16;
-    function xOf(t) { return X0 + (X1 - X0) * (t - T_MIN) / (T_MAX - T_MIN); }
 
-    var dPath = "";
-    for (var j = 0; j <= SAMPLES; j++) {
-      var x = X0 + (X1 - X0) * j / SAMPLES;
-      var y = YM - AMP * zs[j] / maxAbs;
-      dPath += (j === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
-    }
-
-    var parts = []; // {curve, len, rider, dots:[{el,x}]} per divider
-
+    var waves = [];
     divs.forEach(function (el) {
       var svgNS = "http://www.w3.org/2000/svg";
       var svg = document.createElementNS(svgNS, "svg");
@@ -257,60 +245,24 @@
       base.setAttribute("class", "zd-base");
       svg.appendChild(base);
 
-      var curve = document.createElementNS(svgNS, "path");
-      curve.setAttribute("d", dPath);
-      curve.setAttribute("class", "zd-curve");
-      svg.appendChild(curve);
-
-      // A dot at each axis crossing — the nontrivial zeros.
-      var dots = [];
-      ZEROS.forEach(function (z) {
-        var dot = document.createElementNS(svgNS, "circle");
-        var dx = xOf(z);
-        dot.setAttribute("cx", dx.toFixed(1));
-        dot.setAttribute("cy", YM);
-        dot.setAttribute("r", "2");
-        dot.setAttribute("class", "zd-zero");
-        svg.appendChild(dot);
-        dots.push({ el: dot, x: dx });
-      });
-
-      // The rider: where you are in the page.
-      var rider = document.createElementNS(svgNS, "circle");
-      rider.setAttribute("r", "2.6");
-      rider.setAttribute("class", "zd-rider");
-      rider.setAttribute("cx", X0);
-      rider.setAttribute("cy", YM);
-      svg.appendChild(rider);
+      var wave = document.createElementNS(svgNS, "path");
+      wave.setAttribute("class", "zd-wave");
+      wave.setAttribute("d", wavePath(0));
+      svg.appendChild(wave);
 
       el.appendChild(svg);
-
-      var L = curve.getTotalLength();
-      curve.style.strokeDasharray = L;
-      curve.style.strokeDashoffset = L;
-
-      var label = document.createElement("span");
-      label.className = "zd-label";
-      label.textContent = "Z(t)";
-      el.appendChild(label);
-
-      parts.push({ curve: curve, len: L, rider: rider, dots: dots });
+      waves.push(wave);
     });
 
-    // Page progress drives every divider identically.
+    var lastPath = null;
     function updateProgress() {
       var doc = document.documentElement;
       var span = doc.scrollHeight - window.innerHeight;
       var p = span > 0 ? Math.min(1, Math.max(0, window.scrollY / span)) : 1;
-      parts.forEach(function (part) {
-        part.curve.style.strokeDashoffset = part.len * (1 - p);
-        var pt = part.curve.getPointAtLength(part.len * p);
-        part.rider.setAttribute("cx", pt.x.toFixed(1));
-        part.rider.setAttribute("cy", pt.y.toFixed(1));
-        part.dots.forEach(function (d) {
-          d.el.classList.toggle("passed", d.x <= pt.x + 0.5);
-        });
-      });
+      var d = wavePath(reduceMotion ? 1 : p);
+      if (d === lastPath) return;
+      lastPath = d;
+      waves.forEach(function (wave) { wave.setAttribute("d", d); });
     }
     window.addEventListener("scroll", updateProgress, { passive: true });
     window.addEventListener("resize", updateProgress);
