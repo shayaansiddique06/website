@@ -880,12 +880,14 @@ html.js .math-ready .tex{ opacity: 1; }
   display: grid; gap: 12px;
 }
 .research-row p{ color: var(--text-muted); max-width: 62ch; }
-.research-row p a{
+.research-row p a,
+.thesis-prose p a{
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid var(--accent-dim);
 }
-.research-row p a:hover{ color: var(--accent-bright); border-bottom-color: var(--accent); }
+.research-row p a:hover,
+.thesis-prose p a:hover{ color: var(--accent-bright); border-bottom-color: var(--accent); }
 
 .research-keystone{
   border: 1px solid var(--border);
@@ -1003,7 +1005,7 @@ html.js .math-ready .tex{ opacity: 1; }
 /* ------------------------------ Contact ------------------------------------ */
 .contact-grid{
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   align-items: stretch;
 }
