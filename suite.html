@@ -72,14 +72,14 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-top:12px">
       <div style="background:#12141A;border:1px solid rgba(34,197,94,.35);border-radius:12px;padding:20px 20px 17px">
-        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">121 / 121</div>
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">139 / 139</div>
         <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Counterexample record</div>
-        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">every counterexample-backed flag upheld by human review, across six audits</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">every counterexample-backed flag upheld by human review, across seven audits</div>
       </div>
       <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
-        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">90.7%</div>
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">91.8%</div>
         <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Verified flag precision</div>
-        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">136 of 150 sampled flags survived human review, pooled across audits</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">156 of 170 sampled flags survived human review, pooled across audits</div>
       </div>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px">
@@ -336,7 +336,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
     </div>
 
     <h2 style="margin:44px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Then we ran it over the field&#8217;s autoformalizers</h2>
-    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Three open autoformalizers, the same 488 miniF2F problems, one draft per system under each model&#8217;s own documented prompt and decoding settings, scored by the identical screen as the audit above. The point is not a ranking: a large share of translations Lean accepts do not say what the problem says, and a compile check catches none of it. Every defect below carries evidence a human confirmed.</p>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Four open autoformalizers, the same 488 miniF2F problems, one draft per system under each model&#8217;s own documented prompt and decoding settings, scored by the identical screen as the audit above. The point is not a ranking: a large share of translations Lean accepts do not say what the problem says, and a compile check catches none of it. Every defect below carries evidence a human confirmed.</p>
     <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;overflow:hidden">
       <div class="mr-scroll" style="overflow-x:auto">
         <div style="min-width:900px">
@@ -362,13 +362,13 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
             </div>
           </sc-for>
           <div style="display:flex;flex-wrap:wrap;gap:18px;padding:11px 16px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#565D6E">
-            <span>measured 2026-07-19 · identical protocol to the benchmark audit · verbatim upstream prompts, params in a committed manifest · elaborates in our mathlib pin: 81.3% / 55.9% / 88.1% (environment-sensitive; not counted as defects)</span>
+            <span>measured 2026-07-19/20 · identical protocol to the benchmark audit · verbatim upstream prompts, params in a committed manifest · elaborates in our mathlib pin: 81.3% / 55.9% / 88.1% / 97.3% (environment-sensitive; not counted as defects)</span>
           </div>
         </div>
       </div>
     </div>
     <div style="margin-top:14px;background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
-      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:9px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">121 / 121</span><span style="font-size:12px;color:#8B93A7">counterexample-backed flags human-confirmed, across every audit we have run: three public benchmarks and three autoformalizers</span></div>
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:9px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">139 / 139</span><span style="font-size:12px;color:#8B93A7">counterexample-backed flags human-confirmed, across every audit we have run: three public benchmarks and four autoformalizers</span></div>
       <p style="margin:12px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">When this screen produces a concrete counterexample, values where the hypotheses hold and the conclusion fails, human review has upheld it every time to date. That class is the backbone of every number we publish.</p>
     </div>
   </div>
@@ -422,7 +422,7 @@ a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
           <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8B93A7"><span style="flex:none;width:7px;height:7px;border-radius:2px;background:#A78BFA"></span>Alias defs</span>
         </div>
         <div style="flex:1"></div>
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.6;color:#565D6E">Three classes have shipped mechanical detectors (&#8804;2% fire rate on faithful pairs). The same detector stack validated out-of-house: 121 of 121 counterexample-backed flags across three public benchmarks and three autoformalizers were human-confirmed; see the audits above.</div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.6;color:#565D6E">Three classes have shipped mechanical detectors (&#8804;2% fire rate on faithful pairs). The same detector stack validated out-of-house: 139 of 139 counterexample-backed flags across three public benchmarks and four autoformalizers were human-confirmed; see the audits above.</div>
       </div>
     </div>
   </div>
@@ -507,7 +507,10 @@ class Component extends DCLogic {
        notes:'Hand-verified: 20/20 sampled flags correct, 0 misses in 10 pass controls. The most counterexample-bearing flags of the two greedy systems.'},
       {name:'Herald translator', sub:'FrenzyMath · Apache-2.0 · native temperature 0.99, one sample', n:'488', flagged:'271 · 55.5%', ce:'149',
        pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
-       notes:'Hand-verified: 20/20 sampled flags correct, all counterexample-backed, 0 control misses. Read as single-draw reliability: Herald’s own pipeline samples 128 candidates and keeps what compiles, so this row is not comparable to its published pass rate, and says so.'}
+       notes:'Hand-verified: 20/20 sampled flags correct, all counterexample-backed, 0 control misses. Read as single-draw reliability: Herald’s own pipeline samples 128 candidates and keeps what compiles, so this row is not comparable to its published pass rate, and says so.'},
+      {name:'Goedel-Formalizer V2 8B', sub:'Goedel-LM · Apache-2.0 · greedy, one draft, thinking model', n:'488', flagged:'106 · 21.7%', ce:'25',
+       pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       notes:'Hand-verified: 20/20 sampled flags correct, 0 control misses. Lowest rate of the four, predicted in advance from its reflective design; sits below the human-written miniF2F’s own 28.3% and near the expert-corrected v2’s 20.1%.'}
     ];
     this.CAT = {
       fragment: ['Fragment capture', '#F97316'],
