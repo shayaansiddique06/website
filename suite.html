@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-padding-top:76px}
+body{margin:0;background:#0A0B0E;color:#E6E8EE;font-family:'Inter',-apple-system,'Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#A5B4FC;text-decoration:none}a:hover{color:#C7D2FE}
+::selection{background:rgba(99,102,241,.35)}
+@keyframes mrPulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+@media (max-width:780px){.mr-hide-sm{display:none !important}}
+.mr-scroll::-webkit-scrollbar{width:8px;height:8px}.mr-scroll::-webkit-scrollbar-thumb{background:#23262F;border-radius:4px}.mr-scroll::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+<div data-screen-label="Nav" style="position:sticky;top:0;z-index:100;background:rgba(10,11,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #1C1F27">
+  <div style="max-width:1160px;margin:0 auto;padding:0 22px;height:58px;display:flex;align-items:center;gap:13px">
+    <a href="index.html" style="display:flex;align-items:center;gap:9px;color:#E6E8EE">
+      <svg width="22" height="22"><circle cx="11" cy="11" r="9" style="fill:none;stroke:#6366F1;stroke-width:2;stroke-dasharray:3 2.4"></circle><path d="M7.2 11.4 L10 14.1 L15 8.6" style="fill:none;stroke:#E6E8EE;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"></path></svg>
+      <span style="font-size:12.5px;font-weight:800;letter-spacing:.16em">MILLENNIUM RESEARCH</span>
+    </a>
+    <span class="mr-hide-sm" style="width:1px;height:16px;background:#23262F"></span>
+    <span class="mr-hide-sm" style="font-size:11.5px;color:#6B7280">Faithfulness Eval Suite</span>
+    <span style="flex:1"></span>
+    <span class="mr-hide-sm" style="display:flex;align-items:center;gap:18px;margin-right:4px">
+      <a href="#suite" onClick="{{ nav.suite }}" style="font-size:12.5px;font-weight:500;color:#9CA3AF" style-hover="color:#E6E8EE">The Suite</a>
+      <a href="#inspector" onClick="{{ nav.insp }}" style="font-size:12.5px;font-weight:500;color:#9CA3AF" style-hover="color:#E6E8EE">Inspector</a>
+      <a href="#impact" onClick="{{ nav.impact }}" style="font-size:12.5px;font-weight:500;color:#9CA3AF" style-hover="color:#E6E8EE">Measured</a>
+      <a href="#audit" onClick="{{ nav.audit }}" style="font-size:12.5px;font-weight:500;color:#9CA3AF" style-hover="color:#E6E8EE">Benchmark Audit</a>
+      <a href="#deliverables" onClick="{{ nav.deliv }}" style="font-size:12.5px;font-weight:500;color:#9CA3AF" style-hover="color:#E6E8EE">Deliverables</a>
+      <a href="#pricing" onClick="{{ nav.pricing }}" style="font-size:12.5px;font-weight:500;color:#9CA3AF" style-hover="color:#E6E8EE">Pricing</a>
+    </span>
+    <a class="mr-hide-sm" href="#pricing" onClick="{{ nav.pricing }}" style="background:#6366F1;color:#FFFFFF;font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px" style-hover="background:#787BF4;color:#FFFFFF">Request a scored pilot</a>
+  </div>
+</div>
+<section data-screen-label="Hero" style="position:relative;overflow:hidden">
+  <div style="position:absolute;left:0;right:0;top:-120px;height:480px;background:radial-gradient(640px 300px at 50% 22%,rgba(99,102,241,.16),rgba(99,102,241,0) 70%);pointer-events:none"></div>
+  <div style="position:relative;max-width:1160px;margin:0 auto;padding:72px 22px 60px">
+    <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.22em;color:#818CF8;margin-bottom:18px">LaTeX → Lean 4 · a private faithfulness eval, built from real failures</div>
+    <h1 style="margin:0;font-size:clamp(25px,3.6vw,42px);font-weight:700;letter-spacing:-.025em;line-height:1.14;max-width:880px;text-wrap:pretty">We measure whether formal statements say what the paper says, with error bars we publish on ourselves.</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-top:42px">
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">{{ heroA }}</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Human verdicts</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">every certification is a person, never a model</div>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">{{ heroB }}</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Certified faithful pairs</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">theorems and definitions · novelty-gated</div>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">{{ heroC }}</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Attributed real failures</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">produced by a real system, caught by a human</div>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">{{ heroD }}</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Frontier escape rate</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">human-rejected pairs that pass both frontier judges</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-top:12px">
+      <div style="background:#12141A;border:1px solid rgba(34,197,94,.35);border-radius:12px;padding:20px 20px 17px">
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">121 / 121</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Counterexample record</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">every counterexample-backed flag upheld by human review, across six audits</div>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px 20px 17px">
+        <div style="font-size:clamp(28px,3.2vw,38px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#E6E8EE;font-variant-numeric:tabular-nums">90.7%</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#9CA3AF;margin-top:11px">Verified flag precision</div>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:4px">136 of 150 sampled flags survived human review, pooled across audits</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px">
+      <a href="#pricing" onClick="{{ nav.pricing }}" style="background:#6366F1;color:#FFFFFF;font-size:13px;font-weight:600;padding:11px 20px;border-radius:8px" style-hover="background:#787BF4;color:#FFFFFF">Request a scored pilot</a>
+      <a href="#audit" onClick="{{ nav.audit }}" style="border:1px solid #23262F;color:#C9CEDF;font-size:13px;font-weight:600;padding:11px 20px;border-radius:8px" style-hover="border-color:#6366F1;color:#E6E8EE">See the audits</a>
+    </div>
+    <div style="margin-top:18px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#565D6E">All figures measured 2026-07-19 · reject-only invariant: agents may reject, only humans certify</div>
+  </div>
+</section>
+<section id="suite" data-screen-label="The Suite" style="scroll-margin-top:70px">
+  <div style="max-width:1160px;margin:0 auto;padding:56px 22px 34px">
+    <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">The Suite</div>
+    <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Five sections, and the asset never ships whole</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:660px;line-height:1.6">You submit outputs; we return scored reports. The splits are stratified by difficulty and failure class, so seeing a sample reveals nothing about the private core.</p>
+    <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;overflow:hidden">
+      <div class="mr-scroll" style="overflow-x:auto">
+        <div style="min-width:860px">
+          <div style="display:grid;grid-template-columns:46px minmax(190px,1.3fr) 90px 150px minmax(240px,1.6fr) 130px;gap:12px;padding:11px 16px;border-bottom:1px solid #23262F">
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">#</div>
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Section</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Items</div>
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Visibility</div>
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Purpose</div>
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Status</div>
+          </div>
+          <sc-for list="{{ sections }}" as="row" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:46px minmax(190px,1.3fr) 90px 150px minmax(240px,1.6fr) 130px;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #15171E">
+              <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:#565D6E">{{ row.rank }}</div>
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:#E6E8EE">{{ row.name }}</div>
+                <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E;margin-top:3px">{{ row.sub }}</div>
+              </div>
+              <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#B6BDCF">{{ row.n }}</div>
+              <div style="font-size:11.5px;color:{{ row.visColor }}">{{ row.vis }}</div>
+              <div style="font-size:12px;color:#9DA6BD;line-height:1.5">{{ row.purpose }}</div>
+              <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:{{ row.statusColor }}">{{ row.status }}</div>
+            </div>
+          </sc-for>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;padding:11px 16px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#565D6E">
+            <span>gold rule: no item is sold or scored without 3 blind human labels</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="margin:12px 0 0;font-size:11px;color:#565D6E;line-height:1.65;max-width:920px">Every negative is a real failure a production autoformalizer emitted and a human rejected, not a programmatic perturbation. CC0/CC-BY sources only; no proof text ships anywhere; the automated leak audit runs before every export and its history is committed to git.</p>
+  </div>
+</section>
+<section id="inspector" data-screen-label="Inspector" style="scroll-margin-top:70px">
+  <div style="max-width:1160px;margin:0 auto;padding:46px 22px 34px">
+    <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Example Inspector</div>
+    <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Straight from the corpus</h2>
+    <p style="margin:0 0 18px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Every example below is verbatim from the corpus: the source paper, the Lean draft, the frontier judge&#8217;s back-translation, and the human verdict of record. The flagged ones are from the <b>consensus-breaking section</b>: both frontier judges passed them and a human caught them.</p>
+    <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;display:flex;flex-wrap:wrap;overflow:hidden">
+      <div class="mr-scroll" style="flex:1 1 272px;min-width:272px;border-right:1px solid #1C1F27;max-height:560px;overflow-y:auto">
+        <div style="padding:12px 16px;border-bottom:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">{{ pairsMeta }}</div>
+        <sc-for list="{{ pairs }}" as="p" hint-placeholder-count="6">
+          <div onClick="{{ p.onClick }}" style="padding:13px 16px;border-bottom:1px solid #15171E;cursor:pointer;background:{{ p.bg }}" style-hover="background:#14161D">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="flex:none;width:7px;height:7px;border-radius:50%;background:{{ p.dot }}"></span>
+              <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:#E6E8EE">{{ p.id }}</span>
+              <span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">{{ p.kind }}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:7px">
+              <span style="font-size:10.5px;font-weight:600;color:{{ p.tagColor }};background:{{ p.tagBg }};border-radius:5px;padding:2.5px 7px">{{ p.tag }}</span>
+              
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="flex:2.2 1 440px;min-width:min(100%,340px);padding:20px 22px">
+        <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+          <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:16px;font-weight:700;color:#E6E8EE">{{ selId }}</span>
+          
+          <span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">{{ selKind }}</span>
+        </div>
+        <div style="margin-top:14px;border-radius:10px;padding:13px 15px;background:{{ selVBg }};border:1px solid {{ selVBd }}">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:12px;font-weight:800;letter-spacing:.12em;color:{{ selVColor }}">{{ selVLabel }}</span>
+            <sc-if value="{{ selCatOn }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:11px;font-weight:600;color:{{ selCatColor }}">{{ selCatLabel }}</span>
+            </sc-if>
+          </div>
+          <div style="margin-top:9px;font-size:13px;line-height:1.55;color:#C9CEDF">{{ selDiag }}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+          <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.14em;color:#565D6E">Detection ladder</div>
+          <div style="flex:1;height:1px;background:#1C1F27"></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:10px">
+          <sc-for list="{{ ladder }}" as="l" hint-placeholder-count="5">
+            <span style="display:inline-flex;align-items:center;gap:6px;border:1px solid {{ l.bd }};background:{{ l.bg }};border-radius:7px;padding:4px 9px">
+              <span style="font-size:10.5px;color:#8B93A7">{{ l.name }}</span>
+              <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;color:{{ l.color }}">{{ l.out }}</span>
+            </span>
+          </sc-for>
+        </div>
+        <div style="margin-top:8px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;line-height:1.6;color:#565D6E">recorded outcomes for this exact pair, replayed from the corpus evidence; nothing here is illustrative</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(278px,1fr));gap:12px;margin-top:14px">
+          <div style="background:#0D0F14;border:1px solid #1C1F27;border-radius:10px;padding:14px 16px">
+            <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.14em;color:#565D6E;margin-bottom:10px">Source statement · LaTeX</div>
+            <div style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15.5px;line-height:1.62;color:#E4E1D5">{{ selLatex }}</div>
+          </div>
+          <div style="background:#0D0F14;border:1px solid #1C1F27;border-radius:10px;padding:14px 16px">
+            <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.14em;color:#565D6E;margin-bottom:10px">Formal statement · Lean 4</div>
+            <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;line-height:1.7;color:#C9CEDF;white-space:pre-wrap;word-break:break-word">{{ selLean }}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:18px">
+          <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.14em;color:#565D6E">Provenance trail</div>
+          <div style="flex:1;height:1px;background:#1C1F27"></div>
+        </div>
+        <div style="margin-top:10px;border:1px solid #1C1F27;border-radius:10px;overflow:hidden">
+          <div onClick="{{ toggleR }}" style="display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;user-select:none" style-hover="background:#171A22">
+            <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:#818CF8;width:12px;text-align:center">{{ accRIcon }}</span>
+            <span style="font-size:12.5px;font-weight:600;color:#C9CEDF">Frontier judge: verbatim back-translation</span>
+            <span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">judge A · v1 prompt</span>
+          </div>
+          <sc-if value="{{ accR }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:0 16px 14px 35px;font-size:12.5px;line-height:1.68;color:#9DA6BD">&#8220;{{ selReason }}&#8221;</div>
+          </sc-if>
+          <div onClick="{{ toggleP }}" style="display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;user-select:none;border-top:1px solid #1C1F27" style-hover="background:#171A22">
+            <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:#818CF8;width:12px;text-align:center">{{ accPIcon }}</span>
+            <span style="font-size:12.5px;font-weight:600;color:#C9CEDF">Strict two-judge consensus</span>
+            <span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">both must pass</span>
+          </div>
+          <sc-if value="{{ accP }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 16px 14px 35px;font-size:12.5px;line-height:1.68;color:#9DA6BD">{{ selConsensus }}</div>
+          </sc-if>
+          <div onClick="{{ toggleH }}" style="display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;user-select:none;border-top:1px solid #1C1F27" style-hover="background:#171A22">
+            <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:#818CF8;width:12px;text-align:center">{{ accHIcon }}</span>
+            <span style="font-size:12.5px;font-weight:600;color:#C9CEDF">Human verdict of record</span>
+            <span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E">reject-only invariant</span>
+          </div>
+          <sc-if value="{{ accH }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 16px 14px 35px">
+              <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:500;color:#C9CEDF">{{ selReviewer }}</div>
+
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="impact" data-screen-label="Measured" style="scroll-margin-top:70px">
+  <div style="max-width:1160px;margin:0 auto;padding:46px 22px 34px">
+    <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Measured, Not Promised</div>
+    <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">The numbers we publish on ourselves</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:660px;line-height:1.6">Every eval sells trust. Ours ships its own error bars: the judge configuration behind our harness was calibrated against 886 frozen human verdicts.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
+        <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">LLM judges miss what humans catch</div>
+        <div style="display:flex;align-items:center;gap:24px;margin:20px 0 16px">
+          <div style="position:relative;flex:none;width:148px;height:148px;border-radius:50%;background:conic-gradient(#EF4444 0 23.4%,rgba(34,197,94,.28) 23.4% 100%)">
+            <div style="position:absolute;inset:26px;border-radius:50%;background:#12141A;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <span style="font-size:22px;font-weight:800;letter-spacing:-.02em;color:#EF4444">23.4%</span>
+              <span style="font-size:9.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7;margin-top:3px">escape rate</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;flex:1;min-width:0">
+            <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#9CA3AF"><span style="flex:none;width:9px;height:9px;border-radius:2.5px;background:#EF4444"></span>Theorems<span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;color:#B6BDCF">17.0%</span></span>
+            <span style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#9CA3AF"><span style="flex:none;width:9px;height:9px;border-radius:2.5px;background:#F97316"></span>Definitions<span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;color:#B6BDCF">35.6%</span></span>
+          </div>
+        </div>
+        <p style="margin:0;font-size:12.5px;line-height:1.6;color:#8B93A7"><span style="color:#C9CEDF">23.4% of human-rejected pairs pass both frontier judges under strict consensus.</span> An eval gold-labeled by an LLM judge inherits exactly this blind spot. That is why our gold tier is human, triple-reviewed, and blind.</p>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
+        <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">The corpus tracks a real system getting better</div>
+        <div style="margin:22px 0 0">
+          <div style="display:flex;align-items:baseline"><span style="font-size:12px;color:#C9CEDF">Hard-cheat rate, first drafting era</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;font-weight:600;color:#E6E8EE">21%</span></div>
+          <div style="height:18px;border-radius:5px;background:#1A1D25;margin-top:6px"><div style="height:100%;width:100%;border-radius:5px;background:#EF4444"></div></div>
+        </div>
+        <div style="margin:16px 0 0">
+          <div style="display:flex;align-items:baseline"><span style="font-size:12px;color:#C9CEDF">Hard-cheat rate, current era</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;font-weight:600;color:#E6E8EE">3%</span></div>
+          <div style="height:18px;border-radius:5px;background:#1A1D25;margin-top:6px"><div style="height:100%;width:14.3%;border-radius:5px;background:#22C55E"></div></div>
+        </div>
+        <div style="margin-top:18px;font-size:11.5px;font-weight:600;color:#4ADE80">measured on human verdicts, era over era</div>
+        <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">The negatives span every era, so the suite contains both the crude cheats early systems make and the subtle drift strong systems still make: the failure distribution a buyer faces.</p>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
+        <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">When our screen rejects, it&#8217;s right</div>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:16px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">99.8%</span><span style="font-size:12px;color:#8B93A7">rejection precision</span></div>
+        <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">Every one of 446 consecutive automated rejections from a full production batch was hand-audited: 445 correct and 1 false rejection, which we found and reopened. The audit itself is part of the product discipline.</p>
+        <div style="flex:1"></div>
+        
+      </div>
+    </div>
+      <div style="margin-top:14px;border:1px solid #1C1F27;border-radius:10px;padding:13px 16px">
+        <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.14em;color:#565D6E">Known limits, stated plainly</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:9px">
+          <div style="display:flex;gap:9px;font-size:11.5px;color:#8B93A7;line-height:1.55"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#565D6E;margin-top:6px"></span><span>Our in-house negatives originate from one production system; external coverage now spans three public benchmarks and three open autoformalizers (audits below).</span></div>
+          <div style="display:flex;gap:9px;font-size:11.5px;color:#8B93A7;line-height:1.55"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#565D6E;margin-top:6px"></span><span>Blind multi-rater gold labeling is in progress; inter-rater &#954; ships only once measured.</span></div>
+          <div style="display:flex;gap:9px;font-size:11.5px;color:#8B93A7;line-height:1.55"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#565D6E;margin-top:6px"></span><span>Consensus-section class shares are approximate at n=59.</span></div>
+        </div>
+      </div>
+  </div>
+</section>
+<section id="audit" data-screen-label="Benchmark Audit" style="scroll-margin-top:70px">
+  <div style="max-width:1160px;margin:0 auto;padding:46px 22px 34px">
+    <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Public Benchmark Audit</div>
+    <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">We ran our screen over the field&#8217;s benchmarks</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">A full census: every statement, no sampling. A flag is a candidate, not a verdict: each carries judge back-translations and, where the probe found one, a concrete counterexample, and the verified column fills only from human spot-check. These corpora circulated for years; the defects were sitting in them the whole time, including two nobody had reported and ten introduced by the expert corrections themselves.</p>
+    <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;overflow:hidden">
+      <div class="mr-scroll" style="overflow-x:auto">
+        <div style="min-width:900px">
+          <div style="display:grid;grid-template-columns:minmax(200px,1.4fr) 64px 118px 108px 168px minmax(230px,1.6fr);gap:12px;padding:11px 16px;border-bottom:1px solid #23262F">
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Benchmark</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Pairs</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Flagged</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Counterex.</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Verified precision</div>
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Notes</div>
+          </div>
+          <sc-for list="{{ audit }}" as="b" hint-placeholder-count="3">
+            <div style="display:grid;grid-template-columns:minmax(200px,1.4fr) 64px 118px 108px 168px minmax(230px,1.6fr);gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #15171E">
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:#E6E8EE">{{ b.name }}</div>
+                <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E;margin-top:3px">{{ b.sub }}</div>
+              </div>
+              <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#B6BDCF">{{ b.n }}</div>
+              <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#E6E8EE">{{ b.flagged }}</div>
+              <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#F87171">{{ b.ce }}</div>
+              <div style="text-align:right"><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
+              <div style="font-size:12px;color:#9DA6BD;line-height:1.5">{{ b.notes }}</div>
+            </div>
+          </sc-for>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;padding:11px 16px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#565D6E">
+            <span>measured 2026-07-16 · dual-judge strict consensus + falsification probe + numeric cross-evaluation · Lean elaboration (our mathlib pin): 99.2% / 99.6% / 94.6% valid</span><span>flagged &#8800; wrong; passed_screening &#8800; certified either; humans decide both directions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:14px">
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
+        <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">Paired control: the flags track the fixes</div>
+        <p style="margin:9px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">Same detector, same day, over miniF2F v1 and over the expert-corrected v2s. On exactly the statements the experts changed, our v1 flags cleared. On the statements they left alone, they didn&#8217;t.</p>
+        <div style="margin:20px 0 0">
+          <div style="display:flex;align-items:baseline"><span style="font-size:12px;color:#C9CEDF">Flags cleared where experts corrected the statement</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;font-weight:600;color:#E6E8EE">63.9% <span style="color:#565D6E;font-weight:400">(46/72)</span></span></div>
+          <div style="height:18px;border-radius:5px;background:#1A1D25;margin-top:6px"><div style="height:100%;width:63.9%;border-radius:5px;background:#22C55E"></div></div>
+        </div>
+        <div style="margin:16px 0 0">
+          <div style="display:flex;align-items:baseline"><span style="font-size:12px;color:#C9CEDF">Flags cleared where they didn&#8217;t</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;font-weight:600;color:#E6E8EE">11.1% <span style="color:#565D6E;font-weight:400">(1/9)</span></span></div>
+          <div style="height:18px;border-radius:5px;background:#1A1D25;margin-top:6px"><div style="height:100%;width:11.1%;border-radius:5px;background:#6B7280"></div></div>
+        </div>
+        <div style="margin-top:18px;font-size:11.5px;font-weight:600;color:#4ADE80">paired control · n=487 aligned statements</div>
+        <p style="margin:14px 0 0;font-size:11.5px;line-height:1.65;color:#565D6E">Honest floor: judges are stochastic, so unchanged statements still flip flags between any two runs (5.3% &#8594; 11.8% here). That is why we publish the differential, never the raw drop.</p>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
+        <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">Counterexamples on the corrected benchmark</div>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:16px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">20 / 20</span><span style="font-size:12px;color:#8B93A7">counterexample flags land on expert-corrected statements</span></div>
+        <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">All 20 were confirmed by hand. Each carried a concrete counterexample and sat on a statement the experts had touched: errors that survived expert correction, caught by the screen and verified by a human.</p>
+        <div style="flex:1"></div>
+      </div>
+    </div>
+
+    <h2 style="margin:44px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Then we ran it over the field&#8217;s autoformalizers</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Three open autoformalizers, the same 488 miniF2F problems, one draft per system under each model&#8217;s own documented prompt and decoding settings, scored by the identical screen as the audit above. The point is not a ranking: a large share of translations Lean accepts do not say what the problem says, and a compile check catches none of it. Every defect below carries evidence a human confirmed.</p>
+    <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;overflow:hidden">
+      <div class="mr-scroll" style="overflow-x:auto">
+        <div style="min-width:900px">
+          <div style="display:grid;grid-template-columns:minmax(200px,1.4fr) 64px 118px 108px 168px minmax(230px,1.6fr);gap:12px;padding:11px 16px;border-bottom:1px solid #23262F">
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">System</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Problems</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Flagged</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Counterex.</div>
+            <div style="text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Verified precision</div>
+            <div style="font-size:10.5px;font-weight:600;letter-spacing:.08em;color:#8B93A7">Notes</div>
+          </div>
+          <sc-for list="{{ autosys }}" as="b" hint-placeholder-count="3">
+            <div style="display:grid;grid-template-columns:minmax(200px,1.4fr) 64px 118px 108px 168px minmax(230px,1.6fr);gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #15171E">
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:#E6E8EE">{{ b.name }}</div>
+                <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:#565D6E;margin-top:3px">{{ b.sub }}</div>
+              </div>
+              <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#B6BDCF">{{ b.n }}</div>
+              <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#E6E8EE">{{ b.flagged }}</div>
+              <div style="text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#F87171">{{ b.ce }}</div>
+              <div style="text-align:right"><span style="font-size:11.5px;font-weight:600;color:{{ b.pillColor }}">{{ b.pill }}</span></div>
+              <div style="font-size:12px;color:#9DA6BD;line-height:1.5">{{ b.notes }}</div>
+            </div>
+          </sc-for>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;padding:11px 16px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#565D6E">
+            <span>measured 2026-07-19 · identical protocol to the benchmark audit · verbatim upstream prompts, params in a committed manifest · elaborates in our mathlib pin: 81.3% / 55.9% / 88.1% (environment-sensitive; not counted as defects)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:14px;background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:9px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">121 / 121</span><span style="font-size:12px;color:#8B93A7">counterexample-backed flags human-confirmed, across every audit we have run: three public benchmarks and three autoformalizers</span></div>
+      <p style="margin:12px 0 0;font-size:12.5px;line-height:1.6;color:#8B93A7">When this screen produces a concrete counterexample, values where the hypotheses hold and the conclusion fails, human review has upheld it every time to date. That class is the backbone of every number we publish.</p>
+    </div>
+  </div>
+</section>
+<section id="deliverables" data-screen-label="Deliverables" style="scroll-margin-top:70px">
+  <div style="max-width:1160px;margin:0 auto;padding:46px 22px 34px">
+    <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Deliverables</div>
+    <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">What an engagement ships</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:660px;line-height:1.6">Submit your pairs; your data never enters our database and every run carries a hard spend cap.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:stretch">
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:14.5px;font-weight:700;color:#E6E8EE">Scored audit report</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;color:#8B93A7;border:1px solid #23262F;border-radius:5px;padding:2.5px 7px">MD / PDF</span></div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:18px">
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Flag rates with Wilson intervals, split by kind and failure class</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Per-pair evidence: judge back-translations, lint findings, counterexamples</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>A separate consensus-breaking score line: beating one LLM judge vs beating the measured frontier</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Our own error bars printed in every report&#8217;s calibration block</span></div>
+        </div>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:14.5px;font-weight:700;color:#E6E8EE">Scoring harness</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;color:#8B93A7;border:1px solid #23262F;border-radius:5px;padding:2.5px 7px">Live</span></div>
+        <div style="margin-top:18px;background:#0B0D12;border:1px solid #1C1F27;border-radius:10px;padding:13px 15px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;line-height:1.75;overflow-x:auto" class="mr-scroll">
+          <div><span style="color:#4ADE80;font-weight:700">$</span> <span style="color:#E6E8EE">score-external your_pairs.jsonl --budget 50 --probe</span></div>
+          <div style="color:#565D6E;margin-top:8px">20 pairs; est. ~$1.60 · credits: OK</div>
+          <div><span style="color:#7DD3FC">pair-00014</span> <span style="color:#565D6E">-&gt;</span> <span style="color:#EF4444">flagged</span> <span style="color:#565D6E">(deterministic-vacuous)</span></div>
+          <div><span style="color:#7DD3FC">pair-00011</span> <span style="color:#565D6E">-&gt;</span> <span style="color:#EF4444">flagged</span> <span style="color:#565D6E">(judge-a + judge-b mismatch)</span></div>
+          <div><span style="color:#7DD3FC">pair-00002</span> <span style="color:#565D6E">-&gt;</span> <span style="color:#86EFAC">passed_screening</span></div>
+          <div style="color:#565D6E;margin-top:8px">evidence: scores.jsonl · report: scores.md</div>
+          <div style="color:#565D6E">passed_screening &#8800; certified; humans certify</div>
+        </div>
+        <p style="margin:12px 0 0;font-size:11.5px;line-height:1.6;color:#565D6E">Deterministic screens run free before any paid judge call; a crash or budget breach loses nothing (per-pair appends, resume by id).</p>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:14.5px;font-weight:700;color:#E6E8EE">Consensus-breaking section</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;color:#8B93A7;border:1px solid #23262F;border-radius:5px;padding:2.5px 7px">Hard</span></div>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:16px"><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE">59</span><span style="font-size:12px;color:#8B93A7">pairs both frontier judges passed; a human rejected (28 theorems, 31 definitions)</span></div>
+        <p style="margin:10px 0 0;font-size:12px;line-height:1.6;color:#8B93A7">A further 19 candidates carry external provenance: independent benchmark experts corrected statements our judges had passed.</p>
+        <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:14px">
+          <span title="Missing paper context" style="width:25%;background:#EF4444"></span>
+          <span title="Plausible-neighbor statement" style="width:20%;background:#EC4899"></span>
+          <span title="Fragment capture" style="width:20%;background:#F97316"></span>
+          <span title="Type-semantics traps" style="width:15%;background:#EAB308"></span>
+          <span title="Symbol transposition" style="width:10%;background:#FDA4AF"></span>
+          <span title="Alias definition" style="width:10%;background:#A78BFA"></span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:13px">
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8B93A7"><span style="flex:none;width:7px;height:7px;border-radius:2px;background:#EF4444"></span>Missing context</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8B93A7"><span style="flex:none;width:7px;height:7px;border-radius:2px;background:#EC4899"></span>Plausible neighbor</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8B93A7"><span style="flex:none;width:7px;height:7px;border-radius:2px;background:#F97316"></span>Fragment capture</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8B93A7"><span style="flex:none;width:7px;height:7px;border-radius:2px;background:#EAB308"></span>Type semantics</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8B93A7"><span style="flex:none;width:7px;height:7px;border-radius:2px;background:#FDA4AF"></span>Transpositions</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8B93A7"><span style="flex:none;width:7px;height:7px;border-radius:2px;background:#A78BFA"></span>Alias defs</span>
+        </div>
+        <div style="flex:1"></div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.6;color:#565D6E">Three classes have shipped mechanical detectors (&#8804;2% fire rate on faithful pairs). The same detector stack validated out-of-house: 121 of 121 counterexample-backed flags across three public benchmarks and three autoformalizers were human-confirmed; see the audits above.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="pricing" data-screen-label="Pricing" style="scroll-margin-top:70px">
+  <div style="max-width:1160px;margin:0 auto;padding:46px 22px 64px">
+    <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#818CF8">Pricing</div>
+    <h2 style="margin:10px 0 7px;font-size:21px;font-weight:700;letter-spacing:-.01em;color:#E6E8EE">Priced against the market, in the open</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#8B93A7;max-width:720px;line-height:1.6">Most eval vendors quote nothing until a sales call. We publish our entry price and the market anchors we derived it from, so you can check our math before you send us yours.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:stretch">
+      <div style="background:#12141A;border:1px solid #6366F1;border-radius:12px;padding:20px;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:14.5px;font-weight:700;color:#E6E8EE">Scored pilot</span><span style="margin-left:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;color:#A5B4FC;border:1px solid #6366F1;border-radius:5px;padding:2.5px 7px">Start here</span></div>
+        <div style="margin-top:16px"><div style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE;line-height:1">$5,000</div><div style="font-size:12px;color:#8B93A7;margin-top:6px">flat fee, two-week turnaround</div></div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:16px">
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Up to 1,000 of your pairs through the full detector stack</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Per-pair evidence file and the scored audit report, calibration block included</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>A 30-pair slice human-verified, so you can audit the audit</span></div>
+        </div>
+        <div style="flex:1"></div>
+        <a href="mailto:shayaan@millenniumresearch.ai,ibrahimnmian@gmail.com?subject=Scored%20pilot%20request" style="display:block;text-align:center;background:#6366F1;color:#FFFFFF;font-size:12.5px;font-weight:600;padding:9px 13px;border-radius:8px;margin-top:16px" style-hover="background:#787BF4;color:#FFFFFF">Request a pilot</a>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
+        <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">Suite subscription</div>
+        <div style="margin-top:16px"><div style="display:flex;align-items:baseline;gap:7px"><span style="font-size:12px;color:#8B93A7">from</span><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE;line-height:1">$15,000</span></div><div style="font-size:12px;color:#8B93A7;margin-top:6px">per quarter, scoped to cadence and volume</div></div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:16px">
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Recurring scored runs against the private suite, consensus score line included</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Sealed refresh reserve rotates in as disclosed items retire</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Semi-private section access under NDA for your own spot-checks</span></div>
+        </div>
+        <div style="flex:1"></div>
+        <div style="margin-top:16px;padding-top:12px;border-top:1px solid #1C1F27;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.6;color:#565D6E">the pilot fee credits toward a first subscription quarter</div>
+      </div>
+      <div style="background:#12141A;border:1px solid #23262F;border-radius:12px;padding:20px;display:flex;flex-direction:column">
+        <div style="font-size:14.5px;font-weight:700;color:#E6E8EE">Human certification and commissioned items</div>
+        <div style="margin-top:16px"><div style="display:flex;align-items:baseline;gap:7px"><span style="font-size:12px;color:#8B93A7">from</span><span style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:#E6E8EE;line-height:1">$40</span></div><div style="font-size:12px;color:#8B93A7;margin-top:6px">per pair certified, volume-scoped</div></div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:16px">
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>A human verdict of record on any slice of your corpus, reject-only invariant intact</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Commissioned consensus-grade items, $500 to $2,500 each, scoped by difficulty</span></div>
+          <div style="display:flex;gap:9px;font-size:12.5px;color:#B6BDCF;line-height:1.5"><span style="flex:none;width:5px;height:5px;border-radius:1.5px;background:#6366F1;margin-top:6px"></span><span>Custom failure-class sections built from your own system&#8217;s output</span></div>
+        </div>
+        <div style="flex:1"></div>
+        
+      </div>
+    </div>
+    <p style="margin:14px 0 0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;line-height:1.7;color:#565D6E">market anchors behind these numbers: expert mathematician time runs $110 to $130 per hour (Mercor); commissioned benchmark problems run $300 to $1,000 (FrontierMath) with top-tier items to $5,000 (Humanity&#8217;s Last Exam); commodity LLM-judge calls run $10 to $20 per thousand (Patronus), and our calibration section shows why those alone are not enough.</p>
+  </div>
+</section>
+<div data-screen-label="Footer" style="border-top:1px solid #1C1F27;padding:30px 22px 42px;text-align:center;font-size:12px;color:#565D6E">Millennium Research · <a href="https://millenniumresearch.ai" style="color:#8B93A7" style-hover="color:#C7D2FE">millenniumresearch.ai</a> · All figures measured on our production corpus, 2026-07-19 · methods documented in eval-suite-methods.md</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;countUp&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.VMETA = {
+      certified:  ['Certified faithful · human', '#22C55E', 'rgba(34,197,94,.07)',  'rgba(34,197,94,.32)'],
+      escaped:    ['Human rejected · both judges passed', '#EF4444', 'rgba(239,68,68,.07)',  'rgba(239,68,68,.32)']
+    };
+    this.SECTIONS = [
+      {rank:'01', name:'Public teaser', sub:'demo page + offline viewer', n:'20', vis:'Public', visColor:'#4ADE80', purpose:'Credibility: anyone can verify label quality by hand', status:'assembling', statusColor:'#F59E0B'},
+      {rank:'02', name:'Semi-private', sub:'60 certified + 60 unfaithful', n:'120', vis:'NDA + caps', visColor:'#FBBF24', purpose:'Pilot engagements: your team spot-checks before committing', status:'gold labeling', statusColor:'#F59E0B'},
+      {rank:'03', name:'Private core', sub:'~380 certified + ~600 curated negatives', n:'~980', vis:'Never leaves us', visColor:'#EF4444', purpose:'The scored benchmark; composition refreshed per engagement', status:'gold labeling', statusColor:'#F59E0B'},
+      {rank:'04', name:'Consensus-breaking', sub:'28 thm + 31 def · +19 external-provenance assembling', n:'59', vis:'Never leaves us', visColor:'#EF4444', purpose:'The hard section: separates beating one LLM judge from beating the measured frontier', status:'exported', statusColor:'#4ADE80'},
+      {rank:'05', name:'Refresh reserve', sub:'never published, never scored', n:'150–200', vis:'Sealed', visColor:'#A78BFA', purpose:'Rotates in as disclosed items retire; decay control', status:'pipeline run pending', statusColor:'#F59E0B'}
+    ];
+    this.AUDIT = [
+      {name:'miniF2F (v1)', sub:'cat-searcher/minif2f-lean4 · Apache-2.0 · both splits', n:'488', flagged:'138 · 28.3%', ce:'14',
+       pill:'76.7%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       notes:'Hand-verified: 23/30 flags correct, 14/14 counterexample flags confirmed, 2 previously unreported defects found. Honest recall 72/92 = 78.3%, including 10 expert corrections that broke a sound statement.'},
+      {name:'miniF2F-v2s (expert-corrected)', sub:'roozbeh-yz/miniF2F_v2 · Apache-2.0 · v1 framing kept', n:'488', flagged:'99 · 20.3%', ce:'21',
+       pill:'76.7%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       notes:'Hand-verified: 23/30 flags correct, all 20 counterexample flags confirmed, 0 misses in 10 pass controls. Every false flag traces to one disclosed signal class.'},
+      {name:'ProofNet#', sub:'PAug/ProofNetSharp · MIT', n:'371', flagged:'90 · 24.3%', ce:'51',
+       pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       notes:'Hand-verified: 30/30 counterexample-backed flags correct, 0 misses in 10 pass controls. Across all three corpora, 64 of 64 counterexample flags are human-confirmed.'}
+    ];
+    this.AUTOSYS = [
+      {name:'StepFun-Formalizer 7B', sub:'stepfun-ai · Apache-2.0 · greedy, one draft', n:'488', flagged:'157 · 32.6%', ce:'56',
+       pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       notes:'Hand-verified: 20/20 sampled flags correct, 0 misses in 10 pass controls. 6 of 488 runs returned empty output; counted separately, not scored.'},
+      {name:'Kimina-Autoformalizer 7B', sub:'AI-MO / Project Numina · Apache-2.0 · greedy, one draft', n:'488', flagged:'166 · 34.0%', ce:'71',
+       pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       notes:'Hand-verified: 20/20 sampled flags correct, 0 misses in 10 pass controls. The most counterexample-bearing flags of the two greedy systems.'},
+      {name:'Herald translator', sub:'FrenzyMath · Apache-2.0 · native temperature 0.99, one sample', n:'488', flagged:'271 · 55.5%', ce:'149',
+       pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
+       notes:'Hand-verified: 20/20 sampled flags correct, all counterexample-backed, 0 control misses. Read as single-draw reliability: Herald’s own pipeline samples 128 candidates and keeps what compiles, so this row is not comparable to its published pass rate, and says so.'}
+    ];
+    this.CAT = {
+      fragment: ['Fragment capture', '#F97316'],
+      context:  ['Missing paper context', '#EF4444'],
+      abstract: ['Over-abstraction', '#EC4899']
+    };
+    this.PAIRS = [
+      {id:'MR-1499', kind:'theorem', verdict:'escaped', cat:'fragment',
+       latex:'Let p be an odd prime. If p | (k²+1) for 1 ≤ k ≤ n, then p ≡ 1 (mod 4).',
+       lean:'theorem prime_dvd_sq_add_one_imp_one_mod_four\n    {p k : ℕ} (hp : p.Prime) (hodd : Odd p)\n    (hk : p ∣ k^2 + 1) : p % 4 = 1 := by\n  sorry',
+       diag:'The informal statement constrains a whole range 1 ≤ k ≤ n; the Lean keeps a single unconstrained k: a true classical fact, but not the paper’s lemma. Both frontier judges passed it.',
+       reason:'Let p and k be natural numbers. Suppose p is prime and odd, and p divides k² + 1. Then p mod 4 = 1.',
+       consensus:'Judge A (v1 prompt): faithful. Judge B (checklist prompt, different frontier model): faithful. The pair enters the consensus-breaking section because the human verdict of record is unfaithful.',
+       reviewer:'Rejected in review · reviewer: Will'},
+      {id:'MR-10988', kind:'theorem', verdict:'escaped', cat:'context',
+       latex:'If p is a prime integer such that f(p) ≠ 0, then ⟨f⟩ is a prime ideal of 𝒶.',
+       lean:'theorem span_prime_of_prime_eval_ne_zero\n    (f : ArithmeticFunction ℂ) (p : ℕ) (hp : p.Prime) (hfp : f p ≠ 0) :\n    (Ideal.span {f}).IsPrime := by\n  sorry',
+       diag:'The paper’s f lives in a specific family fixed earlier in the section; the Lean quantifies over every arithmetic function, where the claim fails. The load-bearing context is off-screen; this is the leading escape class.',
+       reason:'Let f be an arithmetic function with complex values, and let p be a natural number that is prime. Suppose f(p) ≠ 0. Then the ideal generated by {f} (in the ring of arithmetic functions ℂ) is a prime ideal.',
+       consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: unfaithful; consensus-breaking.',
+       reviewer:'Rejected in review · reviewer: ibbymian'},
+      {id:'MR-2237', kind:'theorem', verdict:'escaped', cat:'abstract',
+       latex:'We have |V₁| ≥ (α/2)n, and hence, |V₂| ≤ (1 − α/2)n.',
+       lean:'theorem V1_V2_bounds (n : ℕ) (α : ℝ) (V1card V2card : ℝ)\n    (hα : 0 < α) (hsum : V1card + V2card = n)\n    (hV1 : V1card ≥ (α / 2) * n) :\n    V2card ≤ (1 - α / 2) * n := by\n  sorry',
+       diag:'The vertex sets V₁, V₂ became free real numbers with an assumed sum. Only the arithmetic shell of the paper’s claim survives: provable, and about nothing.',
+       reason:'For a natural number n, a real number α > 0, and real numbers V₁card and V₂card such that V₁card + V₂card = n and V₁card ≥ (α/2)n, it holds that V₂card ≤ (1 − α/2)n.',
+       consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: unfaithful; consensus-breaking.',
+       reviewer:'Rejected in review · reviewer: Will'},
+      {id:'MR-7997', kind:'definition', verdict:'escaped', cat:'context',
+       latex:'z is a unit if rₖₖₖ(z) = 1 for all k ≠ 0.',
+       lean:'def IsUnit′ {n : ℕ} (r : ℤ → ℤ → ℤ → (Fin n → ℝ) → ℝ)\n    (z : Fin n → ℝ) : Prop :=\n  ∀ k : ℤ, k ≠ 0 → r k k k z = 1',
+       diag:'It reads perfectly, but r is a free parameter, not the paper’s specific correlation function. A definition of “unit” relative to an arbitrary r defines nothing. Definitions escape twice as often as theorems (35.6% vs 17.0%).',
+       reason:'Given a natural number n, a function r taking three integers and a point in ℝⁿ to a real number, and a point z in ℝⁿ, IsUnit′ r z holds iff for every nonzero integer k, r k k k z = 1.',
+       consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: unfaithful; consensus-breaking.',
+       reviewer:'Rejected in review · reviewer: ibbymian'},
+      {id:'MR-8609', kind:'theorem', verdict:'certified', cat:null,
+       latex:'The arithmetic ring 𝒶 is a local ring.',
+       lean:'theorem arithmetic_ring_isLocalRing :\n    IsLocalRing (ArithmeticFunction ℂ) := by\n  sorry',
+       diag:'The paper’s ring is exactly mathlib’s ArithmeticFunction ℂ and the conclusion is the standard IsLocalRing: every piece of the informal claim is pinned to a real mathlib object.',
+       reason:'The ring of complex-valued arithmetic functions is a local ring.',
+       consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: faithful; certified, confirmed-novel tier.',
+       reviewer:'Certified in review · human reviewer of record'},
+      {id:'MR-8618', kind:'theorem', verdict:'certified', cat:null,
+       latex:'𝒶 is not a Bézout domain.',
+       lean:'theorem arithmeticFunction_not_bezout :\n    ¬ IsBezout (ArithmeticFunction ℂ) := by\n  sorry',
+       diag:'Negation of a named mathlib structure on the paper’s exact ring; nothing added, nothing dropped.',
+       reason:'The ring of complex-valued arithmetic functions is not a Bézout ring.',
+       consensus:'Judge A: faithful. Judge B: faithful. Human verdict of record: faithful; certified, confirmed-novel tier.',
+       reviewer:'Certified in review · human reviewer of record'}
+    ];
+    this.LRE = /(theorem|def(?![a-zA-Z]))|(ArithmeticFunction|IsLocalRing|IsBezout|Ideal\.span|IsPrime|Fin(?![a-zA-Z])|Prime|Odd|Prop|ℕ|ℝ|ℤ|ℂ)|(∃|∀|∈|≤|≥|≠|→|↔|:=|∣|¬|%)|(\d+)/g;
+    this.state = {
+      sel:'MR-10988', accR:true, accP:true, accH:false,
+      anim:(props && (props.countUp ?? true)) ? 0 : 1
+    };
+  }
+  componentDidMount() {
+    if (this.state.anim >= 1) return;
+    const t0 = performance.now(), D = 1500;
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / D);
+      this.setState({ anim: 1 - Math.pow(1 - t, 3) });
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  scrollToId(id) {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' });
+  }
+  navH(id) {
+    return (e) => { if (e && e.preventDefault) e.preventDefault(); if (id === 'top') window.scrollTo({ top: 0, behavior: 'smooth' }); else this.scrollToId(id); };
+  }
+  hlLean(code) {
+    const COLS = ['#818CF8', '#7DD3FC', '#A5B4FC', '#FBBF24'];
+    return code.split('\n').map((line, li) => {
+      const out = []; let last = 0;
+      for (const m of line.matchAll(this.LRE)) {
+        if (m.index > last) out.push(line.slice(last, m.index));
+        const ci = m[1] ? 0 : m[2] ? 1 : m[3] ? 2 : 3;
+        out.push(React.createElement('span', { key: out.length, style: { color: COLS[ci], fontWeight: ci === 0 ? 600 : 400 } }, m[0]));
+        last = m.index + m[0].length;
+      }
+      if (last < line.length) out.push(line.slice(last));
+      return React.createElement('div', { key: li }, out.length ? out : ' ');
+    });
+  }
+  renderVals() {
+    const { sel, anim } = this.state;
+    const e = anim;
+    const pairs = this.PAIRS.map(p => {
+      const v = this.VMETA[p.verdict];
+      const tag = p.cat ? this.CAT[p.cat][0].toLowerCase() : 'certified faithful';
+      const tagColor = p.cat ? this.CAT[p.cat][1] : v[1];
+      return {
+        id: p.id, dot: v[1], kind: p.kind, tag, tagColor,
+        tagBg: p.verdict === 'certified' ? 'rgba(34,197,94,.10)' : 'rgba(239,68,68,.10)',
+        bg: sel === p.id ? 'rgba(99,102,241,.07)' : 'transparent',
+        onClick: () => this.setState({ sel: p.id })
+      };
+    });
+    const sp = this.PAIRS.find(p => p.id === sel) || this.PAIRS[0];
+    const sv = this.VMETA[sp.verdict];
+    const esc = sp.verdict === 'escaped';
+    const quiet = { bd: '#1C1F27', bg: '#0D0F14' };
+    const ladder = [
+      { name: 'Lean compiler', out: 'accepts', color: '#8B93A7', ...quiet },
+      { name: 'Judge A', out: esc ? 'no flag' : 'faithful', color: esc ? '#8B93A7' : '#4ADE80', ...quiet },
+      { name: 'Judge B', out: esc ? 'no flag' : 'faithful', color: esc ? '#8B93A7' : '#4ADE80', ...quiet },
+      { name: 'Strict consensus', out: esc ? 'no flag' : 'faithful', color: esc ? '#8B93A7' : '#4ADE80', ...quiet },
+      esc
+        ? { name: 'Human review', out: 'caught', color: '#EF4444', bd: 'rgba(239,68,68,.32)', bg: 'rgba(239,68,68,.07)' }
+        : { name: 'Human review', out: 'certified', color: '#22C55E', bd: 'rgba(34,197,94,.32)', bg: 'rgba(34,197,94,.07)' }
+    ];
+    return {
+      heroA: this.fmt(Math.round(4000 * e)) + '+',
+      heroB: this.fmt(Math.round(590 * e)) + '+',
+      heroC: this.fmt(Math.round(3400 * e)) + '+',
+      heroD: (23.4 * e).toFixed(1) + '%',
+      nav: { top: this.navH('top'), suite: this.navH('suite'), insp: this.navH('inspector'), impact: this.navH('impact'), audit: this.navH('audit'), deliv: this.navH('deliverables'), pricing: this.navH('pricing') },
+      sections: this.SECTIONS,
+      audit: this.AUDIT,
+      autosys: this.AUTOSYS,
+      pairsMeta: '6 pairs · all verbatim from the corpus',
+      pairs,
+      selId: sp.id, selKind: sp.kind,
+      selVLabel: sv[0], selVColor: sv[1], selVBg: sv[2], selVBd: sv[3],
+      selCatOn: !!sp.cat,
+      selCatLabel: sp.cat ? this.CAT[sp.cat][0] : '',
+      selCatColor: sp.cat ? this.CAT[sp.cat][1] : '#8B93A7',
+      selDiag: sp.diag, selLatex: sp.latex, selLean: this.hlLean(sp.lean),
+      ladder,
+      selReason: sp.reason, selConsensus: sp.consensus, selReviewer: sp.reviewer,
+      accR: this.state.accR, accP: this.state.accP, accH: this.state.accH,
+      accRIcon: this.state.accR ? '−' : '+', accPIcon: this.state.accP ? '−' : '+', accHIcon: this.state.accH ? '−' : '+',
+      toggleR: () => this.setState(s => ({ accR: !s.accR })),
+      toggleP: () => this.setState(s => ({ accP: !s.accP })),
+      toggleH: () => this.setState(s => ({ accH: !s.accH }))
+    };
+  }
+}
+</script>
+</body>
+</html>

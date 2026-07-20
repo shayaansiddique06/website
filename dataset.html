@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dataset · Millennium Research</title>
-<meta name="description" content="A live snapshot of verification verdicts across the current formalization run.">
+<meta name="description" content="Pairs from the corpus, shown the way reviewers see them: source, formalization, and the human verdict with its rationale.">
 <meta name="theme-color" content="#0A0C0B">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="Millennium Research">
@@ -37,6 +37,7 @@
     <nav class="nav-links" aria-label="Primary">
       <ul>
         <li><a href="thesis.html">Thesis</a></li>
+        <li><a href="research.html">Research</a></li>
         <li><a href="dataset.html" class="is-active" aria-current="page">Dataset</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="contact.html">Access</a></li>
@@ -51,6 +52,7 @@
     <nav aria-label="Mobile">
       <ul>
         <li><a href="thesis.html">Thesis</a></li>
+        <li><a href="research.html">Research</a></li>
         <li><a href="dataset.html" aria-current="page">Dataset</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="contact.html">Access</a></li>
@@ -63,8 +65,8 @@
 
 <section class="section" id="dataset" aria-labelledby="dataset-title">
     <div class="container">
-      <h2 id="dataset-title" data-reveal>An example of the corpus, as it stands.</h2>
-      <p class="section-sub" data-reveal>A live snapshot of verification verdicts across the current formalization run.</p>
+      <h2 id="dataset-title" data-reveal>The corpus, up close.</h2>
+      <p class="section-sub" data-reveal>Real pairs, shown the way reviewers see them. Filter by verdict to read the human rationale behind each call.</p>
 
       <div class="filters" role="group" aria-label="Filter theorem samples by verdict" data-reveal>
         <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
@@ -95,6 +97,10 @@
   nlinarith [Real.sq_sqrt (mul_nonneg ha hb),
     Real.sqrt_nonneg (a * b), sq_nonneg (a - b)]</code></pre>
               </div>
+              <div class="panel panel-why">
+                <span class="panel-cap">verdict rationale · human review</span>
+                <p>Everything the informal statement asserts survives translation. Both variables range over nonnegative reals, matching the hypothesis; the geometric and arithmetic means appear on the correct sides; no hypothesis is added or dropped. The proof closes without sorry. Certified faithful.</p>
+              </div>
             </div>
           </article>
         </li>
@@ -119,30 +125,14 @@ theorem primes_three_mod_four :
     Nat.exists_infinite_primes (n + 1)
   exact ⟨p, hle, hp⟩</code></pre>
               </div>
+              <div class="panel panel-why">
+                <span class="panel-cap">verdict rationale · human review</span>
+                <p>The informal claim is about primes congruent to 3 mod 4. The Lean statement proves that primes are infinite with the congruence condition dropped entirely. That is a true theorem, and the compiler accepts it, but it is a strictly weaker one: the congruence class is the whole content of the claim. Rejected as unfaithful.</p>
+              </div>
             </div>
           </article>
         </li>
 
-        <li class="card" data-verdict="faithful">
-          <article aria-label="Theorem sample, verdict faithful">
-            <header class="card-head">
-              <span class="badge" data-verdict="faithful">faithful</span>
-            </header>
-            <div class="card-panels">
-              <div class="panel panel-tex">
-                <span class="panel-cap">source · LaTeX</span>
-                <p class="tex">For every \(n \in \mathbb{N}\), \(\gcd(n,\, n+1) = 1\).</p>
-              </div>
-              <div class="panel panel-lean">
-                <span class="panel-cap">formalization · Lean 4</span>
-<pre><code class="language-lean">theorem gcd_succ_self (n : ℕ) :
-    Nat.gcd n (n + 1) = 1 := by
-  simpa [Nat.Coprime, Nat.gcd_comm]
-    using Nat.coprime_succ_self n</code></pre>
-              </div>
-            </div>
-          </article>
-        </li>
 
       </ul>
     </div>
