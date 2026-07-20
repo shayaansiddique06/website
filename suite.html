@@ -499,12 +499,12 @@ class Component extends DCLogic {
        notes:'Hand-verified: 30/30 counterexample-backed flags correct, 0 misses in 10 pass controls. Across all three corpora, 64 of 64 counterexample flags are human-confirmed.'}
     ];
     this.AUTOSYS = [
-      {name:'StepFun-Formalizer 7B', sub:'stepfun-ai · Apache-2.0 · greedy, one draft', n:'488', flagged:'159 · 33.0%', ce:'55',
+      {name:'StepFun-Formalizer 7B', sub:'stepfun-ai · Apache-2.0 · greedy, one draft', n:'488', flagged:'157 · 32.6%', ce:'56',
        pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
-       notes:'Hand-verified: 20/20 sampled flags correct (19 counterexample-backed), 0 misses in 10 pass controls. 6 of 488 runs returned empty output; counted separately, not scored.'},
-      {name:'Kimina-Autoformalizer 7B', sub:'AI-MO / Project Numina · Apache-2.0 · greedy, one draft', n:'488', flagged:'178 · 36.5%', ce:'70',
+       notes:'Hand-verified: 20/20 sampled flags correct, 0 misses in 10 pass controls. 6 of 488 runs returned empty output; counted separately, not scored.'},
+      {name:'Kimina-Autoformalizer 7B', sub:'AI-MO / Project Numina · Apache-2.0 · greedy, one draft', n:'488', flagged:'166 · 34.0%', ce:'71',
        pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
-       notes:'Hand-verified: 20/20 sampled flags correct (18 counterexample-backed), 0 misses in 10 pass controls. The most counterexample-bearing flags of the two greedy systems.'},
+       notes:'Hand-verified: 20/20 sampled flags correct, 0 misses in 10 pass controls. The most counterexample-bearing flags of the two greedy systems.'},
       {name:'Herald translator', sub:'FrenzyMath · Apache-2.0 · native temperature 0.99, one sample', n:'488', flagged:'271 · 55.5%', ce:'149',
        pill:'100%', pillColor:'#4ADE80', pillBorder:'rgba(34,197,94,.35)', pillBg:'rgba(34,197,94,.10)',
        notes:'Hand-verified: 20/20 sampled flags correct, all counterexample-backed, 0 control misses. Read as single-draw reliability: Herald’s own pipeline samples 128 candidates and keeps what compiles, so this row is not comparable to its published pass rate, and says so.'}
