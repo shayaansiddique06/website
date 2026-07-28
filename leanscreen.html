@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>leanscreen · Millennium Research</title>
-<meta name="description" content="leanscreen is a calibrated faithfulness screen for informal–Lean 4 statement pairs, served over MCP. It checks statements while you draft them. It may only reject — only a human certifies.">
+<meta name="description" content="leanscreen is a calibrated faithfulness screen for Lean 4 statements, served over MCP. It catches formal statements that compile but don't say what the mathematics says. Screens only — never certifies.">
 <meta name="theme-color" content="#0A0C0B">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="leanscreen — Millennium Research">
-<meta property="og:description" content="A calibrated faithfulness screen for informal–Lean 4 pairs, served over MCP. Screens only — never certifies.">
+<meta property="og:description" content="A calibrated faithfulness screen for Lean 4, served over MCP. Screens only — never certifies.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
@@ -17,26 +17,87 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="home.css?v=9">
 <style>
-  /* Page-local: code blocks, matching the mono-list aesthetic. */
-  .mr-code{
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    line-height: 1.7;
+  /* Page-local: one centered column, nothing else. */
+  .ls-hero{
+    min-height: 92vh;
+    min-height: 92svh;
+    display: grid;
+    align-items: center;
+    position: relative;
+    padding-top: var(--nav-h);
+  }
+  .ls-inner{
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .ls-inner h1{
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin: 18px 0 0;
     color: var(--text);
+  }
+  .ls-sub{
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 22px auto 0;
+    max-width: 54ch;
+  }
+  .ls-sub em{ font-style: italic; color: var(--accent); }
+  .ls-install{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 36px auto 0;
+    max-width: 420px;
     background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 14px 8px 14px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    color: var(--text);
+    text-align: left;
+  }
+  .ls-install code{ overflow-x: auto; white-space: nowrap; }
+  .ls-install code::before{ content: "$ "; color: var(--text-faint); }
+  .ls-copy{
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 18px 22px;
-    overflow-x: auto;
-    margin: 18px 0 0;
+    padding: 7px 12px;
+    cursor: pointer;
   }
-  .mr-code .c-dim{ color: var(--text-muted); }
-  .mr-hero--compact{ min-height: 62vh; min-height: 62svh; }
-  .mr-hero-sub code{
+  .ls-copy:hover{ border-color: var(--accent); color: var(--accent-bright); }
+  .ls-cta{
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 26px;
+    flex-wrap: wrap;
+  }
+  .ls-fineprint{
     font-family: var(--font-mono);
-    font-size: 0.9em;
-    color: var(--accent);
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    line-height: 2;
+    color: var(--text-faint);
+    margin-top: 44px;
   }
+  .ls-fineprint b{ color: var(--text-muted); font-weight: 500; }
 </style>
 <script defer src="zeta.js?v=11"></script>
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
@@ -80,225 +141,29 @@
 
 <main id="main">
 
-  <!-- ================================ HERO ================================ -->
-  <section class="mr-hero mr-hero--compact" aria-label="Introduction">
-    <div class="mr-wrap mr-hero-inner">
+  <section class="ls-hero" aria-label="leanscreen">
+    <canvas class="mr-hero-canvas" id="zeta-spiral" aria-hidden="true"></canvas>
+    <div class="ls-inner">
       <span class="mr-kicker">Open tooling &middot; MCP</span>
-      <h1>leanscreen<br><em>The screen you run while you draft.</em></h1>
-      <p class="mr-hero-sub">
-        A calibrated faithfulness screen for informal&ndash;Lean&nbsp;4
-        statement pairs, served over
-        <a class="mr-inline-link" href="https://modelcontextprotocol.io">MCP</a>
-        so Claude Code, Claude Desktop, or any MCP client can check statements
-        as they&rsquo;re written. The same detector stack behind our benchmark
-        audits &mdash; with its measured error rates attached to every answer.
+      <h1>leanscreen</h1>
+      <p class="ls-sub">
+        A faithfulness screen for Lean&nbsp;4. It catches formal statements
+        that compile but <em>don&rsquo;t say what the mathematics says</em>
+        &mdash; while you draft them, inside Claude Code or any MCP client.
       </p>
-      <div class="mr-hero-cta">
+      <div class="ls-install">
+        <code id="ls-cmd">pip install leanscreen</code>
+        <button class="ls-copy" id="ls-copy" aria-label="Copy install command">Copy</button>
+      </div>
+      <div class="ls-cta">
         <a class="mr-btn mr-btn--solid" href="https://github.com/ibrahimmian36/leanscreen">GitHub &rarr;</a>
         <a class="mr-btn" href="contact.html">Request certification</a>
       </div>
-    </div>
-  </section>
-
-  <!-- ============================ THE INVARIANT =========================== -->
-  <section class="mr-section" id="invariant" aria-label="The invariant">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>The one thing to understand</span>
-      <p class="mr-statement" data-mr-reveal>
-        This screen may only <em>reject.</em>
-        A pass means &ldquo;nothing found&rdquo; &mdash; never
-        &ldquo;faithful.&rdquo; Only a human certifies.
+      <p class="ls-fineprint">
+        <b>Screens only &mdash; never certifies.</b><br>
+        Deterministic checks are free and local &middot; deep checks run on your own key<br>
+        Calibrated on 886 frozen human verdicts &middot; error rates ship with every response
       </p>
-      <div class="mr-stats" data-mr-reveal>
-        <div class="mr-stat">
-          <div class="mr-stat-num">886</div>
-          <div class="mr-stat-label">frozen human verdicts calibrate the judges. The measured error rates ship verbatim in every response.</div>
-        </div>
-        <div class="mr-stat">
-          <div class="mr-stat-num">~0.1s</div>
-          <div class="mr-stat-label">per fast check once the Lean REPL is warm. Deterministic only &mdash; zero API calls, no key required.</div>
-        </div>
-        <div class="mr-stat">
-          <div class="mr-stat-num">$0.17&ndash;0.27</div>
-          <div class="mr-stat-label">measured cost per deep check, on your own API key. Actual spend is reported in the response.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="zeta-divider" role="presentation"></div>
-
-  <!-- ============================== TWO TOOLS ============================= -->
-  <section class="mr-section" id="tools" aria-label="Two tools">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>Two tools</span>
-      <div class="mr-twoup" data-mr-reveal>
-        <div>
-          <h3>check_fast</h3>
-          <p>
-            Deterministic only: lints for unused binders, trivially
-            satisfiable existentials, pinned witnesses, suspicious
-            &#8469;-arithmetic; vacuity checks for reflexive and
-            <code>True</code> goals and withheld declarations; and real
-            Lean&nbsp;4 elaboration against your own mathlib environment.
-          </p>
-          <p>
-            <strong>Call it constantly.</strong> It costs nothing and answers
-            in a tenth of a second once mathlib is warm.
-          </p>
-          <ul class="mr-mono-list">
-            <li><span>network</span><b>none &mdash; no API key</b></li>
-            <li><span>latency, warm REPL</span><b>~0.1s per statement</b></li>
-            <li><span>evidence class</span><b>deterministic</b></li>
-          </ul>
-        </div>
-        <div>
-          <h3>check_deep</h3>
-          <p>
-            Everything in <code>check_fast</code>, plus two independent LLM
-            judges under strict consensus &mdash; a back-translation judge and
-            a clause-by-clause checklist judge on separate models &mdash; and
-            an adversarial counterexample probe.
-          </p>
-          <p>
-            <strong>Call it deliberately,</strong> before something ships.
-            Runs on your <code>ANTHROPIC_API_KEY</code>; every response ranks
-            its evidence, and a single-judge flag is explicitly labeled as
-            below the reporting bar.
-          </p>
-          <ul class="mr-mono-list">
-            <li><span>judges per pair</span><b>2, strict consensus</b></li>
-            <li><span>measured cost</span><b>$0.17&ndash;0.27 / statement</b></li>
-            <li><span>evidence ladder</span><b>counterexample &gt; deterministic &gt; consensus</b></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="zeta-divider" role="presentation"></div>
-
-  <!-- ============================= CALIBRATION ============================ -->
-  <section class="mr-section" id="calibration" aria-label="What it does not guarantee">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>What it does not guarantee</span>
-      <p class="mr-statement" data-mr-reveal>
-        We publish the instrument&rsquo;s <em>own error rates.</em>
-        Here they are.
-      </p>
-      <div class="mr-grid" data-mr-reveal>
-        <div class="mr-card">
-          <span class="mr-card-tag">Miss rate &middot; theorems</span>
-          <span class="mr-card-num">17.0<small>%</small></span>
-          <h3>Human-rejected theorems that still pass</h3>
-          <p>Against 886 frozen human verdicts, statements a reviewer had rejected passed the full screen 17.0% of the time for theorems.</p>
-        </div>
-        <div class="mr-card">
-          <span class="mr-card-tag">Miss rate &middot; definitions</span>
-          <span class="mr-card-num">35.6<small>%</small></span>
-          <h3>Definitions are harder</h3>
-          <p>Human-rejected definitions passed 35.6% of the time. If your corpus is definition-heavy, weigh a pass accordingly.</p>
-        </div>
-        <div class="mr-card">
-          <span class="mr-card-tag">False-flag rate</span>
-          <span class="mr-card-num">15&ndash;18<small>%</small></span>
-          <h3>Certified pairs still get flagged</h3>
-          <p>Statements a human had certified faithful were flagged 15&ndash;18% of the time. Every flag is a candidate for review, not a verdict.</p>
-        </div>
-        <div class="mr-card">
-          <span class="mr-card-tag">Probe honesty</span>
-          <span class="mr-card-num">4<small>&nbsp;of 5</small></span>
-          <h3>The probe confabulates</h3>
-          <p>On one PutnamBench hand-check, four of five counterexamples the probe produced were wrong. Both judges are Anthropic-family models, so correlated blind spots cannot be ruled out.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="zeta-divider" role="presentation"></div>
-
-  <!-- =============================== INSTALL ============================== -->
-  <section class="mr-section" id="install" aria-label="Install">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>Install</span>
-      <div class="mr-twoup" data-mr-reveal>
-        <div>
-          <h3>One line</h3>
-          <p>
-            Python &ge; 3.12. Four runtime dependencies. Without a Lean
-            project it still runs &mdash; and says plainly that elaboration
-            was skipped. With one, statements elaborate for real against your
-            mathlib; the REPL warms once at startup, in the background.
-          </p>
-<pre class="mr-code">pip install git+https://github.com/ibrahimmian36/leanscreen</pre>
-        </div>
-        <div>
-          <h3>Point your client at it</h3>
-          <p>
-            Claude Code reads <code>.mcp.json</code> in your project;
-            Claude Desktop uses <code>claude_desktop_config.json</code>.
-            The key is needed for <code>check_deep</code> only.
-          </p>
-<pre class="mr-code">{
-  "mcpServers": {
-    "lean-faithfulness-screen": {
-      "command": "leanscreen",
-      "env": {
-        "LEANSCREEN_LEAN_PROJECT_PATH": "<span class="c-dim">/path/to/your/mathlib-project</span>",
-        "LEANSCREEN_LEAN_REPL_PATH": "<span class="c-dim">/path/to/repl/.lake/build/bin/repl</span>",
-        "ANTHROPIC_API_KEY": "<span class="c-dim">&hellip;</span>"
-      }
-    }
-  }
-}</pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="zeta-divider" role="presentation"></div>
-
-  <!-- ========================= PROVENANCE + LICENSE ======================= -->
-  <section class="mr-section" id="provenance" aria-label="Provenance and license">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>Provenance &amp; license</span>
-      <div class="mr-twoup" data-mr-reveal>
-        <div>
-          <h3>Where it comes from</h3>
-          <p>
-            Extracted from Millennium Research&rsquo;s private formalization
-            platform. The detector stack, judge prompts, and calibration
-            figures are the ones behind our benchmark audits &mdash; the
-            miniF2F and ProofNet# filings are
-            <a class="mr-inline-link" href="research.html">public</a>; the
-            PutnamBench, ProofNetVerif, and CLEVER audits have been shared
-            with their maintainers. The calibration <em>data</em> is not
-            included.
-          </p>
-          <p>
-            Human certification &mdash; an expert confirming the Lean means
-            the mathematics &mdash; is what this tool deliberately does not
-            automate. We offer it as a service:
-            <a class="mr-inline-link" href="contact.html">request access</a>.
-          </p>
-        </div>
-        <div>
-          <h3>FSL-1.1-Apache-2.0</h3>
-          <p>
-            The Functional Source License: free to use, copy, modify, and
-            redistribute &mdash; including internal commercial use, research,
-            and professional services &mdash; but not to offer as a competing
-            commercial product. <strong>Each version automatically becomes
-            Apache&nbsp;2.0 two years after release</strong> &mdash; the same
-            license as mathlib.
-          </p>
-          <ul class="mr-mono-list">
-            <li><span>source</span><b>github.com/ibrahimmian36/leanscreen</b></li>
-            <li><span>license</span><b>FSL-1.1 &rarr; Apache-2.0</b></li>
-            <li><span>contact</span><b>ibrahimnmian@gmail.com</b></li>
-          </ul>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -337,6 +202,35 @@
       btn.setAttribute('aria-expanded', String(!open));
       overlay.hidden = open;
       document.documentElement.classList.toggle('menu-open', !open);
+    });
+  })();
+  // Copy-to-clipboard for the install command, with execCommand fallback
+  // for non-secure contexts where the async clipboard API is unavailable.
+  (function () {
+    var btn = document.getElementById('ls-copy');
+    var cmd = document.getElementById('ls-cmd');
+    if (!btn || !cmd) return;
+    function flash() {
+      btn.textContent = 'Copied';
+      setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+    }
+    function fallback(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { if (document.execCommand('copy')) flash(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    btn.addEventListener('click', function () {
+      var text = cmd.textContent;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(flash, function () { fallback(text); });
+      } else {
+        fallback(text);
+      }
     });
   })();
 </script>
