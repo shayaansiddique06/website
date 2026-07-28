@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/leanscreen", "destination": "/leanscreen.html" }
+  ]
+}
