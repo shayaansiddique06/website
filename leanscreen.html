@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>leanscreen · Millennium Research</title>
-<meta name="description" content="leanscreen is a calibrated faithfulness screen for Lean 4 statements, served over MCP. It catches formal statements that compile but don't say what the mathematics says. Screens only, never certifies.">
+<meta name="description" content="leanscreen is a calibrated faithfulness screen for Lean 4 statements, on the command line and over MCP. It catches formal statements that compile but don't say what the mathematics says. Screens only, never certifies.">
 <meta name="theme-color" content="#0A0C0B">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="leanscreen · Millennium Research">
-<meta property="og:description" content="A calibrated faithfulness screen for Lean 4, served over MCP. Screens only, never certifies.">
+<meta property="og:description" content="A calibrated faithfulness screen for Lean 4, on the command line and over MCP. Screens only, never certifies.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
@@ -17,26 +17,20 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="home.css?v=9">
 <style>
-  /* Page-local: one centered column, nothing else. */
-  .ls-hero{
-    min-height: 92vh;
-    min-height: 92svh;
+  /* ---- layout: process rails left and right of a centered column ---- */
+  .ls-layout{
     display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 620px) minmax(0, 1fr);
+    gap: 56px;
     align-items: center;
-    position: relative;
-    padding-top: var(--nav-h);
-  }
-  .ls-inner{
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    max-width: 640px;
+    max-width: 1360px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: calc(var(--nav-h) + 56px) 32px 72px;
   }
-  .ls-inner h1{
+  .ls-center{ text-align: center; }
+  .ls-center h1{
     font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 5rem);
+    font-size: clamp(3rem, 7vw, 4.6rem);
     font-weight: 500;
     line-height: 1.05;
     margin: 18px 0 0;
@@ -44,18 +38,20 @@
   }
   .ls-sub{
     color: var(--text-muted);
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     line-height: 1.7;
     margin: 22px auto 0;
-    max-width: 54ch;
+    max-width: 52ch;
   }
   .ls-sub em{ font-style: italic; color: var(--accent); }
+
+  /* ---- install box ---- */
   .ls-install{
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    margin: 36px auto 0;
+    margin: 34px auto 0;
     max-width: 420px;
     background: var(--surface);
     border: 1px solid var(--border-strong);
@@ -86,51 +82,137 @@
     display: flex;
     justify-content: center;
     gap: 14px;
-    margin-top: 26px;
+    margin-top: 24px;
     flex-wrap: wrap;
   }
-  .ls-fineprint{
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    letter-spacing: 0.04em;
-    line-height: 2;
-    color: var(--text-faint);
-    margin-top: 44px;
-  }
-  .ls-fineprint b{ color: var(--text-muted); font-weight: 500; }
+
+  /* ---- demo ---- */
   .ls-demo{
-    margin: 40px auto 0;
-    max-width: 640px;
+    margin: 36px auto 0;
+    max-width: 620px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 16px 20px;
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.73rem;
     line-height: 1.9;
     color: var(--text-muted);
     text-align: left;
-    overflow-x: auto;
-    white-space: pre;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
   }
   .ls-demo .d-cmd{ color: var(--text); }
   .ls-demo .d-cmd::before{ content: "$ "; color: var(--text-faint); }
-  .ls-demo .d-reject{ color: var(--v-unfaithful); }
+  .ls-demo .d-reject{ color: var(--v-unfaithful); font-weight: 600; }
   .ls-demo .d-pass{ color: var(--accent); }
   .ls-demo-note{
     font-size: 0.85rem;
     color: var(--text-muted);
-    max-width: 54ch;
+    max-width: 52ch;
     margin: 14px auto 0;
-    line-height: 1.6;
+    line-height: 1.65;
   }
   .ls-demo-note code{
     font-family: var(--font-mono);
     font-size: 0.9em;
     color: var(--accent);
   }
+
+  /* ---- fineprint ---- */
+  .ls-fineprint{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    line-height: 2.1;
+    color: var(--text-faint);
+    margin: 40px auto 0;
+    max-width: 46ch;
+  }
+  .ls-fineprint b{ color: var(--text-muted); font-weight: 500; }
+
+  /* ---- process rails ---- */
+  .ls-rail{ max-width: 250px; }
+  .ls-rail--left{ justify-self: end; }
+  .ls-rail--right{ justify-self: start; }
+  .ls-rail-head{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .ls-rail-head::before{ content: "["; color: var(--text-faint); margin-right: 6px; }
+  .ls-rail-head::after{ content: "]"; color: var(--text-faint); margin-left: 6px; }
+  .ls-rail-sub{
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .ls-steps{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--border-strong);
+  }
+  .ls-steps li{
+    position: relative;
+    padding: 9px 0 9px 18px;
+  }
+  .ls-steps li::before{
+    content: "";
+    position: absolute;
+    left: -3.5px;
+    top: 16px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-faint);
+  }
+  .ls-steps li.is-verdict::before{ background: var(--accent); }
+  .ls-steps b{
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--text);
+  }
+  .ls-steps li.is-verdict b{ color: var(--accent-bright); }
+  .ls-steps span{
+    display: block;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ---- narrow screens: rails move below the center column ---- */
+  @media (max-width: 1120px){
+    .ls-layout{
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      padding: calc(var(--nav-h) + 40px) 24px 56px;
+    }
+    .ls-rail{ display: none; }
+    .ls-rails-stacked{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      max-width: 620px;
+      margin: 44px auto 0;
+      text-align: left;
+    }
+  }
+  @media (min-width: 1121px){
+    .ls-rails-stacked{ display: none; }
+  }
+  @media (max-width: 560px){
+    .ls-rails-stacked{ grid-template-columns: 1fr; }
+  }
 </style>
-<script defer src="zeta.js?v=11"></script>
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body class="mr-page">
@@ -172,15 +254,27 @@
 
 <main id="main">
 
-  <section class="ls-hero" aria-label="leanscreen">
-    <canvas class="mr-hero-canvas" id="zeta-spiral" aria-hidden="true"></canvas>
-    <div class="ls-inner">
-      <span class="mr-kicker">Open tooling &middot; MCP</span>
+  <div class="ls-layout">
+
+    <aside class="ls-rail ls-rail--left" aria-label="The fast screen">
+      <div class="ls-rail-head">FAST SCREEN</div>
+      <div class="ls-rail-sub">free &middot; local &middot; ~0.1s warm</div>
+      <ol class="ls-steps">
+        <li><b>pair in</b><span>the docstring and the Lean statement</span></li>
+        <li><b>lints</b><span>unused binders, pinned witnesses, suspicious &#8469;-arithmetic</span></li>
+        <li><b>vacuity</b><span>reflexive goals, True goals, withheld declarations</span></li>
+        <li><b>elaboration</b><span>compiled against your own mathlib</span></li>
+        <li class="is-verdict"><b>reject or pass</b><span>a pass means nothing found</span></li>
+      </ol>
+    </aside>
+
+    <section class="ls-center" aria-label="leanscreen">
+      <span class="mr-kicker">Open tooling &middot; CLI &middot; MCP</span>
       <h1>leanscreen</h1>
       <p class="ls-sub">
         A faithfulness screen for Lean&nbsp;4. It catches formal statements
         that compile but <em>don&rsquo;t say what the mathematics says</em>.
-        It runs while you draft, inside Claude Code or any MCP client.
+        Run it on a file, in CI, or inside Claude Code while you draft.
       </p>
       <div class="ls-install">
         <code id="ls-cmd">pip install leanscreen</code>
@@ -191,21 +285,60 @@
         <a class="mr-btn" href="contact.html">Request certification</a>
       </div>
       <div class="ls-demo" aria-label="Example output"><span class="d-cmd">leanscreen check Demo.lean</span>
-exists_perfect_number: <span class="d-reject">REJECTED</span>  lean=valid_in_our_env  flags=deterministic-vacuous:reflexive-goal
-even_add_even: <span class="d-pass">no defect found</span>  lean=valid_in_our_env</div>
+exists_perfect_number: <span class="d-reject">REJECTED</span>  flags=deterministic-vacuous:reflexive-goal
+even_add_even: <span class="d-pass">no defect found</span></div>
       <p class="ls-demo-note">
         The first theorem compiles and is even provable. Its docstring
         promises a perfect number; its statement says
         <code>&exist; n : &#8469;, n = n</code>. The compiler has no
         objection. That gap is what leanscreen catches.
       </p>
+
+      <div class="ls-rails-stacked">
+        <div aria-label="The fast screen">
+          <div class="ls-rail-head">FAST SCREEN</div>
+          <div class="ls-rail-sub">free &middot; local &middot; ~0.1s warm</div>
+          <ol class="ls-steps">
+            <li><b>pair in</b><span>the docstring and the Lean statement</span></li>
+            <li><b>lints</b><span>unused binders, pinned witnesses, suspicious &#8469;-arithmetic</span></li>
+            <li><b>vacuity</b><span>reflexive goals, True goals, withheld declarations</span></li>
+            <li><b>elaboration</b><span>compiled against your own mathlib</span></li>
+            <li class="is-verdict"><b>reject or pass</b><span>a pass means nothing found</span></li>
+          </ol>
+        </div>
+        <div aria-label="The deep screen">
+          <div class="ls-rail-head">DEEP SCREEN</div>
+          <div class="ls-rail-sub">your key &middot; 30&ndash;60s &middot; ~$0.20</div>
+          <ol class="ls-steps">
+            <li><b>judge A</b><span>back-translates the Lean and compares it to the English</span></li>
+            <li><b>judge B</b><span>checks clause by clause on a separate model</span></li>
+            <li><b>probe</b><span>hunts for a concrete counterexample</span></li>
+            <li><b>consensus</b><span>a flag needs both judges or hard evidence</span></li>
+            <li class="is-verdict"><b>evidence ranked</b><span>counterexample first, single judge never</span></li>
+          </ol>
+        </div>
+      </div>
+
       <p class="ls-fineprint">
         <b>Screens only, never certifies.</b><br>
-        Deterministic checks are free and local &middot; deep checks run on your own key<br>
-        Calibrated on 886 frozen human verdicts &middot; error rates ship with every response
+        calibrated on 886 frozen human verdicts<br>
+        error rates ship with every response
       </p>
-    </div>
-  </section>
+    </section>
+
+    <aside class="ls-rail ls-rail--right" aria-label="The deep screen">
+      <div class="ls-rail-head">DEEP SCREEN</div>
+      <div class="ls-rail-sub">your key &middot; 30&ndash;60s &middot; ~$0.20</div>
+      <ol class="ls-steps">
+        <li><b>judge A</b><span>back-translates the Lean and compares it to the English</span></li>
+        <li><b>judge B</b><span>checks clause by clause on a separate model</span></li>
+        <li><b>probe</b><span>hunts for a concrete counterexample</span></li>
+        <li><b>consensus</b><span>a flag needs both judges or hard evidence</span></li>
+        <li class="is-verdict"><b>evidence ranked</b><span>counterexample first, single judge never</span></li>
+      </ol>
+    </aside>
+
+  </div>
 
 </main>
 
