@@ -98,6 +98,37 @@
     margin-top: 44px;
   }
   .ls-fineprint b{ color: var(--text-muted); font-weight: 500; }
+  .ls-demo{
+    margin: 40px auto 0;
+    max-width: 640px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+    text-align: left;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .ls-demo .d-cmd{ color: var(--text); }
+  .ls-demo .d-cmd::before{ content: "$ "; color: var(--text-faint); }
+  .ls-demo .d-reject{ color: var(--v-unfaithful); }
+  .ls-demo .d-pass{ color: var(--accent); }
+  .ls-demo-note{
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 54ch;
+    margin: 14px auto 0;
+    line-height: 1.6;
+  }
+  .ls-demo-note code{
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--accent);
+  }
 </style>
 <script defer src="zeta.js?v=11"></script>
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
@@ -159,6 +190,15 @@
         <a class="mr-btn mr-btn--solid" href="https://github.com/ibrahimmian36/leanscreen">GitHub &rarr;</a>
         <a class="mr-btn" href="contact.html">Request certification</a>
       </div>
+      <div class="ls-demo" aria-label="Example output"><span class="d-cmd">leanscreen check Demo.lean</span>
+exists_perfect_number: <span class="d-reject">REJECTED</span>  lean=valid_in_our_env  flags=deterministic-vacuous:reflexive-goal
+even_add_even: <span class="d-pass">no defect found</span>  lean=valid_in_our_env</div>
+      <p class="ls-demo-note">
+        The first theorem compiles and is even provable. Its docstring
+        promises a perfect number; its statement says
+        <code>&exist; n : &#8469;, n = n</code>. The compiler has no
+        objection. That gap is what leanscreen catches.
+      </p>
       <p class="ls-fineprint">
         <b>Screens only, never certifies.</b><br>
         Deterministic checks are free and local &middot; deep checks run on your own key<br>
