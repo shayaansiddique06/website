@@ -759,7 +759,20 @@ html.js [data-reveal].is-visible{
   padding-left: 18px;
 }
 .panel-why p{ color: var(--text-muted); font-size: 0.9375rem; line-height: 1.65; }
-@media (max-width: 899px){
+/* Tablet and small laptops: keep source beside the formalization and drop
+   the rationale onto its own row, so the Lean stays on screen without
+   scrolling past the LaTeX to find it. Only phones stack all three. */
+@media (max-width: 1099px) and (min-width: 761px){
+  .cards.is-filtered .card-panels{ grid-template-columns: 1fr 1fr; row-gap: 18px; }
+  .cards.is-filtered .panel-why{
+    grid-column: 1 / -1;
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+}
+@media (max-width: 760px){
   .cards.is-filtered .card-panels{ grid-template-columns: 1fr; }
   .cards.is-filtered .panel-why{ border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 14px; }
 }
@@ -1378,38 +1391,6 @@ html.intro-running .page-progress{ opacity: 0; }
   color: var(--text-muted);
 }
 
-.res-stats{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  margin: 34px 0 8px;
-}
-@media (max-width: 900px){ .res-stats{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px){ .res-stats{ grid-template-columns: 1fr; } }
-
-.res-stats > div{
-  background: var(--bg);
-  padding: 22px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.res-stats b{
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
-  font-weight: 500;
-  line-height: 1;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-}
-.res-stats span{
-  font-size: 0.86rem;
-  line-height: 1.5;
-  color: var(--text-muted);
-}
-
 .res-foot{
   margin-top: 34px;
   padding-top: 20px;
@@ -1422,3 +1403,54 @@ html.intro-running .page-progress{ opacity: 0; }
   align-items: baseline;
   justify-content: space-between;
 }
+
+/* ------------------------------ waiting list ------------------------------ */
+
+.wl-form{ margin-top: 16px; }
+.wl-label{
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.wl-row{ display: flex; gap: 10px; flex-wrap: wrap; }
+.wl-input{
+  flex: 1 1 200px;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  padding: 11px 13px;
+}
+.wl-input::placeholder{ color: var(--text-faint); }
+.wl-input:focus-visible{
+  outline: 2px solid var(--accent-dim);
+  outline-offset: 1px;
+  border-color: var(--accent-dim);
+}
+.wl-submit{ flex: none; cursor: pointer; }
+.wl-submit[disabled]{ opacity: 0.6; cursor: default; }
+
+/* Honeypot: off-screen rather than display:none, which some bots skip. */
+.wl-trap{
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.wl-status{
+  margin-top: 10px;
+  min-height: 1.2em;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.wl-status.is-ok{ color: var(--accent-dim); }
+.wl-status.is-err{ color: var(--v-unfaithful); }
