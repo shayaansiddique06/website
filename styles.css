@@ -738,9 +738,10 @@ html.js [data-reveal].is-visible{
    reads without horizontal scrolling. */
 /* Source and formalization sit side by side so the Lean is visible without
    scrolling past the LaTeX to reach it. */
+/* Code is wider than prose, so the formalization takes the larger half. */
 .card-panels{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
   gap: 24px;
   align-items: start;
 }
@@ -752,7 +753,10 @@ html.js [data-reveal].is-visible{
    in the space that opens up beside the pair. */
 .panel-why{ display: none; }
 .cards.is-filtered{ grid-template-columns: 1fr; }
-.cards.is-filtered .card-panels{ grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+/* Three columns squeeze the code hardest, so the formalization takes the
+   widest share and its type steps down to keep all 48 columns on screen. */
+.cards.is-filtered .card-panels{ grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.36fr) minmax(0, 0.84fr); gap: 22px; }
+.cards.is-filtered .panel-lean code{ font-size: clamp(0.68rem, 0.86vw, 0.84rem); }
 .cards.is-filtered .panel-why{
   display: block;
   border-left: 2px solid var(--accent-dim);
@@ -763,7 +767,7 @@ html.js [data-reveal].is-visible{
    the rationale onto its own row, so the Lean stays on screen without
    scrolling past the LaTeX to find it. Only phones stack all three. */
 @media (max-width: 1099px) and (min-width: 761px){
-  .cards.is-filtered .card-panels{ grid-template-columns: 1fr 1fr; row-gap: 18px; }
+  .cards.is-filtered .card-panels{ grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); row-gap: 18px; }
   .cards.is-filtered .panel-why{
     grid-column: 1 / -1;
     border-left: 0;
@@ -808,8 +812,11 @@ html.js .math-ready .tex{ opacity: 1; }
 }
 .panel-lean code{
   font-family: var(--font-mono);
-  font-size: 0.9375rem;             /* mono data: 15px per the type scale */
-  line-height: 1.5;
+  /* The widest sample line is 48 columns. Sized so those 48 columns fit the
+     panel at every width the two-column layout is used, rather than leaving
+     the reader to scroll the block sideways. */
+  font-size: clamp(0.78rem, 1.02vw, 0.9375rem);
+  line-height: 1.55;
   letter-spacing: 0;
   color: var(--text);
   white-space: pre;

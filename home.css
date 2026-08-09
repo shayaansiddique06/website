@@ -586,9 +586,11 @@
 
 /* Masks for the square figures are cut against the measured right edge of
    the copy in their own section, so they differ per section. */
+/* The headline stepped up a size, so its longest line reaches further right
+   and the spiral holds its ink back to match. */
 .mr-hero .mr-figure--spiral{
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 31%, #000 60%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 31%, #000 60%, #000 100%);
 }
 #method .mr-figure--lorenz{
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 43%, #000 68%, #000 100%);
@@ -614,10 +616,10 @@
    size down holds it to four and leaves the right of the hero to the
    figure without crowding either. */
 .mr-light .mr-hero h1{
-  font-size: clamp(2.3rem, 4.4vw, 4.3rem);
+  font-size: clamp(2.5rem, 5vw, 4.9rem);
   max-width: 14ch;
 }
-.mr-light .mr-hero-sub{ max-width: 46ch; font-size: 1.06rem; }
+.mr-light .mr-hero-sub{ max-width: 46ch; font-size: 1.22rem; line-height: 1.55; }
 
 /* Three short cards do not need the four-card grid's height. */
 .mr-light .mr-card--phase{ min-height: 0; padding: 30px 28px 28px; }
@@ -640,16 +642,26 @@
 /* The form is the primary action in the closing section, so it leads and the
    secondary link sits beside it rather than under it. */
 .mr-waitlist{
-  margin-top: 36px;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: wrap;
+  margin-top: 40px;
+  max-width: 520px;
+  padding: 26px 26px 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--surface);
 }
-.mr-waitlist .wl-form{ margin-top: 0; flex: 0 1 460px; }
+.wl-title{
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.wl-blurb{
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.mr-waitlist .wl-form{ margin-top: 18px; }
 .mr-waitlist .wl-row{ gap: 12px; }
-.mr-waitlist .wl-input{ flex: 1 1 220px; }
-.mr-waitlist > .mr-btn{ margin-top: 26px; }
-@media (max-width: 620px){
-  .mr-waitlist > .mr-btn{ margin-top: 0; }
-}
+.mr-waitlist .wl-input{ flex: 1 1 200px; background: var(--bg); }
