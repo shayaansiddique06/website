@@ -45,8 +45,8 @@
 /* -------------------------------- hero ----------------------------------- */
 
 .mr-hero{
-  min-height: 78vh;
-  min-height: 78svh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   align-items: center;
   position: relative;
