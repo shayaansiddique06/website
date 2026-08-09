@@ -24,7 +24,7 @@
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.14em;
-  color: var(--accent);
+  color: var(--accent-dim);
   display: inline-flex;
   gap: 0.6em;
   margin-bottom: 28px;
@@ -82,7 +82,7 @@
 }
 .mr-hero h1 em{
   font-style: italic;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 
 .mr-hero-sub{
@@ -120,7 +120,7 @@
   font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: var(--accent-dim);
   text-decoration: none;
 }
 .mr-inline-link:hover{ color: var(--accent-bright); }
@@ -142,7 +142,7 @@
   color: var(--text-faint);
   text-decoration: none;
 }
-.mr-hero-scroll:hover{ color: var(--accent); }
+.mr-hero-scroll:hover{ color: var(--accent-dim); }
 
 /* --------------------------- zeta divider -------------------------------- */
 
@@ -180,7 +180,7 @@
   letter-spacing: -0.015em;
   max-width: 30ch;
 }
-.mr-statement em{ font-style: italic; color: var(--accent); }
+.mr-statement em{ font-style: italic; color: var(--accent-dim); }
 
 .mr-stats{
   margin-top: 40px;
@@ -246,7 +246,7 @@
   font-size: clamp(2.4rem, 4.4vw, 3.6rem);
   font-weight: 500;
   line-height: 1;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 .mr-card-num small{
   font-size: 0.4em;
@@ -269,7 +269,7 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 .mr-card:hover .mr-card-link{ color: var(--accent-bright); }
 
@@ -368,8 +368,7 @@
   font-size: 0.62rem;
   font-weight: 500;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-dim);
   border: 1px solid var(--accent-dim);
   border-radius: 2px;
   padding: 3px 8px;
@@ -408,7 +407,7 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 .mr-dispatch-feature:hover .d-link{ color: var(--accent-bright); }
 
@@ -447,7 +446,7 @@
   transform: translateY(-50%);
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--accent);
+  color: var(--accent-dim);
   transition: transform var(--dur-hover) var(--ease-out);
 }
 .mr-dispatch a:hover .d-arrow{ transform: translateY(-50%) translateX(4px); }
@@ -523,50 +522,6 @@
   font-size: 0.98rem;
   line-height: 1.65;
   color: var(--text-muted);
-}
-
-/* ------------------------- light theme (home only) ------------------------ */
-/* Scoped to .mr-light so the leanscreen page, which shares this stylesheet,
-   keeps the dark surface. Brand green is unchanged for fills and keylines;
-   text-weight green steps down to --accent-dim, which clears 4.5:1 on white
-   where #21C46A only reaches 2.3:1. */
-.mr-light{
-  --bg:            #FFFFFF;
-  --surface:       #F6F8F7;
-  --surface-2:     #EEF2F0;
-  --border:        rgba(10,12,11,0.12);
-  --border-strong: rgba(10,12,11,0.22);
-
-  --text:          #0F1412;
-  --text-muted:    #545C57;
-  --text-faint:    rgba(15,20,18,0.55);
-
-  --accent:        #21C46A;
-  --accent-bright: #157A43;
-  --accent-dim:    #157A43;
-
-  color-scheme: light;
-}
-/* Green that carries text weight on white. */
-.mr-light .mr-statement em,
-.mr-light .mr-hero h1 em,
-.mr-light .mr-kicker,
-.mr-light .mr-inline-link{ color: var(--accent-dim); }
-
-/* Solid button keeps the brand green with dark ink, as on the dark page. */
-.mr-light .mr-btn--solid{ background: var(--accent); border-color: var(--accent); }
-.mr-light .mr-btn--solid:hover{ background: var(--accent-bright); border-color: var(--accent-bright); color: #FFFFFF; }
-.mr-light .mr-btn:hover{ border-color: var(--accent-dim); color: var(--accent-dim); }
-
-/* The markup marks the nav is-solid, but only .is-scrolled had a rule and
-   main.js (which sets that class) is not loaded on these pages, so the bar
-   stayed transparent and content scrolled under it. Token-driven, so it
-   follows whichever theme the page is in. */
-.site-nav.is-solid{
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom-color: var(--border);
 }
 
 /* -------------------------- mathematical figures -------------------------- */

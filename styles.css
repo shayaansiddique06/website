@@ -6,33 +6,31 @@
 
 /* ------------------------------ Tokens ---------------------------------- */
 :root{
-  /* Surfaces — near-black with a faint green cast; never pure black */
-  --bg:            #0A0C0B;
-  --surface:       #101312;
-  --surface-2:     #161A18;
-  --border:        rgba(255,255,255,0.08);
-  --border-strong: rgba(255,255,255,0.14);
+  /* Surfaces — white with a faint green cast; never pure grey */
+  --bg:            #FFFFFF;
+  --surface:       #F6F8F7;
+  --surface-2:     #EEF2F0;
+  --border:        rgba(10,12,11,0.12);
+  --border-strong: rgba(10,12,11,0.22);
 
-  /* Text — never pure white */
-  --text:          #E8ECEA;
-  --text-muted:    #8A938E;
-  /* Spec value was rgba(255,255,255,.45): 4.44:1 on --bg — just under WCAG
-     4.5:1 for the small mono text it styles. Raised to .50 (≈4.9:1). */
-  --text-faint:    rgba(255,255,255,0.50);
+  /* Text — never pure black */
+  --text:          #0F1412;
+  --text-muted:    #545C57;
+  --text-faint:    rgba(15,20,18,0.55);
 
-  /* Accent — desaturated green for text/UI; bright reserved for glow/hover */
+  /* Accent — brand green for fills and keylines. On white the bright green
+     reaches only 2.3:1, so anything carrying text weight uses --accent-dim
+     at 5.4:1. */
   --accent:        #21C46A;
-  --accent-bright: #3BE38A;
+  --accent-bright: #157A43;
   --accent-dim:    #157A43;
 
-  /* Verdict palette (also drives particle colors) */
-  --v-faithful:    #21C46A;
-  --v-unfaithful:  #E5484D;
-  --v-uncertain:   #E8B339;
-  --v-pending:     #5A6B63;
-  /* #5A6B63 is 3.4:1 — fine for keylines/particles (SC 1.4.11) but not for
-     small text (SC 1.4.3). Small pending labels use this lightened ink. */
-  --v-pending-ink: #7E8C85;
+  /* Verdict palette (also drives particle colors), darkened for white */
+  --v-faithful:    #157A43;
+  --v-unfaithful:  #C0392B;
+  --v-uncertain:   #A16207;
+  --v-pending:     #8A938E;
+  --v-pending-ink: #6B736E;
 
   /* Type */
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -47,7 +45,7 @@
   --dur-enter: 600ms;
 
   --nav-h: 68px;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 /* ------------------------------ Reset ------------------------------------ */
@@ -141,7 +139,6 @@ p{ max-width: 65ch; }
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-muted);
 }
 
@@ -181,7 +178,6 @@ p{ max-width: 65ch; }
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-faint);
   text-align: center;
   max-width: none;
@@ -300,7 +296,7 @@ html.js [data-reveal].is-visible{
 .nav-links a:hover{ color: var(--text); }
 .nav-links a:hover::after{ transform: scaleX(1); }
 .nav-links a:active{ color: var(--text); }
-.nav-links a.is-active{ color: var(--accent); }
+.nav-links a.is-active{ color: var(--accent-dim); }
 .nav-links a.is-active::after{ transform: scaleX(1); }
 
 /* Hamburger */
@@ -348,7 +344,7 @@ html.js [data-reveal].is-visible{
   text-decoration: none;
   transition: color var(--dur-hover) var(--ease-std);
 }
-.menu-overlay a:hover{ color: var(--accent); }
+.menu-overlay a:hover{ color: var(--accent-dim); }
 
 @media (max-width: 767px){
   .nav-links{ display: none; }
@@ -386,7 +382,7 @@ html.js [data-reveal].is-visible{
   padding: 12px 24px;
   border-radius: 8px;
   border: 1px solid var(--accent-dim);
-  color: var(--accent);
+  color: var(--accent-dim);
   font-weight: 500; font-size: 0.9375rem;
   text-decoration: none;
   transition:
@@ -418,7 +414,7 @@ html.js [data-reveal].is-visible{
   transform-origin: left;
   transition: transform var(--dur-hover) var(--ease-std);
 }
-.link-underline:hover{ color: var(--accent); }
+.link-underline:hover{ color: var(--accent-dim); }
 .link-underline:hover::after{ transform: scaleX(1); }
 .link-underline:active{ color: var(--accent-bright); }
 
@@ -486,7 +482,7 @@ html.js [data-reveal].is-visible{
   font-family: var(--font-mono);
   font-size: 0.875rem; font-weight: 500;
   letter-spacing: 0;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 @media (max-width: 899px){
   .thesis-grid{ grid-template-columns: 1fr; gap: 48px; }
@@ -560,8 +556,8 @@ html.js [data-reveal].is-visible{
   transition: color var(--dur-state) var(--ease-std);
 }
 .pl-node.is-active .pl-num{
-  color: var(--accent);
-  border-color: var(--accent-dim);
+  color: var(--accent-dim);
+  border-color: var(--accent);
 }
 .pl-node.is-active .pl-name{ color: var(--text); }
 
@@ -580,7 +576,7 @@ html.js [data-reveal].is-visible{
 .stage-num{
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 .stage p{ color: var(--text-muted); max-width: 48ch; }
 
@@ -673,7 +669,7 @@ html.js [data-reveal].is-visible{
 }
 .chip:hover{ color: var(--text); border-color: var(--text-muted); }
 .chip:active{ transform: scale(0.98); }
-.chip[aria-pressed="true"]{ color: var(--accent); border-color: var(--accent-dim);
+.chip[aria-pressed="true"]{ color: var(--accent-dim); border-color: var(--accent);
   background: color-mix(in srgb, var(--accent) 8%, transparent); }
 .chip[data-filter="unfaithful"][aria-pressed="true"]{ color: var(--v-unfaithful); border-color: var(--v-unfaithful);
   background: color-mix(in srgb, var(--v-unfaithful) 8%, transparent); }
@@ -768,7 +764,6 @@ html.js [data-reveal].is-visible{
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-muted);
 }
 .panel-tex .tex{
@@ -801,7 +796,7 @@ html.js .math-ready .tex{ opacity: 1; }
   white-space: pre;
 }
 /* Custom Lean theme — green-on-black, not a stock theme */
-.tok-kw{  color: var(--accent); }
+.tok-kw{  color: var(--accent-dim); }
 .tok-type{ color: var(--accent-bright); }
 .tok-tac{ color: var(--text-muted); }
 .tok-com{ color: var(--text-faint); font-style: italic; }
@@ -846,7 +841,6 @@ html.js .math-ready .tex{ opacity: 1; }
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
   fill: var(--text-faint);
 }
 .ratefig .rf-label{
@@ -882,7 +876,7 @@ html.js .math-ready .tex{ opacity: 1; }
 .research-row p{ color: var(--text-muted); max-width: 62ch; }
 .research-row p a,
 .thesis-prose p a{
-  color: var(--accent);
+  color: var(--accent-dim);
   text-decoration: none;
   border-bottom: 1px solid var(--accent-dim);
 }
@@ -906,7 +900,7 @@ html.js .math-ready .tex{ opacity: 1; }
   font-size: clamp(1.5rem, 2.6vw, 2rem);
 }
 .research-keystone p{ color: var(--text); }
-.research-keystone .kicker{ color: var(--accent); }
+.research-keystone .kicker{ color: var(--accent-dim); }
 
 .keystone-figure{ justify-self: center; }
 .lattice{ width: min(100%, 260px); }
@@ -943,7 +937,7 @@ html.js .math-ready .tex{ opacity: 1; }
 .founder-role{
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  color: var(--accent);
+  color: var(--accent-dim);
 }
 .founder-card p{ color: var(--text-muted); margin-top: 8px; }
 
@@ -960,7 +954,6 @@ html.js .math-ready .tex{ opacity: 1; }
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-muted);
 }
 .advisor-inst{
@@ -1109,10 +1102,9 @@ html[data-intro-mode="timed"]  #intro{ height: 100vh; height: 100dvh; }
 .intro-eq-label{
   display: flex; gap: 12px;
   margin-top: 14px;
-  color: var(--accent);
+  color: var(--accent-dim);
   font-size: clamp(0.5625rem, 0.75vw, 0.6875rem);
   letter-spacing: 0.42em;
-  text-transform: uppercase;
 }
 .intro-eq-label #intro-stage-num{ color: var(--text-faint); }
 .intro-pct{
@@ -1174,7 +1166,6 @@ html[data-intro-mode] .intro-copy .hero-copy > *{
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.3em;
-  text-transform: uppercase;
   text-indent: 0.3em;      /* optical centering against the tracking */
   color: var(--text-faint);
   opacity: 0; visibility: hidden;
@@ -1187,7 +1178,7 @@ html[data-intro-mode] .intro-copy .hero-copy > *{
   transition: opacity var(--dur-state) var(--ease-std),
               color var(--dur-hover) var(--ease-std);
 }
-.intro-scroll:hover{ color: var(--accent); }
+.intro-scroll:hover{ color: var(--accent-dim); }
 .intro-scroll-line{
   width: 1px; height: 40px;
   background: linear-gradient(180deg, transparent, var(--accent));
@@ -1220,7 +1211,6 @@ html.intro-running .site-nav{
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 .intro-modes-label{ color: var(--text-faint); padding: 0 8px 0 6px; }
 .intro-modes button{
@@ -1233,8 +1223,8 @@ html.intro-running .site-nav{
 }
 .intro-modes button:hover{ color: var(--text); }
 .intro-modes button[aria-pressed="true"]{
-  color: var(--accent);
-  border-color: var(--accent-dim);
+  color: var(--accent-dim);
+  border-color: var(--accent);
 }
 .intro-modes .intro-modes-x{ color: var(--text-faint); padding: 5px 8px; }
 
@@ -1348,4 +1338,26 @@ html.intro-running .page-progress{ opacity: 0; }
     transparent, var(--accent) 30%, var(--accent-bright) 50%, var(--accent) 70%, transparent);
   box-shadow: 0 0 8px rgba(59,227,138,0.4);
   pointer-events: none;
+}
+
+
+/* ---------------------- light-theme text-weight green --------------------- */
+/* --accent stays the brand green for fills and keylines. Anything that
+   carries text weight steps down to --accent-dim, which clears 4.5:1 on
+   white where the bright green reaches only 2.3:1. */
+.mr-statement em,
+.mr-hero h1 em,
+.mr-kicker,
+.mr-inline-link{ color: var(--accent-dim); }
+.mr-btn--solid:hover{ color: #FFFFFF; }
+.mr-btn:hover{ border-color: var(--accent); color: var(--accent-dim); }
+
+/* The markup marks the nav is-solid but only .is-scrolled was styled, and
+   main.js is not loaded on every page, so the bar sat transparent and copy
+   scrolled under it. Token-driven, so it follows the theme. */
+.site-nav.is-solid{
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom-color: var(--border);
 }

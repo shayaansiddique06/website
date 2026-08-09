@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>leanscreen · Millennium Research</title>
 <meta name="description" content="leanscreen is a calibrated faithfulness screen for Lean 4 statements, on the command line and over MCP. It catches formal statements that compile but don't say what the mathematics says. Screens only, never certifies.">
-<meta name="theme-color" content="#0A0C0B">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light">
 <meta property="og:title" content="leanscreen · Millennium Research">
 <meta property="og:description" content="A calibrated faithfulness screen for Lean 4, on the command line and over MCP. Screens only, never certifies.">
 <meta property="og:type" content="website">
@@ -14,8 +14,8 @@
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="home.css?v=9">
+<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="home.css?v=32">
 <style>
   /* One idea per screen. Hero, then scroll: the catch, then how it works. */
   .ls-hero{
@@ -47,7 +47,7 @@
     margin: 22px auto 0;
     max-width: 46ch;
   }
-  .ls-sub em{ font-style: italic; color: var(--accent); }
+  .ls-sub em{ font-style: italic; color: var(--accent-dim); }
   .ls-install{
     display: flex;
     align-items: center;
@@ -71,7 +71,6 @@
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: var(--text-muted);
     background: none;
     border: 1px solid var(--border);
@@ -79,7 +78,7 @@
     padding: 7px 12px;
     cursor: pointer;
   }
-  .ls-copy:hover{ border-color: var(--accent); color: var(--accent-bright); }
+  .ls-copy:hover{ border-color: var(--accent); color: var(--accent-dim); }
   .ls-cta{
     display: flex;
     justify-content: center;
@@ -115,7 +114,7 @@
   .ls-demo .d-cmd{ color: var(--text); }
   .ls-demo .d-cmd::before{ content: "$ "; color: var(--text-faint); }
   .ls-demo .d-reject{ color: var(--v-unfaithful); font-weight: 600; }
-  .ls-demo .d-pass{ color: var(--accent); }
+  .ls-demo .d-pass{ color: var(--accent-dim); }
   .ls-note{
     font-size: 0.9rem;
     color: var(--text-muted);
@@ -126,7 +125,7 @@
   .ls-note code{
     font-family: var(--font-mono);
     font-size: 0.9em;
-    color: var(--accent);
+    color: var(--accent-dim);
   }
   .ls-how{
     display: grid;
@@ -144,8 +143,6 @@
     color: var(--text);
     margin: 0 0 10px;
   }
-  .ls-how h3::before{ content: "["; color: var(--text-faint); margin-right: 6px; }
-  .ls-how h3::after{ content: "]"; color: var(--text-faint); margin-left: 6px; }
   .ls-how p{
     font-size: 0.9rem;
     line-height: 1.7;
@@ -173,7 +170,7 @@
     color: var(--text-faint);
     text-decoration: none;
   }
-  .ls-scroll:hover{ color: var(--accent); }
+  .ls-scroll:hover{ color: var(--accent-dim); }
 </style>
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -232,7 +229,7 @@
         <a class="mr-btn mr-btn--solid" href="https://github.com/ibrahimmian36/leanscreen">GitHub &rarr;</a>
       </div>
     </div>
-    <a class="ls-scroll" href="#catch">SCROLL&nbsp;&darr;</a>
+    <a class="ls-scroll" href="#catch">Scroll&nbsp;&darr;</a>
   </section>
 
   <section class="ls-section" id="catch" aria-label="What it catches">
