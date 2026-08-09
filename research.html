@@ -65,19 +65,19 @@
       <div class="research-rows">
         <article class="research-row" id="audits" data-reveal>
           <h3>Benchmark audits</h3>
-          <p>A full census of miniF2F, the expert-corrected miniF2F v2, and ProofNet#: 1,347 statements, every one screened, every flag verified by hand before anything went public. 76 confirmed defects, documented item by item, all three filings public. See the <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">miniF2F filing</a>, the <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">v2 issue</a>, and the <a href="https://huggingface.co/datasets/PAug/ProofNetSharp/discussions/2" target="_blank" rel="noopener">ProofNet# filing</a>.</p>
+          <p>1,347 statements across miniF2F, miniF2F v2 and ProofNet#, every flag verified by hand. 76 confirmed defects, all three filings public: <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">miniF2F filing</a>, the <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">v2 issue</a>, and the <a href="https://huggingface.co/datasets/PAug/ProofNetSharp/discussions/2" target="_blank" rel="noopener">ProofNet# filing</a>.</p>
         </article>
         <article class="research-row" data-reveal>
           <h3>Cross-system audits</h3>
-          <p>Four open autoformalizers ran the same 488 problems under their own documented prompts and decoding settings. Goedel V2 failed the faithfulness screen least (21.7%), StepFun and Kimina near a third (32.6% and 34.0%), Herald&rsquo;s single-draw outputs most (55.5%). All 80 sampled flags survived human review. A compile check catches none of this.</p>
+          <p>Four open autoformalizers, same 488 problems, their own prompts. Failure rates ran from 21.7% (Goedel V2) to 55.5% (Herald). All 80 sampled flags survived human review. A compile check catches none of it.</p>
         </article>
         <article class="research-row" data-reveal>
           <h3>Specification gaming on verified math</h3>
-          <p>The gaps in a verifier are exactly what gets exploited. We keep a growing set of pairs that satisfy the checker and two frontier LLM judges yet fail human review: 59 so far, sorted into named failure classes. Three of those classes now have mechanical detectors that run on everything we score.</p>
+          <p>59 pairs satisfy the checker and two frontier judges yet fail human review, sorted into named failure classes. Three classes now have mechanical detectors.</p>
         </article>
         <article class="research-row" id="instrument" data-reveal>
           <h3>The instrument itself</h3>
-          <p>An evaluator you can&rsquo;t calibrate is an opinion. Ours is measured against 886 frozen human verdicts: flag precision between 76.7 and 100 percent per corpus, recall 78.3 percent against expert corrections, and the false-positive classes named and published. Counterexample-backed flags have been upheld by human review 174 times out of 202 across every audit, including all 139 in a 170-flag spot-check sampled by evidence strength. The instrument in full, pricing included, is on <a href="suite.html">the eval suite page</a>.</p>
+          <p>An evaluator you can&rsquo;t calibrate is an opinion. Ours is measured against 886 frozen human verdicts: flag precision 76.7 to 100 percent per corpus, recall 78.3 percent, false-positive classes published. 174 of 202 counterexample-backed flags upheld on review. Full instrument on <a href="suite.html">the eval suite page</a>.</p>
         </article>
 
       </div>
