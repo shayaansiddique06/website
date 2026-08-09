@@ -3,20 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Millennium Research · The math gets checked here</title>
-<meta name="description" content="Millennium Research builds human-verified faithfulness evaluations and certified datasets for formal mathematics. Every claim machine-checked, every flag verified by hand.">
+<title>Millennium Research · We check the work</title>
+<meta name="description" content="Millennium Research checks whether formal statements say what they are meant to say. Mathematics today, software next, quantum after.">
 <meta name="theme-color" content="#0A0C0B">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="Millennium Research">
-<meta property="og:description" content="Human-verified evaluations for formal mathematics.">
+<meta property="og:description" content="Mathematics today. Software next. Quantum after.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="home.css?v=9">
-<script defer src="zeta.js?v=11"></script>
+<link rel="stylesheet" href="home.css?v=10">
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body class="mr-page">
@@ -59,163 +58,86 @@
 <main id="main">
 
   <!-- ================================ HERO ================================ -->
-  <section class="mr-hero" aria-label="Introduction">
-    <canvas class="mr-hero-canvas" id="zeta-spiral" aria-hidden="true"></canvas>
+  <section class="mr-hero mr-hero--plain" aria-label="Introduction">
     <div class="mr-wrap mr-hero-inner">
-      <span class="mr-kicker">Human-verified formal mathematics</span>
-      <h1>Mathematics is being automated.<br><em>We check the math.</em></h1>
+      <span class="mr-kicker">Millennium Research</span>
+      <h1>Machines are doing more of the work.<br><em>Someone has to check it.</em></h1>
       <p class="mr-hero-sub">
-        Millennium Research builds human-verified evaluations and certified
-        datasets for formal mathematics. When a model translates a theorem
-        into Lean, we measure whether the formal statement says what the
-        mathematics says. The compiler can&rsquo;t tell you. It turns out
-        frontier LLM judges often can&rsquo;t either.
+        We check whether a formal statement says what it was meant to say.
+        Mathematics today. Software next. Quantum after.
       </p>
       <div class="mr-hero-cta">
-        <a class="mr-btn mr-btn--solid" href="contact.html">Request access</a>
-        <a class="mr-btn" href="suite.html">See the eval suite</a>
+        <a class="mr-btn mr-btn--solid" href="contact.html">Get in touch</a>
+        <a class="mr-btn" href="#phases">What we do</a>
       </div>
     </div>
-    <a class="mr-hero-scroll" href="#brief">SCROLL&nbsp;&darr;</a>
+    <a class="mr-hero-scroll" href="#phases">SCROLL&nbsp;&darr;</a>
   </section>
 
-  <!-- ============================== IN BRIEF ============================== -->
-  <section class="mr-section" id="brief" aria-label="In brief">
+  <!-- ============================== PHASES ================================ -->
+  <section class="mr-section" id="phases" aria-label="What we verify">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>In brief</span>
+      <span class="mr-kicker" data-mr-reveal>What we verify</span>
       <p class="mr-statement" data-mr-reveal>
-        The field measures AI on benchmarks whose statements
-        <em>don&rsquo;t always say what the math says.</em>
-        We ran the census that proves it, by hand, one flag at a time.
+        One method. <em>Three fields.</em>
       </p>
-      <div class="mr-stats" data-mr-reveal>
-        <div class="mr-stat">
-          <div class="mr-stat-num">3,299</div>
-          <div class="mr-stat-label">formal statements audited: three public benchmarks and four open autoformalizers. Full census, no sampling.</div>
+
+      <div class="mr-grid mr-grid--three" data-mr-reveal>
+
+        <div class="mr-card mr-card--phase">
+          <span class="mr-phase-when is-now">Now</span>
+          <h3>Mathematics</h3>
+          <p>
+            Formal proofs of mathematical results, checked one statement at a
+            time. This is where the method was built, and it is what we do
+            today.
+          </p>
         </div>
-        <div class="mr-stat">
-          <div class="mr-stat-num">156</div>
-          <div class="mr-stat-label">human-confirmed faithfulness defects, and 139 of 139 counterexample-backed flags upheld on review.</div>
+
+        <div class="mr-card mr-card--phase">
+          <span class="mr-phase-when">Next</span>
+          <h3>Software</h3>
+          <p>
+            The same check, applied to code. Whether a program&rsquo;s formal
+            specification says what the program is actually meant to do.
+          </p>
         </div>
-        <div class="mr-stat">
-          <div class="mr-stat-num">886</div>
-          <div class="mr-stat-label">frozen human verdicts calibrate our automated judges. Error rates published, not implied.</div>
+
+        <div class="mr-card mr-card--phase">
+          <span class="mr-phase-when">Future</span>
+          <h3>Quantum</h3>
+          <p>
+            Quantum algorithms and protocols, where testing your way to
+            confidence is not an option and proof has to carry the weight.
+          </p>
         </div>
+
       </div>
     </div>
   </section>
 
   <div class="zeta-divider" role="presentation"></div>
 
-  <!-- ============================== FINDINGS ============================== -->
-  <section class="mr-section" id="findings" aria-label="Findings">
+  <!-- ============================== THE METHOD ============================ -->
+  <section class="mr-section" id="method" aria-label="The method">
     <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>Findings</span>
-      <div class="mr-grid" data-mr-reveal>
-        <a class="mr-card" href="research.html#instrument">
-          <span class="mr-card-tag">Screen precision &middot; human-verified &middot; pooled</span>
-          <span class="mr-card-num">91.8<small>%</small></span>
-          <h3>Every published flag survives a person</h3>
-          <p>Across every audit to date, 156 of 170 sampled flags survived human review. Per-corpus precision is published with its confidence interval next to each result.</p>
-        </a>
-        <a class="mr-card" href="research.html#instrument">
-          <span class="mr-card-tag">Counterexample flags &middot; cumulative record</span>
-          <span class="mr-card-num">139<small>&nbsp;/ 139</small></span>
-          <h3>The evidence class that has never missed</h3>
-          <p>When the screen produces concrete values where the hypotheses hold and the conclusion fails, human review has upheld it every time to date: three benchmarks and four autoformalizers.</p>
-        </a>
-        <a class="mr-card" href="research.html#instrument">
-          <span class="mr-card-tag">Recall &middot; against expert corrections</span>
-          <span class="mr-card-num">78.3<small>%</small></span>
-          <h3>Most of what experts fix, the screen already flagged</h3>
-          <p>Measured against the independent miniF2F v2 correction effort: of 92 confirmed defect corrections, 72 were statements our screen had flagged on its own.</p>
-        </a>
-        <a class="mr-card" href="research.html#audits">
-          <span class="mr-card-tag">Public record &middot; benchmarks and autoformalizers</span>
-          <span class="mr-card-num">76<small>&nbsp;defects</small></span>
-          <h3>Confirmed, documented, and filed</h3>
-          <p>Defects in miniF2F, miniF2F v2, and ProofNet#, each with per-item evidence, plus a four-system audit of open autoformalizers. All three filings are public.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <div class="zeta-divider" role="presentation"></div>
-
-  <!-- ============================= WHAT WE BUILD ========================== -->
-  <section class="mr-section" id="build" aria-label="What we build">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>What we build</span>
-      <div class="mr-twoup" data-mr-reveal>
-        <div>
-          <h3>The faithfulness eval</h3>
-          <p>
-            Two frontier LLM judges under strict consensus, a numeric
-            counterexample probe, and a detection ladder that shows, pair by
-            pair, what the compiler missed, what single judges missed, and
-            what only a human caught.
-          </p>
-          <p>
-            <strong>Calibrated, not claimed.</strong> Judge error rates are
-            measured against 886 frozen human verdicts and published with
-            confidence intervals.
-          </p>
-          <p><a class="mr-inline-link" href="suite.html">Explore the full eval suite &rarr;</a></p>
-          <ul class="mr-mono-list">
-            <li><span>independent judges per pair</span><b>2, strict consensus</b></li>
-            <li><span>evidence per flag</span><b>back-translations + counterexamples</b></li>
-            <li><span>calibration set</span><b>886 frozen human verdicts</b></li>
-          </ul>
-        </div>
-        <div>
-          <h3>The certified dataset</h3>
-          <p>
-            Informal&ndash;formal statement pairs from open-licensed
-            mathematics, machine-verified in Lean 4 and certified faithful by
-            human reviewers. Automated screens can only reject. Only a human
-            can certify.
-          </p>
-          <p>
-            <strong>Firewalled by construction.</strong> The certified product
-            never ships proof text. License-gated at ingest. Audited before
-            every publish, with a tamper-evident history.
-          </p>
-          <ul class="mr-mono-list">
-            <li><span>verification oracle</span><b>Lean 4 + mathlib</b></li>
-            <li><span>certification</span><b>human-only</b></li>
-            <li><span>licenses in corpus</span><b>CC0 / CC-BY</b></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <div class="zeta-divider" role="presentation"></div>
-
-  <!-- ============================== HORIZON =============================== -->
-  <section class="mr-section" id="horizon" aria-label="The horizon">
-    <div class="mr-wrap">
-      <span class="mr-kicker" data-mr-reveal>The horizon</span>
-      <div class="mr-horizon" data-mr-reveal>
-        <p class="mr-statement">
-          The endgame is a prover that moves
-          <em>open problems.</em>
+      <span class="mr-kicker" data-mr-reveal>The method</span>
+      <p class="mr-statement" data-mr-reveal>
+        The subject changes.<br><em>The question doesn&rsquo;t.</em>
+      </p>
+      <div class="mr-method-note" data-mr-reveal>
+        <p>
+          A formal statement can be perfectly correct and still say the wrong
+          thing. The machine that checks it cannot tell the difference. We
+          can, and we put a person behind every result we publish.
         </p>
-        <p class="mr-horizon-note">
-          Evaluations and certified data are not the destination. They are the
-          supply chain for machines that do mathematics and can prove it.
-          Faithful formalization is the prerequisite; verified search is the
-          method; a bound on an open problem, machine-checked end to end, is
-          the kind of result we intend to put our name on.
-        </p>
-        <span class="mr-horizon-eq" aria-hidden="true">&zeta;(1/2 + it) = 0 &nbsp;&rArr;&nbsp; t &isin; &#8477;&nbsp;?</span>
+      </div>
+      <div class="mr-hero-cta" data-mr-reveal>
+        <a class="mr-btn mr-btn--solid" href="contact.html">Get in touch</a>
+        <a class="mr-btn" href="research.html">See the work</a>
       </div>
     </div>
   </section>
-
-
 
 </main>
 
@@ -228,10 +150,10 @@
           <img src="assets/logo-mark.png" alt="">
           <span>MILLENNIUM&nbsp;RESEARCH</span>
         </div>
-        <p class="ftag">Human-verified evaluations and certified datasets for formal mathematics.</p>
+        <p class="ftag">Mathematics today. Software next. Quantum after.</p>
       </div>
       <div class="mr-footer-cta">
-        <a class="mr-btn mr-btn--solid" href="contact.html">Request access</a>
+        <a class="mr-btn mr-btn--solid" href="contact.html">Get in touch</a>
       </div>
     </div>
     <div class="mr-footer-legal">
@@ -253,6 +175,21 @@
       overlay.hidden = open;
       document.documentElement.classList.toggle('menu-open', !open);
     });
+  })();
+  // Reveal-on-scroll (zeta.js is not loaded on this page).
+  (function () {
+    var els = document.querySelectorAll('[data-mr-reveal]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    els.forEach(function (el) { io.observe(el); });
   })();
 </script>
 
