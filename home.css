@@ -29,8 +29,6 @@
   gap: 0.6em;
   margin-bottom: 28px;
 }
-.mr-kicker::before{ content: "["; color: var(--text-faint); }
-.mr-kicker::after{ content: "]"; color: var(--text-faint); }
 
 /* Reveal motion: house vocabulary only. */
 [data-mr-reveal]{
@@ -514,16 +512,6 @@
 /* Phase cards are static, so no hover lift and no link affordance. */
 .mr-card--phase{ cursor: default; min-height: 260px; }
 .mr-card--phase:hover{ background: var(--bg); }
-
-.mr-phase-when{
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-/* Only the live phase carries the accent. */
-.mr-phase-when.is-now{ color: var(--accent); }
 
 .mr-method-note{
   margin-top: 20px;
