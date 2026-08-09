@@ -569,12 +569,14 @@
   border-bottom-color: var(--border);
 }
 
-/* ------------------------ static zeta backdrops --------------------------- */
-/* Real values, not decoration: zeta(1/2+it) traced in the complex plane, the
-   Riemann-Siegel Z(t) whose sign changes are the zeros, and the first 24
-   nontrivial zeros sitting on Re(s)=1/2. Each layer is masked so it fades to
-   nothing before it reaches the text column, and the card grid paints an
-   opaque background over whatever runs behind it. */
+/* -------------------------- mathematical figures -------------------------- */
+/* Four distinct figures, one per section, all drawn from real values:
+   zeta(1/2+it) traced in the complex plane; the Fourier partial sums of a
+   square wave at 1, 3, 9 and 49 harmonics, Gibbs overshoot and all; the
+   prime counting function pi(x) to 1000 against li(x); and the Lorenz
+   attractor in its x-z projection. Each figure is masked so it goes fully
+   transparent before it reaches the copy, and the card grids paint an
+   opaque background over anything running behind them. */
 
 .mr-figure{
   position: absolute;
@@ -582,58 +584,66 @@
   pointer-events: none;
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: 0.16;
+  opacity: 0.55;
 }
-.mr-light .mr-figure{ opacity: 0.55; }
 
 /* Everything the reader looks at sits above the figures. */
 .mr-hero-inner,
 .mr-section .mr-wrap{ position: relative; z-index: 1; }
 
-/* Hero: the spiral fills the right half; the mask kills it under the
-   headline, which runs to roughly 52% of the wrap at every breakpoint. */
-.mr-figure--spiral{
-  right: -2%;
+/* Square figures own the right of their section. */
+.mr-figure--spiral,
+.mr-figure--lorenz{
+  right: -3%;
   top: 50%;
   transform: translateY(-50%);
-  width: min(700px, 52vw);
   aspect-ratio: 1;
-  background-image: url("assets/zeta-spiral.svg");
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 26%, #000 56%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 26%, #000 56%, #000 100%);
+  width: min(1010px, 67vw);
+}
+.mr-figure--spiral{ background-image: url("assets/fig-zeta-spiral.svg"); }
+.mr-figure--lorenz{
+  background-image: url("assets/fig-lorenz.svg");
+  width: min(940px, 62vw);
+  opacity: 0.5;
 }
 
-/* Z(t) runs the full width behind the phase cards. The grid is opaque, so
-   only the margins and the gutters show it. */
-.mr-figure--wave{
+/* Landscape figures take a band of empty page rather than a column. */
+.mr-figure--fourier{
   left: 0;
   right: 0;
-  bottom: -40px;
-  height: 200px;
-  background-image: url("assets/zeta-wave.svg");
+  bottom: -30px;
+  height: 236px;
+  background-image: url("assets/fig-fourier.svg");
   background-size: 100% 100%;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 64%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 64%, transparent 100%);
 }
-.mr-figure--zeros{
+.mr-figure--primes{
   right: 0;
-  left: 0;
-  top: 0;
-  height: 96px;
-  background-image: url("assets/zeta-zeros.svg");
+  top: 30px;
+  width: min(620px, 41vw);
+  height: 245px;
+  background-image: url("assets/fig-primes.svg");
   background-size: 100% 100%;
-  /* Sits entirely above the statement, so it needs no side mask for
-     legibility, only a soft edge so it does not butt the viewport. */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 17%, #000 38%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 17%, #000 38%, #000 100%);
 }
 
-/* Narrow screens have no spare column, so the figures come off entirely
-   rather than sitting under the copy. */
-@media (max-width: 900px){
-  .mr-figure--spiral,
-  .mr-figure--zeros{ display: none; }
-  .mr-light .mr-figure--wave{ opacity: 0.30; }
+/* Masks for the square figures are cut against the measured right edge of
+   the copy in their own section, so they differ per section. */
+.mr-hero .mr-figure--spiral{
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
+}
+#method .mr-figure--lorenz{
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 43%, #000 68%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 43%, #000 68%, #000 100%);
+}
+
+/* Below the desktop breakpoint only one figure would fit per screen, and a
+   lone figure reads as an accident rather than a system, so none run. */
+@media (max-width: 1199px){
+  .mr-figure{ display: none; }
 }
 
 /* Sections need to contain their absolutely positioned figures. */
@@ -645,33 +655,20 @@
 .mr-light .mr-section{ padding: 116px 0 104px; }
 @media (max-width: 720px){ .mr-light .mr-section{ padding: 56px 0 48px; } }
 
-/* The strip is line art rather than a dense curve, so it needs a little
-   more presence to read at the same visual weight as the other two. */
-.mr-light .mr-figure--zeros{ opacity: 0.62; }
-
 /* At the shared display size a 12ch measure ran to five lines. Stepping the
-   size down holds it to three or four and leaves the right of the hero to
-   the figure without crowding either. */
+   size down holds it to four and leaves the right of the hero to the
+   figure without crowding either. */
 .mr-light .mr-hero h1{
   font-size: clamp(2.3rem, 4.4vw, 4.3rem);
   max-width: 14ch;
 }
 .mr-light .mr-hero-sub{ max-width: 46ch; font-size: 1.06rem; }
 
-/* The hero headline reaches further right than the copy in any other
-   section, so the hero's spiral holds its ink back further than the base. */
-.mr-hero .mr-figure--spiral{
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, #000 74%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, #000 74%, #000 100%);
-}
-
 /* Three short cards do not need the four-card grid's height. */
 .mr-light .mr-card--phase{ min-height: 0; padding: 30px 28px 28px; }
 
 /* Desktop: one left edge down the whole page, set further out than the
-   shared 1180 wrap, which leaves the right of each section to the figures.
-   Both bands run t from 0 to 92 across their full width, so giving them the
-   same extent puts every zero directly under the crossing it belongs to. */
+   shared 1180 wrap, which leaves the right of each section to the figures. */
 @media (min-width: 1200px){
   .mr-light .mr-wrap{
     max-width: 1420px;
@@ -682,20 +679,4 @@
      centring on its own width instead of sitting on the page's left edge.
      Filling the track first restores the shared edge. */
   .mr-light .mr-hero-inner{ width: 100%; }
-  .mr-light .mr-hero .mr-figure--spiral{ width: min(1010px, 67vw); right: -3%; }
-  .mr-light #method .mr-figure--spiral{ width: min(950px, 63vw); right: -3%; }
-}
-
-/* With the copy on the page's left edge the figures have far more room, so
-   the masks only need to hold ink off the last line rather than half the
-   frame. Cut against measured text bounds, not by eye. */
-@media (min-width: 1200px){
-  .mr-light .mr-hero .mr-figure--spiral{
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
-  }
-  .mr-light #method .mr-figure--spiral{
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 30%, #000 58%, #000 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, transparent 30%, #000 58%, #000 100%);
-  }
 }
