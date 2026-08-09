@@ -846,7 +846,7 @@ html.js .math-ready .tex{ opacity: 1; }
 /* ------------------------------ Research ---------------------------------- */
 .research-layout{
   display: grid;
-  grid-template-columns: 5fr 4fr;
+  grid-template-columns: 4fr 5fr;
   gap: 56px;
   align-items: start;
 }
@@ -854,43 +854,35 @@ html.js .math-ready .tex{ opacity: 1; }
   .research-layout{ grid-template-columns: 1fr; gap: 8px; }
 }
 .research-aside{
-  position: sticky;
-  top: calc(var(--nav-h) + 32px);
-  padding: 28px 24px 20px;
+  /* Static, not sticky: it no longer tracks the scroll. */
+  position: static;
+  padding: 40px 36px 34px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
 }
 @media (max-width: 899px){
-  .research-aside{ position: static; margin-bottom: 26px; }
+  .research-aside{ margin-bottom: 26px; padding: 28px 24px 22px; }
 }
 .ratefig{ width: 100%; height: auto; }
 .ratefig .rf-group{
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   fill: var(--text-faint);
 }
 .ratefig .rf-label{
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   fill: var(--text-muted);
 }
 .ratefig .rf-val{
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   fill: var(--text);
 }
 .ratefig .rf-bar{ fill: var(--accent-dim); }
 .ratefig .rf-bar.rf-sys{ fill: var(--accent); opacity: 0.75; }
-.ratefig-cap{
-  margin-top: 16px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  line-height: 1.6;
-  color: var(--text-faint);
-  max-width: none;
-}
 
 .research-rows{
   display: grid; gap: 0;
@@ -1469,3 +1461,19 @@ html.intro-running .page-progress{ opacity: 0; }
 }
 .wl-status.is-ok{ color: var(--accent-dim); }
 .wl-status.is-err{ color: var(--v-unfaithful); }
+
+
+/* --------------------------- dataset access ------------------------------- */
+
+.ds-request{
+  max-width: 62ch;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.ds-request h2{ margin-top: 34px; }
+.ds-request p{
+  margin-top: 16px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.ds-request-cta{ margin-top: 26px; }
