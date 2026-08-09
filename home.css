@@ -635,3 +635,21 @@
      Filling the track first restores the shared edge. */
   .mr-light .mr-hero-inner{ width: 100%; }
 }
+
+/* -------------------------- waiting list (home) --------------------------- */
+/* The form is the primary action in the closing section, so it leads and the
+   secondary link sits beside it rather than under it. */
+.mr-waitlist{
+  margin-top: 36px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.mr-waitlist .wl-form{ margin-top: 0; flex: 0 1 460px; }
+.mr-waitlist .wl-row{ gap: 12px; }
+.mr-waitlist .wl-input{ flex: 1 1 220px; }
+.mr-waitlist > .mr-btn{ margin-top: 26px; }
+@media (max-width: 620px){
+  .mr-waitlist > .mr-btn{ margin-top: 0; }
+}

@@ -14,8 +14,8 @@
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="styles.css?v=8">
-<link rel="stylesheet" href="home.css?v=32">
+<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="home.css?v=33">
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body class="mr-page mr-light">
@@ -168,8 +168,17 @@
           can, and we put a person behind every result we publish.
         </p>
       </div>
-      <div class="mr-hero-cta" data-mr-reveal>
-        <a class="mr-btn mr-btn--solid" href="contact.html">Get in touch</a>
+      <div class="mr-waitlist" data-mr-reveal>
+        <form class="wl-form" id="wl-form" novalidate>
+          <label class="wl-label" for="wl-email">Join the waiting list</label>
+          <div class="wl-row">
+            <input class="wl-input" id="wl-email" name="email" type="email" required
+                   autocomplete="email" placeholder="you@lab.org" aria-describedby="wl-status">
+            <button class="mr-btn mr-btn--solid wl-submit" type="submit">Join</button>
+          </div>
+          <input class="wl-trap" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="wl-status" id="wl-status" role="status"></p>
+        </form>
         <a class="mr-btn" href="research.html">See the work</a>
       </div>
     </div>
@@ -227,6 +236,63 @@
     }, { rootMargin: '0px 0px -12% 0px' });
     els.forEach(function (el) { io.observe(el); });
   })();
+</script>
+
+
+<script>
+/* Waiting list.
+   Set WAITLIST_ENDPOINT to a URL that accepts a JSON POST of {email} and the
+   form submits to it. Leave it empty and the form falls back to opening a
+   pre-addressed mail draft, so the page works with nothing else set up. */
+(function () {
+  var WAITLIST_ENDPOINT = "";
+  var FALLBACK_TO = "shayaan@millenniumresearch.ai,ibrahimnmian@gmail.com";
+
+  var form = document.getElementById("wl-form");
+  if (!form) return;
+  var input = document.getElementById("wl-email");
+  var status = document.getElementById("wl-status");
+  var button = form.querySelector(".wl-submit");
+
+  function say(msg, ok) {
+    status.textContent = msg;
+    status.classList.toggle("is-ok", ok === true);
+    status.classList.toggle("is-err", ok === false);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (form.company.value) return;            // honeypot; bots fill it, people do not
+    var email = input.value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      say("That does not look like an email address.", false);
+      input.focus();
+      return;
+    }
+    if (!WAITLIST_ENDPOINT) {
+      window.location.href = "mailto:" + FALLBACK_TO +
+        "?subject=" + encodeURIComponent("Waiting list") +
+        "&body=" + encodeURIComponent("Please add " + email + " to the waiting list.");
+      say("Opening your mail app to send the request.", true);
+      return;
+    }
+    button.disabled = true;
+    say("Adding you...");
+    fetch(WAITLIST_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ email: email })
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      form.reset();
+      say("You are on the list. We will be in touch.", true);
+    }).catch(function () {
+      say("That did not go through. Email us instead and we will add you by hand.", false);
+    }).then(function () {
+      button.disabled = false;
+    });
+  });
+})();
 </script>
 
 </body>
