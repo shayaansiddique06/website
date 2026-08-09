@@ -54,6 +54,8 @@
 
 html{
   -webkit-text-size-adjust: 100%;
+  /* Everything rem-based steps up with this. */
+  font-size: 109%;
 }
 @media (prefers-reduced-motion: no-preference){
   html{ scroll-behavior: smooth; }

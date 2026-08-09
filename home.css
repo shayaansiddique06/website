@@ -544,21 +544,33 @@
 .mr-hero-inner,
 .mr-section .mr-wrap{ position: relative; z-index: 1; }
 
-/* Square figures own the right of their section. */
+/* Square figures own the right of their section, fitted to its full height
+   so neither is cropped at the top or bottom. */
 .mr-figure--spiral,
 .mr-figure--lorenz{
-  right: -3%;
-  top: 50%;
-  transform: translateY(-50%);
+  right: -2%;
+  top: 0;
+  bottom: 0;
+  width: auto;
   aspect-ratio: 1;
-  width: min(1010px, 67vw);
+  background-position: center;
+  background-size: contain;
 }
 .mr-figure--spiral{ background-image: url("assets/fig-zeta-spiral.svg"); }
 .mr-figure--lorenz{
   background-image: url("assets/fig-lorenz.svg");
-  width: min(1160px, 77vw);
   opacity: 0.5;
 }
+
+/* The closing section is short enough that a height-fitted square would be
+   small, so it carries a floor that gives the attractor room. */
+.mr-light #method{
+  min-height: 820px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mr-light #method > .mr-wrap{ width: 100%; }
 
 /* Landscape figures take a band of empty page rather than a column. */
 .mr-figure--fourier{
@@ -577,8 +589,8 @@
 /* The headline stepped up a size, so its longest line reaches further right
    and the spiral holds its ink back to match. */
 .mr-hero .mr-figure--spiral{
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 31%, #000 60%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 31%, #000 60%, #000 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 45%, #000 72%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 45%, #000 72%, #000 100%);
 }
 #method .mr-figure--lorenz{
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 53%, #000 74%, #000 100%);
