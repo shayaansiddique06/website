@@ -15,8 +15,8 @@
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css?v=11">
-<link rel="stylesheet" href="home.css?v=36">
-<noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
+<link rel="stylesheet" href="home.css?v=40">
+<noscript><style>[]{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body class="mr-page mr-light">
 
@@ -30,7 +30,7 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <ul>
-        <li><a href="research.html">Research</a></li>
+        <li><a href="verification.html">Verification</a></li>
         <li><a href="dataset.html">Dataset</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="contact.html">Access</a></li>
@@ -44,7 +44,7 @@
   <div class="menu-overlay" id="menu-overlay" hidden>
     <nav aria-label="Mobile">
       <ul>
-        <li><a href="research.html">Research</a></li>
+        <li><a href="verification.html">Verification</a></li>
         <li><a href="dataset.html">Dataset</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="contact.html">Access</a></li>
@@ -74,38 +74,27 @@
   <section class="mr-section" id="phases" aria-label="What we verify">
     <div class="mr-figure mr-figure--fourier" aria-hidden="true"></div>
     <div class="mr-wrap">
-      <p class="mr-statement" data-mr-reveal>
+      <p class="mr-statement">
         One method. <em>Three fields.</em>
       </p>
 
-      <div class="mr-grid mr-grid--three" data-mr-reveal>
-
-        <div class="mr-card mr-card--phase">
+      <ol class="mr-rows">
+        <li>
+          <span class="mr-row-n">01</span>
           <h3>Mathematics</h3>
-          <p>
-            Formal proofs of mathematical results, checked one statement at a
-            time. This is where the method was built, and it is what we do
-            today.
-          </p>
-        </div>
-
-        <div class="mr-card mr-card--phase">
+          <p>Formal proofs of mathematical results, checked one statement at a time. This is where the method was built, and it is what we do today.</p>
+        </li>
+        <li>
+          <span class="mr-row-n">02</span>
           <h3>Software</h3>
-          <p>
-            The same check, applied to code. Whether a program&rsquo;s formal
-            specification says what the program is actually meant to do.
-          </p>
-        </div>
-
-        <div class="mr-card mr-card--phase">
+          <p>The same check, applied to code. Whether a program&rsquo;s formal specification says what the program is actually meant to do.</p>
+        </li>
+        <li>
+          <span class="mr-row-n">03</span>
           <h3>Quantum</h3>
-          <p>
-            Quantum algorithms and protocols, where testing your way to
-            confidence is not an option and proof has to carry the weight.
-          </p>
-        </div>
-
-      </div>
+          <p>Quantum algorithms and protocols, where testing your way to confidence is not an option and proof has to carry the weight.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -115,40 +104,28 @@
   <section class="mr-section" id="record" aria-label="What we have done">
     <div class="mr-figure mr-figure--primes" aria-hidden="true"></div>
     <div class="mr-wrap">
-      <p class="mr-statement" data-mr-reveal>
+      <p class="mr-statement">
         We don&rsquo;t only check the field&rsquo;s work.<br>
         <em>We close problems of our own.</em>
       </p>
 
-      <div class="mr-grid mr-grid--three" data-mr-reveal>
-
-        <div class="mr-card mr-card--phase">
+      <ol class="mr-rows">
+        <li>
+          <span class="mr-row-n">01</span>
           <h3>We settle open questions</h3>
-          <p>
-            We publish papers on Erd&#337;s problems, some open for decades,
-            with every step checked by machine rather than taken on trust.
-          </p>
-        </div>
-
-        <div class="mr-card mr-card--phase">
+          <p>We publish papers on Erd&#337;s problems, some open for decades, with every step checked by machine rather than taken on trust.</p>
+        </li>
+        <li>
+          <span class="mr-row-n">02</span>
           <h3>We find what the field missed</h3>
-          <p>
-            We go through the benchmarks and libraries everyone builds on and
-            find real mistakes. The fixes get accepted, including by the
-            group behind Lean itself.
-          </p>
-        </div>
-
-        <div class="mr-card mr-card--phase">
+          <p>We go through the benchmarks and libraries everyone builds on and find real mistakes. The fixes get accepted, including by the group behind Lean itself.</p>
+        </li>
+        <li>
+          <span class="mr-row-n">03</span>
           <h3>What we are building next</h3>
-          <p>
-            Proofs ordered by logical strength rather than pass or fail, so a
-            machine can be pointed at questions nobody has closed and measured
-            on how much it actually proved.
-          </p>
-        </div>
-
-      </div>
+          <p>Proofs ordered by logical strength rather than pass or fail, so a machine can be aimed at questions nobody has closed and measured on how much it actually proved.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -158,17 +135,17 @@
   <section class="mr-section" id="method" aria-label="The method">
     <div class="mr-figure mr-figure--lorenz" aria-hidden="true"></div>
     <div class="mr-wrap">
-      <p class="mr-statement" data-mr-reveal>
+      <p class="mr-statement">
         The subject changes.<br><em>The question doesn&rsquo;t.</em>
       </p>
-      <div class="mr-method-note" data-mr-reveal>
+      <div class="mr-method-note">
         <p>
           A formal statement can be perfectly correct and still say the wrong
           thing. The machine that checks it cannot tell the difference. We
           can, and we put a person behind every result we publish.
         </p>
       </div>
-      <div class="mr-waitlist" data-mr-reveal>
+      <div class="mr-waitlist">
         <h3 class="wl-title">Join the waiting list</h3>
         <p class="wl-blurb">We take on a few teams at a time. Leave an email and we will tell you when the next slots open.</p>
         <form class="wl-form" id="wl-form" novalidate>
@@ -222,21 +199,7 @@
       document.documentElement.classList.toggle('menu-open', !open);
     });
   })();
-  // Reveal-on-scroll (zeta.js is not loaded on this page).
-  (function () {
-    var els = document.querySelectorAll('[data-mr-reveal]');
-    if (!els.length) return;
-    if (!('IntersectionObserver' in window)) {
-      els.forEach(function (el) { el.classList.add('is-in'); });
-      return;
-    }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-      });
-    }, { rootMargin: '0px 0px -12% 0px' });
-    els.forEach(function (el) { io.observe(el); });
-  })();
+
 </script>
 
 

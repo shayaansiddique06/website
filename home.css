@@ -505,11 +505,9 @@
 .mr-hero--plain{ background: var(--bg); }
 
 /* Three across on desktop, stacked on narrow screens. */
-.mr-grid--three{ grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 980px){ .mr-grid--three{ grid-template-columns: 1fr; } }
 
 /* Phase cards are static, so no hover lift and no link affordance. */
-.mr-card--phase{ cursor: default; min-height: 260px; }
 .mr-card--phase:hover{ background: var(--bg); }
 
 .mr-method-note{
@@ -566,8 +564,8 @@
 .mr-figure--fourier{
   left: 0;
   right: 0;
-  bottom: -30px;
-  height: 236px;
+  bottom: -20px;
+  height: 200px;
   background-image: url("assets/fig-fourier.svg");
   background-size: 100% 100%;
   -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 64%, transparent 100%);
@@ -575,13 +573,15 @@
 }
 .mr-figure--primes{
   right: 0;
-  top: 30px;
-  width: min(620px, 41vw);
-  height: 245px;
+  top: 34px;
+  width: min(660px, 46vw);
+  height: 232px;
   background-image: url("assets/fig-primes.svg");
   background-size: 100% 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 17%, #000 38%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 17%, #000 38%, #000 100%);
+  /* Cleared vertically rather than by mask, so the whole staircase shows and
+     the only masking is a soft edge against the viewport. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
 }
 
 /* Masks for the square figures are cut against the measured right edge of
@@ -622,7 +622,6 @@
 .mr-light .mr-hero-sub{ max-width: 46ch; font-size: 1.22rem; line-height: 1.55; }
 
 /* Three short cards do not need the four-card grid's height. */
-.mr-light .mr-card--phase{ min-height: 0; padding: 30px 28px 28px; }
 
 /* Desktop: one left edge down the whole page, set further out than the
    shared 1180 wrap, which leaves the right of each section to the figures. */
@@ -665,3 +664,68 @@
 .mr-waitlist .wl-form{ margin-top: 18px; }
 .mr-waitlist .wl-row{ gap: 12px; }
 .mr-waitlist .wl-input{ flex: 1 1 200px; background: var(--bg); }
+
+/* ------------------------------ editorial rows ---------------------------- */
+/* Three equal filled cards side by side is the single most recognisable
+   generated-site pattern, so these are rules-and-prose instead: asymmetric
+   columns, hairline separators, no fills, no rounded corners, no hover lift.
+   Measure is capped so the figures keep the right of the page. */
+
+.mr-rows{
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  max-width: 860px;
+  border-top: 1px solid var(--border-strong);
+}
+.mr-rows li{
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 13rem) minmax(0, 1fr);
+  gap: 0 28px;
+  align-items: baseline;
+  padding: 26px 0 24px;
+  border-bottom: 1px solid var(--border);
+}
+.mr-rows li:last-child{ border-bottom: 0; }
+
+.mr-row-n{
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.mr-rows h3{
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+.mr-rows p{
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0;
+}
+@media (max-width: 860px){
+  .mr-rows li{
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    gap: 6px 20px;
+  }
+  .mr-rows h3{ grid-column: 2; }
+  .mr-rows p{ grid-column: 2; }
+}
+
+/* The rows are taller than the grid they replaced and no longer paint an
+   opaque background over what runs behind them, so this section carries
+   extra bottom padding to give the wave a band of its own. */
+.mr-light #phases{ padding-bottom: 210px; }
+@media (max-width: 720px){ .mr-light #phases{ padding-bottom: 48px; } }
+
+/* The staircase needs a band of its own above the statement, and the rows
+   below it no longer paint over anything, so this section opens taller. */
+.mr-light #record{ padding-top: 300px; }
+@media (max-width: 1199px){ .mr-light #record{ padding-top: 116px; } }
+@media (max-width: 720px){ .mr-light #record{ padding-top: 56px; } }
