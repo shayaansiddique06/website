@@ -663,13 +663,13 @@
   list-style: none;
   margin: 28px 0 0;
   padding: 0;
-  max-width: 860px;
+  max-width: 1220px;
   border-top: 1px solid var(--border-strong);
 }
 .mr-rows li{
   display: grid;
-  grid-template-columns: 2.6rem minmax(0, 13rem) minmax(0, 1fr);
-  gap: 0 28px;
+  grid-template-columns: 3rem minmax(0, 21rem) minmax(0, 46rem);
+  gap: 0 40px;
   align-items: baseline;
   padding: 26px 0 24px;
   border-bottom: 1px solid var(--border);
@@ -696,6 +696,9 @@
   line-height: 1.65;
   color: var(--text-muted);
   margin: 0;
+}
+@media (max-width: 1100px){
+  .mr-rows li{ grid-template-columns: 3rem minmax(0, 15rem) minmax(0, 1fr); gap: 0 28px; }
 }
 @media (max-width: 860px){
   .mr-rows li{
