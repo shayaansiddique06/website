@@ -45,8 +45,8 @@
 /* -------------------------------- hero ----------------------------------- */
 
 .mr-hero{
-  min-height: 88vh;
-  min-height: 88svh;
+  min-height: 78vh;
+  min-height: 78svh;
   display: grid;
   align-items: center;
   position: relative;
@@ -564,24 +564,12 @@
 .mr-figure--fourier{
   left: 0;
   right: 0;
-  bottom: -20px;
-  height: 200px;
+  bottom: -14px;
+  height: 164px;
   background-image: url("assets/fig-fourier.svg");
   background-size: 100% 100%;
   -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 64%, transparent 100%);
   mask-image: linear-gradient(180deg, #000 0%, #000 64%, transparent 100%);
-}
-.mr-figure--primes{
-  right: 0;
-  top: 34px;
-  width: min(660px, 46vw);
-  height: 232px;
-  background-image: url("assets/fig-primes.svg");
-  background-size: 100% 100%;
-  /* Cleared vertically rather than by mask, so the whole staircase shows and
-     the only masking is a soft edge against the viewport. */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 100%);
 }
 
 /* Masks for the square figures are cut against the measured right edge of
@@ -609,7 +597,7 @@
 
 /* The figures need empty page to live in, so the light home runs a taller
    rhythm than the shared default. */
-.mr-light .mr-section{ padding: 116px 0 104px; }
+.mr-light .mr-section{ padding: 76px 0 68px; }
 @media (max-width: 720px){ .mr-light .mr-section{ padding: 56px 0 48px; } }
 
 /* At the shared display size a 12ch measure ran to five lines. Stepping the
@@ -721,11 +709,6 @@
 /* The rows are taller than the grid they replaced and no longer paint an
    opaque background over what runs behind them, so this section carries
    extra bottom padding to give the wave a band of its own. */
-.mr-light #phases{ padding-bottom: 210px; }
+.mr-light #phases{ padding-bottom: 170px; }
 @media (max-width: 720px){ .mr-light #phases{ padding-bottom: 48px; } }
 
-/* The staircase needs a band of its own above the statement, and the rows
-   below it no longer paint over anything, so this section opens taller. */
-.mr-light #record{ padding-top: 300px; }
-@media (max-width: 1199px){ .mr-light #record{ padding-top: 116px; } }
-@media (max-width: 720px){ .mr-light #record{ padding-top: 56px; } }

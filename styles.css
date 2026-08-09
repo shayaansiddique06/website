@@ -1390,12 +1390,18 @@ html.intro-running .page-progress{ opacity: 0; }
 
 /* ------------------------- research page additions ------------------------ */
 
+/* Sits on one line on a desktop column; the 56ch measure was forcing a
+   wrap. Wrapping is still allowed below the width where one line fits. */
 .res-lede{
-  max-width: 56ch;
+  max-width: none;
   margin: 18px 0 0;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   line-height: 1.65;
   color: var(--text-muted);
+  text-wrap: nowrap;
+}
+@media (max-width: 1180px){
+  .res-lede{ max-width: 62ch; text-wrap: pretty; }
 }
 
 .res-foot{
