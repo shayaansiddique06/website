@@ -568,3 +568,95 @@
   backdrop-filter: blur(12px);
   border-bottom-color: var(--border);
 }
+
+/* ------------------------ static zeta backdrops --------------------------- */
+/* Real values, not decoration: zeta(1/2+it) traced in the complex plane, the
+   Riemann-Siegel Z(t) whose sign changes are the zeros, and the first 24
+   nontrivial zeros sitting on Re(s)=1/2. Each layer is masked so it fades to
+   nothing before it reaches the text column, and the card grid paints an
+   opaque background over whatever runs behind it. */
+
+.mr-figure{
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.16;
+}
+.mr-light .mr-figure{ opacity: 0.20; }
+
+/* Everything the reader looks at sits above the figures. */
+.mr-hero-inner,
+.mr-section .mr-wrap{ position: relative; z-index: 1; }
+
+/* Hero: the spiral fills the right half; the mask kills it under the
+   headline, which runs to roughly 52% of the wrap at every breakpoint. */
+.mr-figure--spiral{
+  right: -6%;
+  top: 50%;
+  transform: translateY(-46%);
+  width: min(760px, 60vw);
+  aspect-ratio: 1;
+  background-image: url("assets/zeta-spiral.svg");
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, #000 80%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, #000 80%, #000 100%);
+}
+
+/* Z(t) runs the full width behind the phase cards. The grid is opaque, so
+   only the margins and the gutters show it. */
+.mr-figure--wave{
+  left: -4%;
+  right: -4%;
+  bottom: -40px;
+  height: 200px;
+  background-image: url("assets/zeta-wave.svg");
+  background-size: 100% 100%;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+}
+/* Second copy of the same curve, phase-shifted by sitting above the grid. */
+.mr-figure--wave-top{
+  left: -4%;
+  right: -4%;
+  top: -30px;
+  height: 190px;
+  background-image: url("assets/zeta-wave.svg");
+  background-size: 118% 100%;
+  background-position: right center;
+  -webkit-mask-image: linear-gradient(200deg, transparent 0%, transparent 30%, #000 62%, #000 100%);
+  mask-image: linear-gradient(200deg, transparent 0%, transparent 30%, #000 62%, #000 100%);
+}
+
+.mr-figure--strip{
+  right: -2%;
+  top: -6%;
+  bottom: -6%;
+  width: min(520px, 34vw);
+  background-image: url("assets/zeta-strip.svg");
+  background-position: center;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 12%, #000 44%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 12%, #000 44%, #000 100%);
+}
+
+/* Narrow screens have no spare column, so the figures come off entirely
+   rather than sitting under the copy. */
+@media (max-width: 900px){
+  .mr-figure--spiral,
+  .mr-figure--strip{ display: none; }
+  .mr-light .mr-figure--wave{ opacity: 0.12; }
+}
+
+/* Sections need to contain their absolutely positioned figures. */
+.mr-hero,
+.mr-section{ overflow: hidden; }
+
+/* The figures need empty page to live in, so the light home runs a taller
+   rhythm than the shared default. */
+.mr-light .mr-section{ padding: 116px 0 104px; }
+@media (max-width: 720px){ .mr-light .mr-section{ padding: 56px 0 48px; } }
+@media (max-width: 900px){ .mr-figure--wave-top{ display: none; } }
+
+/* The strip is line art rather than a dense curve, so it needs a little
+   more presence to read at the same visual weight as the other two. */
+.mr-light .mr-figure--strip{ opacity: 0.30; }
