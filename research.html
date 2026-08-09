@@ -15,7 +15,7 @@
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=6">
 <script defer src="main.js"></script>
 </head>
 <body>
@@ -31,7 +31,6 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <ul>
-        <li><a href="thesis.html">Thesis</a></li>
         <li><a href="research.html" class="is-active" aria-current="page">Research</a></li>
         <li><a href="dataset.html">Dataset</a></li>
         <li><a href="team.html">Team</a></li>
@@ -46,7 +45,6 @@
   <div class="menu-overlay" id="menu-overlay" hidden>
     <nav aria-label="Mobile">
       <ul>
-        <li><a href="thesis.html">Thesis</a></li>
         <li><a href="research.html" aria-current="page">Research</a></li>
         <li><a href="dataset.html">Dataset</a></li>
         <li><a href="team.html">Team</a></li>
@@ -58,29 +56,43 @@
 
 <main id="main" class="subpage">
 
-<section class="section" id="research" aria-labelledby="research-title">
+  <section class="section" id="research" aria-labelledby="research-title">
     <div class="container">
+
       <h2 id="research-title" data-reveal>What we measure, and what we found.</h2>
+      <p class="res-lede" data-reveal>
+        A formal statement can compile and still say the wrong thing. We check
+        whether it says what the mathematics says, and we publish how often we
+        get that wrong.
+      </p>
+
+      <div class="res-stats" data-reveal>
+        <div><b>4,000+</b><span>human verdicts. Every certification is a person, never a model.</span></div>
+        <div><b>23.4%</b><span>of human-rejected pairs pass both frontier judges.</span></div>
+        <div><b>91.8%</b><span>of our flags survive human review, pooled across audits.</span></div>
+        <div><b>174/202</b><span>counterexample-backed flags upheld on review.</span></div>
+      </div>
+
       <div class="research-layout">
       <div class="research-rows">
         <article class="research-row" id="audits" data-reveal>
           <h3>Benchmark audits</h3>
-          <p>1,347 statements across miniF2F, miniF2F v2 and ProofNet#, every flag verified by hand. 76 confirmed defects, all three filings public: <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">miniF2F filing</a>, the <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">v2 issue</a>, and the <a href="https://huggingface.co/datasets/PAug/ProofNetSharp/discussions/2" target="_blank" rel="noopener">ProofNet# filing</a>.</p>
+          <p>1,347 statements across miniF2F, miniF2F v2 and ProofNet#, every flag verified by hand. 76 confirmed defects, all three filings public: <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">miniF2F</a>, <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">v2</a>, <a href="https://huggingface.co/datasets/PAug/ProofNetSharp/discussions/2" target="_blank" rel="noopener">ProofNet#</a>.</p>
         </article>
         <article class="research-row" data-reveal>
           <h3>Cross-system audits</h3>
-          <p>Four open autoformalizers, same 488 problems, their own prompts. Failure rates ran from 21.7% (Goedel V2) to 55.5% (Herald). All 80 sampled flags survived human review. A compile check catches none of it.</p>
+          <p>Four open autoformalizers, same 488 problems, their own prompts. Failure rates ran from 21.7% to 55.5%. A compile check catches none of it.</p>
         </article>
         <article class="research-row" data-reveal>
-          <h3>Specification gaming on verified math</h3>
-          <p>59 pairs satisfy the checker and two frontier judges yet fail human review, sorted into named failure classes. Three classes now have mechanical detectors.</p>
+          <h3>Specification gaming</h3>
+          <p>59 pairs satisfy the checker and two frontier judges yet fail human review. Three failure classes now have mechanical detectors.</p>
         </article>
         <article class="research-row" id="instrument" data-reveal>
           <h3>The instrument itself</h3>
-          <p>An evaluator you can&rsquo;t calibrate is an opinion. Ours is measured against 886 frozen human verdicts: flag precision 76.7 to 100 percent per corpus, recall 78.3 percent, false-positive classes published. 174 of 202 counterexample-backed flags upheld on review. Full instrument on <a href="suite.html">the eval suite page</a>.</p>
+          <p>Calibrated against 886 frozen human verdicts. Flag precision 76.7 to 100 percent per corpus, recall 78.3 percent, false-positive classes named and published.</p>
         </article>
-
       </div>
+
       <aside class="research-aside" data-reveal aria-label="Flag rates across audits">
         <svg class="ratefig" viewBox="0 0 352 238" role="img" aria-label="Share of statements flagged unfaithful, per audited corpus and system">
           <text class="rf-group" x="0" y="12">benchmarks</text>
@@ -96,24 +108,12 @@
         <p class="ratefig-cap">share of statements flagged unfaithful by the screen, per corpus.<br>*Herald sampled at its native temperature, one draw per problem.</p>
       </aside>
       </div>
-              <article class="research-row research-keystone" data-reveal>
-          <div class="keystone-text">
-            <h3>The strength-structured lattice</h3>
-            <p>Where this goes next. Proofs organized in a lattice ordered by logical strength, not pass/fail, so a model&rsquo;s verified reasoning can be measured for <em>how much</em> it proved. It also exposes a failure mode we expect to matter: models that train on self-verified math drifting toward weaker statements that are easier to prove.</p>
-          </div>
-          <figure class="keystone-figure" aria-hidden="true">
-            <svg class="lattice" viewBox="0 0 220 132" focusable="false">
-              <path class="lat-e" d="M110 18 L40 66 M110 18 L110 66 M110 18 L180 66 M40 66 L75 114 M110 66 L75 114 M110 66 L145 114 M180 66 L145 114"/>
-              <circle class="lat-n lat-apex" cx="110" cy="18" r="7"/>
-              <circle class="lat-n" cx="40" cy="66" r="6"/>
-              <circle class="lat-n" cx="110" cy="66" r="6"/>
-              <circle class="lat-n" cx="180" cy="66" r="6"/>
-              <circle class="lat-n" cx="75" cy="114" r="6"/>
-              <circle class="lat-n" cx="145" cy="114" r="6"/>
-            </svg>
-            <figcaption class="lattice-cap">statements ordered by logical strength</figcaption>
-          </figure>
-        </article>
+
+      <p class="res-foot" data-reveal>
+        Automated screens may only reject. Only a person certifies.
+        <a class="link-underline" href="contact.html">Request a scored pilot</a>
+      </p>
+
     </div>
   </section>
 

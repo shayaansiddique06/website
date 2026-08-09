@@ -681,7 +681,7 @@ html.js [data-reveal].is-visible{
 /* Theorem cards */
 .cards{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 .card{
@@ -736,10 +736,16 @@ html.js [data-reveal].is-visible{
 
 /* Panels stack vertically so the Lean code gets the full card width and
    reads without horizontal scrolling. */
+/* Source and formalization sit side by side so the Lean is visible without
+   scrolling past the LaTeX to reach it. */
 .card-panels{
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 760px){
+  .card-panels{ grid-template-columns: 1fr; gap: 16px; }
 }
 
 /* Filtered view: one card per row, with the human verdict rationale shown
@@ -1360,4 +1366,59 @@ html.intro-running .page-progress{ opacity: 0; }
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-bottom-color: var(--border);
+}
+
+/* ------------------------- research page additions ------------------------ */
+
+.res-lede{
+  max-width: 56ch;
+  margin: 18px 0 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.res-stats{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 34px 0 8px;
+}
+@media (max-width: 900px){ .res-stats{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px){ .res-stats{ grid-template-columns: 1fr; } }
+
+.res-stats > div{
+  background: var(--bg);
+  padding: 22px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.res-stats b{
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.res-stats span{
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.res-foot{
+  margin-top: 34px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
 }
