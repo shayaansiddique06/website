@@ -606,8 +606,8 @@
 /* Z(t) runs the full width behind the phase cards. The grid is opaque, so
    only the margins and the gutters show it. */
 .mr-figure--wave{
-  left: -4%;
-  right: -4%;
+  left: 0;
+  right: 0;
   bottom: -40px;
   height: 200px;
   background-image: url("assets/zeta-wave.svg");
@@ -661,9 +661,41 @@
 /* The hero headline reaches further right than the copy in any other
    section, so the hero's spiral holds its ink back further than the base. */
 .mr-hero .mr-figure--spiral{
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 70%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 70%, #000 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, #000 74%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, #000 74%, #000 100%);
 }
 
 /* Three short cards do not need the four-card grid's height. */
 .mr-light .mr-card--phase{ min-height: 0; padding: 30px 28px 28px; }
+
+/* Desktop: one left edge down the whole page, set further out than the
+   shared 1180 wrap, which leaves the right of each section to the figures.
+   Both bands run t from 0 to 92 across their full width, so giving them the
+   same extent puts every zero directly under the crossing it belongs to. */
+@media (min-width: 1200px){
+  .mr-light .mr-wrap{
+    max-width: 1420px;
+    padding-inline: clamp(32px, 4.4vw, 76px);
+  }
+  /* .mr-wrap carries margin:0 auto, and an auto inline margin on a grid
+     item overrides stretch and shrink-wraps it, so the hero copy was
+     centring on its own width instead of sitting on the page's left edge.
+     Filling the track first restores the shared edge. */
+  .mr-light .mr-hero-inner{ width: 100%; }
+  .mr-light .mr-hero .mr-figure--spiral{ width: min(1010px, 67vw); right: -3%; }
+  .mr-light #method .mr-figure--spiral{ width: min(950px, 63vw); right: -3%; }
+}
+
+/* With the copy on the page's left edge the figures have far more room, so
+   the masks only need to hold ink off the last line rather than half the
+   frame. Cut against measured text bounds, not by eye. */
+@media (min-width: 1200px){
+  .mr-light .mr-hero .mr-figure--spiral{
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, transparent 20%, #000 50%, #000 100%);
+  }
+  .mr-light #method .mr-figure--spiral{
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 30%, #000 58%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, transparent 30%, #000 58%, #000 100%);
+  }
+}
