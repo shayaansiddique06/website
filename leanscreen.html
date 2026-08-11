@@ -17,13 +17,21 @@
 <link rel="stylesheet" href="styles.css?v=14">
 <link rel="stylesheet" href="home.css?v=56">
 <style>
-  /* leanscreen-specific pieces only; layout comes from the shared mr- system.
-     The hero is centered: this page carries no figure, and a product page
-     reads as designed, not empty, with the content on the axis. */
-  .mr-hero{ min-height: 82vh; min-height: 82svh; }
+  /* One centered column, top to bottom. Type and tokens come from the
+     shared mr- system; this page adds only the product pieces. */
+  .mr-hero{ min-height: 74vh; min-height: 74svh; }
   .mr-hero-inner{ text-align: center; }
   .mr-hero-inner .mr-hero-sub{ margin-left: auto; margin-right: auto; }
   .mr-hero-inner .mr-hero-cta{ justify-content: center; }
+  main .mr-section .mr-wrap{ text-align: center; }
+  main .mr-statement{ margin-left: auto; margin-right: auto; }
+  main .mr-method-note{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    border-left: 0;
+    max-width: 48ch;
+  }
   .ls-install{
     display: inline-flex;
     align-items: center;
@@ -58,14 +66,15 @@
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 16px 20px;
-    margin: 36px 0 0;
-    max-width: 680px;
+    margin: 32px auto 0;
+    max-width: 640px;
     font-family: var(--font-mono);
     font-size: 0.73rem;
     line-height: 1.9;
     color: var(--text-muted);
     white-space: pre-wrap;
     overflow-wrap: break-word;
+    text-align: left;
   }
   .ls-demo .d-cmd{ color: var(--text); }
   .ls-demo .d-cmd::before{ content: "$ "; color: var(--text-faint); }
@@ -74,14 +83,35 @@
   .ls-note{
     font-size: 0.95rem;
     color: var(--text-muted);
-    max-width: 52ch;
-    margin: 20px 0 0;
+    max-width: 48ch;
+    margin: 18px auto 0;
     line-height: 1.7;
   }
   .ls-note code{
     font-family: var(--font-mono);
     font-size: 0.9em;
     color: var(--accent-dim);
+  }
+  .ls-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 48px;
+  }
+  @media (max-width: 720px){ .ls-grid{ grid-template-columns: 1fr; gap: 30px; } }
+  .ls-grid h3{
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--text);
+    margin: 0 0 10px;
+  }
+  .ls-grid p{
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin: 0;
   }
 </style>
 <noscript><style>[data-mr-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
@@ -127,10 +157,9 @@
   <section class="mr-hero mr-hero--plain" aria-label="leanscreen">
     <div class="mr-wrap mr-hero-inner">
       <p class="mr-kicker">Open tooling</p>
-      <h1>The statement compiles.<br><em>Does it say the right&nbsp;thing?</em></h1>
+      <h1>leanscreen</h1>
       <p class="mr-hero-sub">
-        A faithfulness screen for Lean&nbsp;4. It catches statements that
-        compile but don&rsquo;t say what the mathematics says.
+        A faithfulness screen for Lean&nbsp;4.
       </p>
       <div class="ls-install">
         <code id="ls-cmd">pip install leanscreen</code>
@@ -153,9 +182,8 @@
 exists_perfect_number: <span class="d-reject">REJECTED</span>  flags=deterministic-vacuous:reflexive-goal
 even_add_even: <span class="d-pass">no defect found</span></div>
       <p class="ls-note">
-        The first theorem compiles, and is even provable. Its docstring
-        promises a perfect number; its statement says
-        <code>&exist; n : &#8469;, n = n</code>.
+        The first theorem compiles. Its docstring promises a perfect number;
+        its statement says <code>&exist; n : &#8469;, n = n</code>.
       </p>
     </div>
   </section>
@@ -164,26 +192,22 @@ even_add_even: <span class="d-pass">no defect found</span></div>
   <section class="mr-section" id="how" aria-label="How it works">
     <div class="mr-wrap">
       <p class="mr-statement">
-        Two screens.<br><em>One rule: it can only reject.</em>
+        <em>It can only reject.</em>
       </p>
-
-      <ol class="mr-rows">
-        <li>
-          <span class="mr-row-n">01</span>
-          <h3>Fast screen</h3>
-          <p>Lints, vacuity checks, and elaboration against your own mathlib. Free, local, a tenth of a second &mdash; command line, CI, or inside Claude over MCP.</p>
-        </li>
-        <li>
-          <span class="mr-row-n">02</span>
-          <h3>Deep screen</h3>
-          <p>Two independent judges read the Lean against the English, and a probe hunts for a counterexample. Run it before something ships.</p>
-        </li>
-        <li>
-          <span class="mr-row-n">03</span>
-          <h3>Calibrated, and it says so</h3>
-          <p>Measured against 886 human verdicts. Every response says what a verdict is worth. A pass is never a certification.</p>
-        </li>
-      </ol>
+      <div class="ls-grid">
+        <div>
+          <h3>FAST</h3>
+          <p>Lints, vacuity checks, elaboration against your mathlib. Free, local, ~0.1s.</p>
+        </div>
+        <div>
+          <h3>DEEP</h3>
+          <p>Two independent judges and a counterexample probe. Run it before something ships.</p>
+        </div>
+        <div>
+          <h3>CALIBRATED</h3>
+          <p>Measured against 886 human verdicts. A pass is never a certification.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -196,10 +220,10 @@ even_add_even: <span class="d-pass">no defect found</span></div>
       <div class="mr-method-note">
         <p>
           When a statement has to be right, we put an expert reviewer behind
-          it. The screen is how it starts.
+          it.
         </p>
       </div>
-      <div class="mr-hero-cta">
+      <div class="mr-hero-cta" style="justify-content: center;">
         <a class="mr-btn mr-btn--solid" href="contact.html">Get in touch</a>
       </div>
     </div>
