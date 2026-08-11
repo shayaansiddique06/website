@@ -17,7 +17,13 @@
 <link rel="stylesheet" href="styles.css?v=14">
 <link rel="stylesheet" href="home.css?v=56">
 <style>
-  /* leanscreen-specific pieces only; layout comes from the shared mr- system. */
+  /* leanscreen-specific pieces only; layout comes from the shared mr- system.
+     The hero is centered: this page carries no figure, and a product page
+     reads as designed, not empty, with the content on the axis. */
+  .mr-hero{ min-height: 82vh; min-height: 82svh; }
+  .mr-hero-inner{ text-align: center; }
+  .mr-hero-inner .mr-hero-sub{ margin-left: auto; margin-right: auto; }
+  .mr-hero-inner .mr-hero-cta{ justify-content: center; }
   .ls-install{
     display: inline-flex;
     align-items: center;
@@ -119,10 +125,9 @@
 
   <!-- ================================ HERO ================================ -->
   <section class="mr-hero mr-hero--plain" aria-label="leanscreen">
-    <div class="mr-figure mr-figure--spiral" aria-hidden="true"></div>
     <div class="mr-wrap mr-hero-inner">
       <p class="mr-kicker">Open tooling</p>
-      <h1>The statement compiles.<br><em>Does it say the right thing?</em></h1>
+      <h1>The statement compiles.<br><em>Does it say the right&nbsp;thing?</em></h1>
       <p class="mr-hero-sub">
         A faithfulness screen for Lean&nbsp;4. It catches statements that
         compile but don&rsquo;t say what the mathematics says.
@@ -155,11 +160,8 @@ even_add_even: <span class="d-pass">no defect found</span></div>
     </div>
   </section>
 
-  <div class="zeta-divider" role="presentation"></div>
-
   <!-- ============================== HOW IT WORKS ========================== -->
   <section class="mr-section" id="how" aria-label="How it works">
-    <div class="mr-figure mr-figure--fourier" aria-hidden="true"></div>
     <div class="mr-wrap">
       <p class="mr-statement">
         Two screens.<br><em>One rule: it can only reject.</em>
@@ -184,8 +186,6 @@ even_add_even: <span class="d-pass">no defect found</span></div>
       </ol>
     </div>
   </section>
-
-  <div class="zeta-divider" role="presentation"></div>
 
   <!-- ============================== CERTIFY =============================== -->
   <section class="mr-section" id="certify" aria-label="Certification">
