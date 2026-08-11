@@ -21,6 +21,9 @@
      shared mr- system; this page adds only the product pieces. */
   .mr-hero{ min-height: 74vh; min-height: 74svh; }
   .mr-hero-inner{ text-align: center; }
+  /* the shared h1 has max-width 15ch: wider viewports leave its box narrower
+     than the column, and a left-pinned box defeats text-align centering */
+  .mr-hero-inner h1{ margin-left: auto; margin-right: auto; }
   .mr-hero-inner .mr-hero-sub{ margin-left: auto; margin-right: auto; }
   .mr-hero-inner .mr-hero-cta{ justify-content: center; }
   main .mr-section .mr-wrap{ text-align: center; }
