@@ -124,10 +124,8 @@
       <p class="mr-kicker">Open tooling</p>
       <h1>The statement compiles.<br><em>Does it say the right thing?</em></h1>
       <p class="mr-hero-sub">
-        leanscreen is a faithfulness screen for Lean&nbsp;4 &mdash; on the
-        command line, in CI, and inside Claude over MCP. It catches
-        statements that compile but don&rsquo;t say what the mathematics
-        says.
+        A faithfulness screen for Lean&nbsp;4. It catches statements that
+        compile but don&rsquo;t say what the mathematics says.
       </p>
       <div class="ls-install">
         <code id="ls-cmd">pip install leanscreen</code>
@@ -150,11 +148,9 @@
 exists_perfect_number: <span class="d-reject">REJECTED</span>  flags=deterministic-vacuous:reflexive-goal
 even_add_even: <span class="d-pass">no defect found</span></div>
       <p class="ls-note">
-        The first theorem compiles and is even provable. Its docstring
+        The first theorem compiles, and is even provable. Its docstring
         promises a perfect number; its statement says
-        <code>&exist; n : &#8469;, n = n</code>. That gap &mdash; between
-        what the mathematics says and what the formal statement says &mdash;
-        is what leanscreen screens for.
+        <code>&exist; n : &#8469;, n = n</code>.
       </p>
     </div>
   </section>
@@ -173,17 +169,17 @@ even_add_even: <span class="d-pass">no defect found</span></div>
         <li>
           <span class="mr-row-n">01</span>
           <h3>Fast screen</h3>
-          <p>Lints, vacuity checks, and real elaboration against your own mathlib. Local, free, and about a tenth of a second per statement &mdash; single statements, whole files, or CI, where a rejected statement fails the build.</p>
+          <p>Lints, vacuity checks, and elaboration against your own mathlib. Free, local, a tenth of a second &mdash; command line, CI, or inside Claude over MCP.</p>
         </li>
         <li>
           <span class="mr-row-n">02</span>
           <h3>Deep screen</h3>
-          <p>Two independent judges compare the Lean against the English, clause by clause, and a probe hunts for a concrete counterexample. A flag needs both judges to agree or hard evidence. Run it before something ships.</p>
+          <p>Two independent judges read the Lean against the English, and a probe hunts for a counterexample. Run it before something ships.</p>
         </li>
         <li>
           <span class="mr-row-n">03</span>
           <h3>Calibrated, and it says so</h3>
-          <p>The judge configuration was calibrated against 886 frozen human verdicts, and every response states what a verdict is worth, measured error rates included. A pass means &ldquo;no defect found&rdquo; &mdash; never &ldquo;certified&rdquo;.</p>
+          <p>Measured against 886 human verdicts. Every response says what a verdict is worth. A pass is never a certification.</p>
         </li>
       </ol>
     </div>
@@ -199,10 +195,8 @@ even_add_even: <span class="d-pass">no defect found</span></div>
       </p>
       <div class="mr-method-note">
         <p>
-          leanscreen deliberately stops short of calling anything faithful.
-          When a statement has to be right &mdash; a benchmark, a dataset, a
-          published result &mdash; we put an expert reviewer behind it. That
-          is the service; the screen is how it starts.
+          When a statement has to be right, we put an expert reviewer behind
+          it. The screen is how it starts.
         </p>
       </div>
       <div class="mr-hero-cta">
