@@ -1399,6 +1399,7 @@ html.intro-running .page-progress{ opacity: 0; }
 }
 
 .res-foot{
+  max-width: none;
   margin-top: 34px;
   padding-top: 20px;
   border-top: 1px solid var(--border);
@@ -1463,16 +1464,3 @@ html.intro-running .page-progress{ opacity: 0; }
 .wl-status.is-err{ color: var(--v-unfaithful); }
 
 
-/* --------------------------- dataset access ------------------------------- */
-
-.ds-request{
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
-}
-.ds-request h2{ margin-top: 34px; }
-.ds-request p{
-  margin-top: 16px;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-.ds-request-cta{ margin-top: 26px; }
