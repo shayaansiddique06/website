@@ -255,6 +255,7 @@ h3{
 /* ============================= SECTIONS ================================== */
 
 .sec{ padding: clamp(88px, 12vw, 150px) 0; }
+#verification{ padding-block: clamp(104px, 14vw, 180px); }
 .sec--wl{
   background: var(--surface);
   border-top: 1px solid var(--border);
@@ -301,20 +302,19 @@ h3{
 
 .vgrid{
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
-  gap: 56px;
-  align-items: start;
-  margin-bottom: 48px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  gap: 64px;
+  align-items: center;
 }
 
 .vrows{ list-style: none; margin: 0; padding: 0; }
 .vrows li{
-  padding: 26px 0;
+  padding: 34px 0;
   border-top: 1px solid var(--border);
 }
 .vrows li:last-child{ border-bottom: 1px solid var(--border); }
-.vrows h3{ margin: 0 0 8px; }
-.vrows p{ margin: 0; color: var(--text-muted); font-size: 15.5px; }
+.vrows h3{ margin: 0 0 12px; font-size: 1.42rem; }
+.vrows p{ margin: 0; color: var(--text-muted); font-size: 1.04rem; line-height: 1.6; }
 
 .vrows a{
   color: var(--accent-deep);
@@ -332,33 +332,33 @@ h3{
   margin: 0;
   border: 1px solid var(--border);
   background: var(--surface);
-  padding: 24px 24px 20px;
+  padding: 30px 30px 26px;
 }
 .rates figcaption{
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 11.5px;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--text-faint);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .rates svg{ display: block; width: 100%; height: auto; overflow: visible; }
 
 .rates .rg{
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   fill: var(--text-faint);
 }
 .rates .rl{
   font-family: var(--font-body);
-  font-size: 12.5px;
+  font-size: 14px;
   fill: var(--text-muted);
 }
 .rates .rv{
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13.5px;
   fill: var(--text);
 }
 .rates .rb{
