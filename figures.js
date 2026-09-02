@@ -145,341 +145,347 @@
     return { ctx: ctx, w: r.width, h: r.height };
   }
 
-  /* --------------------------------------- figure 1 · sieve of Eratosthenes
+  /* ---------------------------------------------- figure 1 · Riemann zeta
 
-     Integers laid out left to right, wrapping into rows. Take each prime in
-     turn and strike out its multiples. What survives is the primes.          */
+     The Riemann-Siegel Z function on the critical line. Z is real valued and
+     shares its zeros with zeta at Re(s) = 1/2, so every crossing of the axis
+     is a zero of the zeta function.
+        theta(t) = t/2 ln(t/2pi) - t/2 - pi/8 + 1/(48t) + 7/(5760 t^3)
+        Z(t)     = 2 sum_{n=1}^{N} n^-1/2 cos(theta(t) - t ln n) + R(t)
+     with N = floor(sqrt(t/2pi)) and R the first Riemann-Siegel correction.
+     ---------------------------------------------------------------------- */
 
-  function sieve(canvas) {
+  function zeta(canvas) {
     var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
+    var T0 = 6, T1 = 52;                    // through the first ten zeros
+    var mid = h / 2, amp = h * 0.34;
 
-    var cell = w > 900 ? 13 : (w > 560 ? 11 : 9);
-    var rows = Math.max(3, Math.floor((h - 30) / cell));
-    var cols = Math.floor((w - 40) / cell);
-    var total = rows * cols;
-    var x0 = (w - cols * cell) / 2;
-    var y0 = (h - rows * cell) / 2 - 4;
-
-    var state = new Uint8Array(total + 2);   // 0 unknown, 1 struck, 2 prime
-    var primes = [];
-    for (var i = 2; i <= total + 1; i++) {
-      if (!state[i]) {
-        primes.push(i);
-        for (var j = i * i; j <= total + 1; j += i) state[j] = 1;
-      }
+    function theta(t) {
+      return t / 2 * Math.log(t / (2 * Math.PI)) - t / 2 - Math.PI / 8
+           + 1 / (48 * t) + 7 / (5760 * t * t * t);
     }
-    state = new Uint8Array(total + 2);        // replay it for the animation
-    state[0] = state[1] = 1;
-
-    var pi = 0, mult = 0, raf = 0, tick = 0, done = false;
-
-    function xy(n) {
-      var k = n - 2;
-      return [x0 + (k % cols) * cell, y0 + Math.floor(k / cols) * cell];
+    function Z(t) {
+      var u = Math.sqrt(t / (2 * Math.PI));
+      var N = Math.floor(u), p = u - N;
+      var th = theta(t), sum = 0;
+      for (var n = 1; n <= N; n++) sum += Math.cos(th - t * Math.log(n)) / Math.sqrt(n);
+      sum *= 2;
+      /* First Riemann-Siegel correction. Without it the truncated main sum is
+         out by up to 0.5 in t and invents a zero below the first real one. */
+      var C0 = Math.cos(2 * Math.PI * (p * p - p - 1 / 16)) / Math.cos(2 * Math.PI * p);
+      return sum + (N % 2 ? 1 : -1) * Math.pow(u, -0.5) * C0;
     }
 
-    function paint(active) {
-      ctx.clearRect(0, 0, w, h);
-      for (var n = 2; n <= total + 1; n++) {
-        var p = xy(n);
-        if (p[1] > h - 6) break;
-        var s = state[n];
-        if (s === 1) {
-          ctx.fillStyle = "rgba(15,20,18,0.09)";
-          ctx.fillRect(p[0] + 1, p[1] + 1, cell - 3, cell - 3);
-        } else if (s === 2) {
-          ctx.fillStyle = DEEP;
-          ctx.fillRect(p[0] + 1, p[1] + 1, cell - 3, cell - 3);
-        } else {
-          ctx.fillStyle = "rgba(15,20,18,0.24)";
-          ctx.fillRect(p[0] + 1, p[1] + 1, cell - 3, cell - 3);
-        }
-      }
-      if (active) {
-        var a = xy(active);
-        if (a[1] <= h - 6) {
-          ctx.fillStyle = GREEN;
-          ctx.fillRect(a[0], a[1], cell - 1, cell - 1);
-        }
-      }
+    var pts = [], zeros = [], prev = null;
+    for (var i = 0; i <= w; i++) {
+      var t = T0 + (T1 - T0) * (i / w);
+      var v = Z(t);
+      pts.push(v);
+      if (prev !== null && ((prev < 0) !== (v < 0))) zeros.push(i);
+      prev = v;
     }
+    var peak = 1;
+    for (var k = 0; k < pts.length; k++) peak = Math.max(peak, Math.abs(pts[k]));
 
-    function advance() {
-      if (pi >= primes.length) { done = true; return 0; }
-      var p = primes[pi];
-      if (mult === 0) { state[p] = 2; mult = p * p; return p; }
-      if (mult > total + 1) { pi++; mult = 0; return 0; }
-      if (state[mult] !== 2) state[mult] = 1;
-      var at = mult;
-      mult += p;
-      return at;
-    }
-
-    function frame() {
-      var active = 0;
-      var budget = 3 + Math.floor(pi / 2);
-      for (var k = 0; k < budget && !done; k++) active = advance() || active;
-      paint(active);
-      if (!done) raf = requestAnimationFrame(frame);
-      else {
-        setTimeout(function () {
-          state = new Uint8Array(total + 2); state[0] = state[1] = 1;
-          pi = 0; mult = 0; done = false;
-          raf = requestAnimationFrame(frame);
-        }, 2600);
-      }
-    }
-
-    if (REDUCED) {
-      for (var q = 0; q < primes.length; q++) {
-        state[primes[q]] = 2;
-        for (var m = primes[q] * primes[q]; m <= total + 1; m += primes[q]) {
-          if (state[m] !== 2) state[m] = 1;
-        }
-      }
-      paint(0);
-      return { stop: function () {} };
-    }
-    raf = requestAnimationFrame(frame);
-    return { stop: function () { cancelAnimationFrame(raf); done = true; } };
-  }
-
-  /* -------------------------------------------- figure 2 · Fourier epicycles
-
-     A chain of rotating vectors whose tip traces a closed curve. The radii and
-     frequencies below give a clean lobed figure; the trail is the drawing.    */
-
-  function fourier(canvas) {
-    var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
-    var terms = [
-      { r: 1.00, f:  1, p: 0 },
-      { r: 0.42, f: -3, p: 0.6 },
-      { r: 0.20, f:  5, p: 1.1 },
-      { r: 0.11, f: -7, p: 2.2 },
-      { r: 0.06, f:  9, p: 0.3 }
-    ];
-    var scale = Math.min(w, h) * 0.30;
-    var cx = w / 2, cy = h / 2;
-    var trail = [], t = 0, raf = 0;
-
-    function point(time) {
-      var px = cx, py = cy;
-      for (var i = 0; i < terms.length; i++) {
-        var a = terms[i].f * time + terms[i].p;
-        px += Math.cos(a) * terms[i].r * scale;
-        py += Math.sin(a) * terms[i].r * scale;
-      }
-      return [px, py];
-    }
-
-    function frame() {
-      ctx.clearRect(0, 0, w, h);
-
-      var px = cx, py = cy;
-      ctx.lineWidth = 1;
-      for (var i = 0; i < terms.length; i++) {
-        var a = terms[i].f * t + terms[i].p;
-        var nx = px + Math.cos(a) * terms[i].r * scale;
-        var ny = py + Math.sin(a) * terms[i].r * scale;
-        ctx.strokeStyle = "rgba(15,20,18,0.13)";
-        ctx.beginPath();
-        ctx.arc(px, py, terms[i].r * scale, 0, 6.2832);
-        ctx.stroke();
-        ctx.strokeStyle = "rgba(15,20,18,0.30)";
-        ctx.beginPath();
-        ctx.moveTo(px, py); ctx.lineTo(nx, ny);
-        ctx.stroke();
-        px = nx; py = ny;
-      }
-
-      trail.push([px, py]);
-      if (trail.length > 620) trail.shift();
-
-      ctx.lineWidth = 1.6;
-      ctx.lineJoin = "round";
-      ctx.beginPath();
-      for (var k = 0; k < trail.length; k++) {
-        if (k === 0) ctx.moveTo(trail[k][0], trail[k][1]);
-        else ctx.lineTo(trail[k][0], trail[k][1]);
-      }
-      ctx.strokeStyle = DEEP;
-      ctx.stroke();
-
-      ctx.fillStyle = GREEN;
-      ctx.beginPath(); ctx.arc(px, py, 3, 0, 6.2832); ctx.fill();
-
-      t += 0.016;
-      raf = requestAnimationFrame(frame);
-    }
-
-    if (REDUCED) {
-      for (var s = 0; s < 620; s++) trail.push(point(s * 0.016));
-      t = 620 * 0.016;
-      ctx.clearRect(0, 0, w, h);
-      ctx.lineWidth = 1.6; ctx.strokeStyle = DEEP; ctx.beginPath();
-      trail.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); });
-      ctx.stroke();
-      return { stop: function () {} };
-    }
-    raf = requestAnimationFrame(frame);
-    return { stop: function () { cancelAnimationFrame(raf); } };
-  }
-
-  /* ------------------------------------------------ figure 3 · Lorenz system
-
-     dx/dt = s(y-x), dy/dt = x(r-z)-y, dz/dt = xy-bz. Two particles start a
-     thousandth apart and separate. Projected on the x-z plane.               */
-
-  function lorenz(canvas) {
-    var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
-    var s = 10, r = 28, b = 8 / 3, dt = 0.0045;
-    var A = { x: 0.1, y: 0, z: 0 };
-    var B = { x: 0.101, y: 0, z: 0 };
-    /* Plotted as x against time rather than as the butterfly. The point of the
-       figure is that two nearly identical starts come apart, and divergence
-       over time is a shape that suits a band far wider than it is tall. */
-    var A2 = { x: 0.1, y: 0, z: 0 };
-    var B2 = { x: 0.1001, y: 0, z: 0 };
-    var seriesA = [], seriesB = [], raf = 0;
-    var span = Math.max(240, Math.round(w));      // one sample per pixel column
-    var amp = h * 0.40, mid = h / 2;
-
-    function stepX(p) {
-      var dx = s * (p.y - p.x);
-      var dy = p.x * (r - p.z) - p.y;
-      var dz = p.x * p.y - b * p.z;
-      p.x += dx * dt; p.y += dy * dt; p.z += dz * dt;
-      return mid - (p.x / 20) * amp;
-    }
-
-    function draw(series, colour, width) {
-      if (series.length < 2) return;
-      var x0 = w - series.length;
-      ctx.lineWidth = width;
-      ctx.lineJoin = "round"; ctx.lineCap = "round";
-      ctx.beginPath();
-      for (var i = 0; i < series.length; i++) {
-        var px = x0 + i, py = series[i];
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      }
-      ctx.strokeStyle = colour;
-      ctx.stroke();
-    }
-
-    function push(n) {
-      for (var k = 0; k < n; k++) {
-        for (var q = 0; q < 4; q++) { stepX(A2); stepX(B2); }   // 4 sub-steps
-        seriesA.push(stepX(A2));
-        seriesB.push(stepX(B2));
-      }
-      if (seriesA.length > span) seriesA.splice(0, seriesA.length - span);
-      if (seriesB.length > span) seriesB.splice(0, seriesB.length - span);
-    }
+    var shown = 0, raf = 0;
 
     function paint() {
       ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = "rgba(15,20,18,0.10)";
+      ctx.strokeStyle = "rgba(15,20,18,0.12)";
       ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(w, mid); ctx.stroke();
-      draw(seriesA, "rgba(15,20,18,0.34)", 1.1);
-      draw(seriesB, DEEP, 1.4);
-      if (seriesB.length) {
-        ctx.fillStyle = GREEN;
+
+      var lim = Math.min(shown, pts.length);
+      ctx.lineWidth = 1.6; ctx.lineJoin = "round"; ctx.lineCap = "round";
+      ctx.strokeStyle = DEEP;
+      ctx.beginPath();
+      for (var i = 0; i < lim; i++) {
+        var y = mid - (pts[i] / peak) * amp;
+        if (i === 0) ctx.moveTo(i, y); else ctx.lineTo(i, y);
+      }
+      ctx.stroke();
+
+      for (var z = 0; z < zeros.length; z++) {
+        if (zeros[z] > lim) break;
+        ctx.strokeStyle = "rgba(21,196,106,0.55)";
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(w - 1, seriesB[seriesB.length - 1], 2.6, 0, 6.2832);
+        ctx.moveTo(zeros[z], mid - 9); ctx.lineTo(zeros[z], mid + 9); ctx.stroke();
+        ctx.fillStyle = GREEN;
+        ctx.beginPath(); ctx.arc(zeros[z], mid, 2.8, 0, 6.2832); ctx.fill();
+      }
+      if (lim > 0 && lim < pts.length) {
+        ctx.fillStyle = DEEP;
+        ctx.beginPath();
+        ctx.arc(lim - 1, mid - (pts[lim - 1] / peak) * amp, 2.4, 0, 6.2832);
         ctx.fill();
       }
     }
 
     function frame() {
-      push(2);
+      shown += Math.max(3, w / 320);
       paint();
-      raf = requestAnimationFrame(frame);
+      if (shown < pts.length) raf = requestAnimationFrame(frame);
+      else setTimeout(function () { shown = 0; raf = requestAnimationFrame(frame); }, 3200);
     }
 
-    if (REDUCED) { push(span); paint(); return { stop: function () {} }; }
-    push(Math.round(span * 0.55));
+    if (REDUCED) { shown = pts.length; paint(); return { stop: function () {} }; }
     raf = requestAnimationFrame(frame);
     return { stop: function () { cancelAnimationFrame(raf); } };
   }
 
-  /* ------------------------------------------- figure 4 · covering system
+  /* ------------------------------------------- figure 2 · elliptic curve
 
-     Each row is a congruence class a mod m. A column is covered when some row
-     claims it. This is the object behind the odd covering paper: the question
-     is whether a set of moduli can leave nothing uncovered.                  */
+     y^2 = x^3 + ax + b, and the chord-and-tangent group law that makes its
+     points a group. Birch and Swinnerton-Dyer is a question about how many
+     rational points that group contains.
+     ---------------------------------------------------------------------- */
 
-  function covering(canvas) {
+  function elliptic(canvas) {
     var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
-    var mods = [2, 3, 4, 6, 12];
-    var offs = [0, 0, 1, 1, 7];
-    var rowH = Math.min(20, (h - 34) / (mods.length + 1));
-    var cell = Math.max(9, Math.min(15, w / 74));
-    var cols = Math.floor((w - 48) / cell);
-    var x0 = (w - cols * cell) / 2;
-    var y0 = (h - rowH * (mods.length + 1)) / 2 + 2;
+    var a = -2, b = 2.6;
+    var xMin = -2.1, xMax = 3.4;
+    var sy = (h * 0.40) / 5.2;
+    var sx = Math.min(sy * 3.4, (w * 0.72) / (xMax - xMin));
+    var cx = w / 2, cy = h / 2;
 
-    var covered = new Uint8Array(cols);
-    var row = 0, col = 0, raf = 0, tick = 0;
+    function px(x) { return cx + (x - (xMin + xMax) / 2) * sx; }
+    function py(y) { return cy - y * sy; }
+    function f(x)  { return x * x * x + a * x + b; }
+
+    var upper = [], lower = [];
+    for (var x = xMin; x <= xMax; x += 0.006) {
+      var v = f(x);
+      if (v < 0) continue;
+      var r = Math.sqrt(v);
+      upper.push([px(x), py(r)]); lower.push([px(x), py(-r)]);
+    }
+
+    function onCurve(x) { return [x, Math.sqrt(Math.max(f(x), 0))]; }
+    var P = onCurve(-1.4), Q = onCurve(0.35);
+
+    function add(p, q) {
+      var m = (q[1] - p[1]) / (q[0] - p[0]);
+      var xr = m * m - p[0] - q[0];
+      var yr = m * (xr - p[0]) + p[1];
+      return { r: [xr, yr], sum: [xr, -yr], m: m };
+    }
+
+    var phase = 0, tAnim = 0, raf = 0, res = add(P, Q);
+
+    function curve() {
+      ctx.strokeStyle = "rgba(15,20,18,0.30)";
+      ctx.lineWidth = 1.5; ctx.lineJoin = "round";
+      ctx.beginPath();
+      upper.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); });
+      ctx.stroke();
+      ctx.beginPath();
+      lower.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); });
+      ctx.stroke();
+    }
+    function dot(pt, colour, r) {
+      ctx.fillStyle = colour;
+      ctx.beginPath(); ctx.arc(px(pt[0]), py(pt[1]), r || 3.2, 0, 6.2832); ctx.fill();
+    }
 
     function paint() {
       ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = "rgba(15,20,18,0.08)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.stroke();
+      curve();
 
-      for (var rIdx = 0; rIdx < mods.length; rIdx++) {
-        var m = mods[rIdx], a = offs[rIdx];
-        var y = y0 + rIdx * rowH;
-        for (var c = 0; c < cols; c++) {
-          var hit = (c % m) === (a % m);
-          var done = rIdx < row || (rIdx === row && c <= col);
-          if (!hit) {
-            ctx.fillStyle = "rgba(15,20,18,0.05)";
-            ctx.fillRect(x0 + c * cell + 1, y + 1, cell - 2, rowH - 3);
-          } else {
-            ctx.fillStyle = done ? DEEP : "rgba(21,196,106,0.20)";
-            ctx.fillRect(x0 + c * cell + 1, y + 1, cell - 2, rowH - 3);
-          }
-        }
+      dot(P, DEEP); dot(Q, DEEP);
+
+      if (phase >= 1) {
+        var g = Math.min(tAnim, 1);
+        var x1 = P[0], y1 = P[1];
+        var x2 = x1 + (res.r[0] - x1) * (phase >= 2 ? 1 : g);
+        var y2 = y1 + (res.r[1] - y1) * (phase >= 2 ? 1 : g);
+        ctx.strokeStyle = "rgba(21,122,67,0.55)"; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(px(x1), py(y1)); ctx.lineTo(px(x2), py(y2)); ctx.stroke();
       }
-
-      var yb = y0 + mods.length * rowH + 4;
-      for (var c2 = 0; c2 < cols; c2++) {
-        ctx.fillStyle = covered[c2] ? GREEN : "rgba(15,20,18,0.10)";
-        ctx.fillRect(x0 + c2 * cell + 1, yb, cell - 2, 3);
+      if (phase >= 2) {
+        dot(res.r, "rgba(15,20,18,0.45)", 2.8);
+        var g2 = Math.min(tAnim, 1);
+        var yv = res.r[1] + (res.sum[1] - res.r[1]) * (phase >= 3 ? 1 : g2);
+        ctx.strokeStyle = "rgba(21,196,106,0.5)";
+        ctx.setLineDash([3, 3]); ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(px(res.r[0]), py(res.r[1]));
+        ctx.lineTo(px(res.r[0]), py(yv)); ctx.stroke();
+        ctx.setLineDash([]);
       }
-    }
-
-    function advance() {
-      var m = mods[row], a = offs[row];
-      if ((col % m) === (a % m)) covered[col] = 1;
-      col++;
-      if (col >= cols) { col = 0; row++; }
-      if (row >= mods.length) { row = 0; col = 0; covered = new Uint8Array(cols); }
+      if (phase >= 3) dot(res.sum, GREEN, 3.6);
     }
 
     function frame() {
-      if (++tick % 3 === 0) { advance(); paint(); }
+      tAnim += 0.022;
+      if (tAnim >= 1.35) {
+        tAnim = 0; phase++;
+        if (phase > 4) {
+          phase = 0;
+          P = res.sum[1] > -4 && Math.abs(res.sum[0]) < 3 ? [res.sum[0], -res.sum[1]] : onCurve(-1.4);
+          Q = onCurve(0.35 + (Math.abs(P[0]) % 0.9) * 0.5);
+          res = add(P, Q);
+          if (!isFinite(res.sum[0]) || !isFinite(res.sum[1])) { P = onCurve(-1.4); Q = onCurve(0.35); res = add(P, Q); }
+        }
+      }
+      paint();
       raf = requestAnimationFrame(frame);
     }
 
-    if (REDUCED) {
-      row = mods.length; col = cols;
-      for (var c = 0; c < cols; c++) {
-        for (var i = 0; i < mods.length; i++) {
-          if ((c % mods[i]) === (offs[i] % mods[i])) covered[c] = 1;
-        }
-      }
-      row = mods.length - 1; col = cols - 1;
-      paint();
-      return { stop: function () {} };
+    if (REDUCED) { phase = 3; tAnim = 1; paint(); return { stop: function () {} }; }
+    raf = requestAnimationFrame(frame);
+    return { stop: function () { cancelAnimationFrame(raf); } };
+  }
+
+  /* ------------------------------------------------- figure 3 · vortex street
+
+     Tracer particles carried past a cylinder, shedding the alternating wake
+     that a real flow produces. Navier-Stokes asks whether the equations
+     governing this always have smooth solutions.
+     ---------------------------------------------------------------------- */
+
+  function flow(canvas) {
+    var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
+    var obsX = w * 0.17, obsY = h / 2, obsR = Math.min(h * 0.15, 26);
+    var N = Math.round(Math.min(700, w * 0.55));
+    var parts = [], raf = 0, clock = 0;
+    var shed = h * 0.16, freq = 0.055, speed = w / 460;
+
+    function seed(p, spread) {
+      p.x = spread ? Math.random() * w : -Math.random() * w * 0.2;
+      p.y = Math.random() * h;
+      p.life = 0;
     }
-    paint();
+    for (var i = 0; i < N; i++) { var p = {}; seed(p, true); parts.push(p); }
+
+    function vel(x, y, t) {
+      var dx = x - obsX, dy = y - obsY;
+      var r2 = dx * dx + dy * dy, r = Math.sqrt(r2) || 1;
+      var vx = speed, vy = 0;
+      if (r < obsR * 1.05) return null;                       // inside the cylinder
+      var k = (obsR * obsR) / r2;                             // potential-flow deflection
+      vx += speed * k * (dy * dy - dx * dx) / r2;
+      vy += speed * k * (-2 * dx * dy) / r2;
+      if (x > obsX) {                                         // alternating wake
+        var age = (x - obsX) / w;
+        var env = Math.exp(-Math.pow((y - obsY) / (h * 0.42), 2)) * Math.min(age * 3.2, 1);
+        vy += Math.sin(t * freq - (x - obsX) * 0.022) * shed * 0.030 * env;
+        vx += Math.cos(t * freq - (x - obsX) * 0.022) * 0.16 * env;
+      }
+      return [vx, vy];
+    }
+
+    function paint() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineWidth = 1;
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        var v = vel(p.x, p.y, clock);
+        if (!v) { seed(p); continue; }
+        var nx = p.x + v[0] * 2.2, ny = p.y + v[1] * 2.2;
+        var fade = Math.min(p.life / 18, 1) * (p.x > w * 0.9 ? (w - p.x) / (w * 0.1) : 1);
+        ctx.strokeStyle = "rgba(21,122,67," + (0.30 * Math.max(fade, 0)).toFixed(3) + ")";
+        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
+        p.x = nx; p.y = ny; p.life++;
+        if (p.x > w + 4 || p.y < -4 || p.y > h + 4) seed(p);
+      }
+      ctx.fillStyle = "rgba(15,20,18,0.82)";
+      ctx.beginPath(); ctx.arc(obsX, obsY, obsR, 0, 6.2832); ctx.fill();
+      clock++;
+    }
+
+    function frame() { paint(); raf = requestAnimationFrame(frame); }
+
+    if (REDUCED) { for (var s2 = 0; s2 < 120; s2++) paint(); return { stop: function () {} }; }
+    for (var s3 = 0; s3 < 40; s3++) paint();
+    raf = requestAnimationFrame(frame);
+    return { stop: function () { cancelAnimationFrame(raf); } };
+  }
+
+  /* --------------------------------------------- figure 4 · curve shortening
+
+     A closed curve moved by its own curvature. Every embedded curve becomes
+     convex and then a round point. The same idea in one dimension higher,
+     Ricci flow, is how Poincare was settled.
+     ---------------------------------------------------------------------- */
+
+  function shorten(canvas) {
+    var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
+    var STAGES = w > 900 ? 5 : (w > 560 ? 4 : 3);
+    var slot = w / STAGES;
+    var R = Math.min(h * 0.30, slot * 0.30);
+    var M = 150;
+
+    function seedCurve() {
+      var c = [];
+      var a1 = 0.34 + Math.random() * 0.18, a2 = 0.22 + Math.random() * 0.16;
+      var k1 = 3, k2 = 5, ph = Math.random() * 6.28;
+      for (var i = 0; i < M; i++) {
+        var th = (i / M) * 6.2832;
+        var r = 1 + a1 * Math.sin(k1 * th + ph) + a2 * Math.sin(k2 * th + ph * 1.7);
+        c.push([Math.cos(th) * r, Math.sin(th) * r]);
+      }
+      return c;
+    }
+
+    function step(c, amount) {
+      var out = [];
+      for (var i = 0; i < c.length; i++) {
+        var p = c[(i - 1 + c.length) % c.length], q = c[i], n = c[(i + 1) % c.length];
+        out.push([q[0] + (p[0] + n[0] - 2 * q[0]) * amount,
+                  q[1] + (p[1] + n[1] - 2 * q[1]) * amount]);
+      }
+      return out;
+    }
+
+    var curves = [], raf = 0, tick = 0;
+    function reset() {
+      curves = [];
+      var c = seedCurve();
+      for (var s = 0; s < STAGES; s++) {
+        curves.push(c.slice());
+        for (var k = 0; k < 26; k++) c = step(c, 0.22);
+      }
+    }
+    reset();
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      for (var s = 0; s < curves.length; s++) {
+        var c = curves[s];
+        var ox = slot * (s + 0.5), oy = h / 2;
+        var last = s === curves.length - 1;
+        ctx.lineWidth = last ? 1.8 : 1.4;
+        ctx.strokeStyle = last ? GREEN : "rgba(21,122,67," + (0.30 + 0.13 * s).toFixed(2) + ")";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        for (var i = 0; i <= c.length; i++) {
+          var p = c[i % c.length];
+          var x = ox + p[0] * R, y = oy + p[1] * R;
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.closePath(); ctx.stroke();
+      }
+    }
+
+    function frame() {
+      if (++tick % 2 === 0) {
+        for (var s = 0; s < curves.length; s++) curves[s] = step(curves[s], 0.055);
+      }
+      draw();
+      if (tick > 900) { tick = 0; reset(); }
+      raf = requestAnimationFrame(frame);
+    }
+
+    if (REDUCED) { draw(); return { stop: function () {} }; }
     raf = requestAnimationFrame(frame);
     return { stop: function () { cancelAnimationFrame(raf); } };
   }
 
   /* ------------------------------------------------------- figure wiring */
 
-  var BUILDERS = { spiral: sieve, sieve: sieve, fourier: fourier, lorenz: lorenz, covering: covering };
+  var BUILDERS = { zeta: zeta, elliptic: elliptic, flow: flow, shorten: shorten };
 
   Array.prototype.forEach.call(document.querySelectorAll(".band"), function (band) {
     var canvas = band.querySelector("canvas");
