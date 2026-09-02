@@ -191,15 +191,17 @@ h3{
   font-size: clamp(1.08rem, 1.9vw, 1.32rem);
   line-height: 1.55;
   color: var(--text-muted);
-  max-width: 46ch;
+  max-width: 56ch;
   margin: 26px 0 0;
+  text-wrap: pretty;
 }
 
 .body{
   font-size: 1.06rem;
   color: var(--text-muted);
-  max-width: 58ch;
+  max-width: 70ch;
   margin: 0 0 40px;
+  text-wrap: pretty;
 }
 
 /* ============================== BUTTONS ================================== */
@@ -268,10 +270,11 @@ h3{
   border-left: 2px solid var(--accent);
   padding: 4px 0 4px 24px;
   margin: 0 0 52px;
-  max-width: 54ch;
+  max-width: 62ch;
 }
 .note p{
   margin: 0;
+  text-wrap: pretty;
   font-family: var(--font-display);
   font-size: clamp(1.16rem, 2.3vw, 1.5rem);
   line-height: 1.4;
@@ -292,7 +295,7 @@ h3{
 }
 .rows li:last-child{ border-bottom: 1px solid var(--border); }
 .rows h3{ margin: 0; }
-.rows p{ margin: 0; color: var(--text-muted); }
+.rows p{ margin: 0; color: var(--text-muted); text-wrap: pretty; }
 
 @media (max-width: 720px){
   .rows li{ grid-template-columns: 1fr; gap: 8px; }
@@ -314,7 +317,7 @@ h3{
 }
 .vrows li:last-child{ border-bottom: 1px solid var(--border); }
 .vrows h3{ margin: 0 0 12px; font-size: 1.42rem; }
-.vrows p{ margin: 0; color: var(--text-muted); font-size: 1.04rem; line-height: 1.6; }
+.vrows p{ margin: 0; color: var(--text-muted); font-size: 1.04rem; line-height: 1.6; text-wrap: pretty; }
 
 .vrows a{
   color: var(--accent-deep);
@@ -400,7 +403,7 @@ h3{
   color: var(--text-faint);
   padding-top: 6px;
 }
-.papers h3{ margin: 0 0 10px; max-width: 44ch; }
+.papers h3{ margin: 0 0 10px; max-width: 54ch; text-wrap: balance; }
 .papers h3 a{
   text-decoration: none;
   background-image: linear-gradient(var(--accent-deep), var(--accent-deep));
@@ -411,7 +414,7 @@ h3{
   padding-bottom: 2px;
 }
 .papers h3 a:hover{ background-size: 100% 1.5px; color: var(--accent-deep); }
-.papers p{ margin: 0 0 12px; color: var(--text-muted); max-width: 60ch; }
+.papers p{ margin: 0 0 12px; color: var(--text-muted); max-width: 74ch; text-wrap: pretty; }
 .papers .meta{
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -440,7 +443,7 @@ h3{
   color: var(--accent-deep);
   margin-bottom: 14px;
 }
-.person p{ margin: 0; color: var(--text-muted); font-size: 15.5px; }
+.person p{ margin: 0; color: var(--text-muted); font-size: 15.5px; text-wrap: pretty; }
 
 @media (max-width: 720px){ .people{ grid-template-columns: 1fr; } }
 
@@ -484,12 +487,12 @@ h3{
 .band{
   position: relative;
   width: 100%;
-  height: 190px;
+  height: 250px;
   background: var(--surface);
   border-block: 1px solid var(--border);
   overflow: hidden;
 }
-.band--tall{ height: 240px; }
+.band--tall{ height: 300px; }
 .band canvas{ display: block; width: 100%; height: 100%; }
 
 .band-cap{
@@ -509,8 +512,8 @@ h3{
 .band.is-live .band-cap{ opacity: 1; }
 
 @media (max-width: 600px){
-  .band{ height: 150px; }
-  .band--tall{ height: 180px; }
+  .band{ height: 170px; }
+  .band--tall{ height: 200px; }
   .band-cap{ font-size: 10.5px; }
 }
 

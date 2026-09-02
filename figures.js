@@ -236,104 +236,165 @@
 
   /* ------------------------------------------- figure 2 · elliptic curve
 
-     y^2 = x^3 + ax + b, and the chord-and-tangent group law that makes its
-     points a group. Birch and Swinnerton-Dyer is a question about how many
-     rational points that group contains.
+     y^2 = x^3 - 3x + 1. The discriminant is positive, so the cubic has three
+     real roots and the curve comes in two pieces: a closed oval and an
+     unbounded branch. Successive multiples of a generator are plotted by the
+     chord-and-tangent group law. Birch and Swinnerton-Dyer is the question of
+     how many independent points that construction can reach.
      ---------------------------------------------------------------------- */
 
   function elliptic(canvas) {
     var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
-    var a = -2, b = 2.6;
-    var xMin = -2.1, xMax = 3.4;
-    var sy = (h * 0.40) / 5.2;
-    var sx = Math.min(sy * 3.4, (w * 0.72) / (xMax - xMin));
+    var A = -3, B = 1;
+    function f(x) { return x * x * x + A * x + B; }
+
+    var xMin = -2.3, xMax = 3.1, yMax = 3.4;
+    var sy = (h * 0.44) / yMax;
+    /* Stretched horizontally to fill a band far wider than it is tall. An
+       affine scaling preserves the chord-and-tangent construction, so the
+       group law drawn here is still the group law. */
+    var sx = Math.min(sy * 3.6, (w * 0.62) / (xMax - xMin));
     var cx = w / 2, cy = h / 2;
+    function PX(x) { return cx + (x - (xMin + xMax) / 2) * sx; }
+    function PY(y) { return cy - y * sy; }
 
-    function px(x) { return cx + (x - (xMin + xMax) / 2) * sx; }
-    function py(y) { return cy - y * sy; }
-    function f(x)  { return x * x * x + a * x + b; }
-
-    var upper = [], lower = [];
-    for (var x = xMin; x <= xMax; x += 0.006) {
+    /* The two real components, sampled where f >= 0 and the branch stays
+       inside the frame. Sampling past that point drags the curve off canvas
+       and leaves a straight edge where the path closes. */
+    var yCap = yMax * yMax;
+    var comps = [], run = null;
+    for (var x = xMin; x <= xMax; x += 0.004) {
       var v = f(x);
-      if (v < 0) continue;
-      var r = Math.sqrt(v);
-      upper.push([px(x), py(r)]); lower.push([px(x), py(-r)]);
+      if (v >= 0 && v <= yCap) { if (!run) { run = []; comps.push(run); } run.push(x); }
+      else run = null;
     }
 
-    function onCurve(x) { return [x, Math.sqrt(Math.max(f(x), 0))]; }
-    var P = onCurve(-1.4), Q = onCurve(0.35);
+    function drawCurve() {
+      ctx.lineWidth = 2; ctx.lineJoin = "round"; ctx.lineCap = "round";
+      ctx.strokeStyle = "rgba(15,20,18,0.34)";
+      for (var c = 0; c < comps.length; c++) {
+        var xs = comps[c];
+        var closed = Math.abs(f(xs[0])) < 0.02 && Math.abs(f(xs[xs.length - 1])) < 0.02;
+        if (closed) {                       /* the oval: one closed outline */
+          ctx.beginPath();
+          for (var i = 0; i < xs.length; i++) ctx.lineTo(PX(xs[i]), PY(Math.sqrt(Math.max(f(xs[i]), 0))));
+          for (var j = xs.length - 1; j >= 0; j--) ctx.lineTo(PX(xs[j]), PY(-Math.sqrt(Math.max(f(xs[j]), 0))));
+          ctx.closePath(); ctx.stroke();
+        } else {                            /* the branch: two open arms */
+          for (var sgn = 1; sgn >= -1; sgn -= 2) {
+            ctx.beginPath();
+            for (var k = 0; k < xs.length; k++) {
+              var y = sgn * Math.sqrt(Math.max(f(xs[k]), 0));
+              k ? ctx.lineTo(PX(xs[k]), PY(y)) : ctx.moveTo(PX(xs[k]), PY(y));
+            }
+            ctx.stroke();
+          }
+        }
+      }
+    }
 
-    function add(p, q) {
+    function dbl(p) {                       // tangent at P
+      var m = (3 * p[0] * p[0] + A) / (2 * p[1]);
+      var xr = m * m - 2 * p[0];
+      return { pt: [xr, -(m * (xr - p[0]) + p[1])], m: m, via: [xr, m * (xr - p[0]) + p[1]] };
+    }
+    function addP(p, q) {                   // chord through P and Q
+      if (Math.abs(p[0] - q[0]) < 1e-9) return null;
       var m = (q[1] - p[1]) / (q[0] - p[0]);
       var xr = m * m - p[0] - q[0];
-      var yr = m * (xr - p[0]) + p[1];
-      return { r: [xr, yr], sum: [xr, -yr], m: m };
+      return { pt: [xr, -(m * (xr - p[0]) + p[1])], m: m, via: [xr, m * (xr - p[0]) + p[1]] };
     }
 
-    var phase = 0, tAnim = 0, raf = 0, res = add(P, Q);
-
-    function curve() {
-      ctx.strokeStyle = "rgba(15,20,18,0.30)";
-      ctx.lineWidth = 1.5; ctx.lineJoin = "round";
-      ctx.beginPath();
-      upper.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); });
-      ctx.stroke();
-      ctx.beginPath();
-      lower.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); });
-      ctx.stroke();
+    /* Successive multiples of a generator leave the frame almost at once --
+       2G already sits at y = -59 -- so the figure instead shows the group law
+       on pairs chosen to stay in view, accumulating each sum. */
+    var xsAll = [];
+    for (var c2 = 0; c2 < comps.length; c2++) {
+      for (var i2 = 0; i2 < comps[c2].length; i2 += 7) xsAll.push(comps[c2][i2]);
     }
-    function dot(pt, colour, r) {
+    var seed = 12345;
+    function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+    function pick() {
+      var x = xsAll[Math.floor(rnd() * xsAll.length)];
+      var y = Math.sqrt(Math.max(f(x), 0));
+      return [x, rnd() < 0.5 ? y : -y];
+    }
+
+    var pts, cur, step, tAnim, raf = 0;
+
+    function restart() { pts = []; step = null; tAnim = 0; }
+    restart();
+
+    function inView(p) {
+      return isFinite(p[0]) && isFinite(p[1]) &&
+             p[0] > xMin - 0.4 && p[0] < xMax + 0.4 && Math.abs(p[1]) < yMax + 0.6;
+    }
+
+    function dot(p, colour, r) {
       ctx.fillStyle = colour;
-      ctx.beginPath(); ctx.arc(px(pt[0]), py(pt[1]), r || 3.2, 0, 6.2832); ctx.fill();
+      ctx.beginPath(); ctx.arc(PX(p[0]), PY(p[1]), r, 0, 6.2832); ctx.fill();
     }
 
     function paint() {
       ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = "rgba(15,20,18,0.08)"; ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(15,20,18,0.07)"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.stroke();
-      curve();
+      drawCurve();
 
-      dot(P, DEEP); dot(Q, DEEP);
+      if (step) {
+        dot(step.from, "rgba(15,20,18,0.55)", 3.4);
+        dot(step.other, "rgba(15,20,18,0.55)", 3.4);
+        var g = Math.min(tAnim / 0.5, 1);
+        var from = step.from, to = step.via;
+        ctx.strokeStyle = "rgba(21,122,67,0.45)"; ctx.lineWidth = 1.3;
+        ctx.beginPath();
+        ctx.moveTo(PX(from[0]), PY(from[1]));
+        ctx.lineTo(PX(from[0] + (to[0] - from[0]) * g), PY(from[1] + (to[1] - from[1]) * g));
+        ctx.stroke();
+        if (tAnim > 0.5) {
+          var g2 = Math.min((tAnim - 0.5) / 0.4, 1);
+          ctx.strokeStyle = "rgba(21,196,106,0.55)";
+          ctx.setLineDash([3, 3]);
+          ctx.beginPath();
+          ctx.moveTo(PX(to[0]), PY(to[1]));
+          ctx.lineTo(PX(to[0]), PY(to[1] + (step.pt[1] - to[1]) * g2));
+          ctx.stroke(); ctx.setLineDash([]);
+        }
+      }
 
-      if (phase >= 1) {
-        var g = Math.min(tAnim, 1);
-        var x1 = P[0], y1 = P[1];
-        var x2 = x1 + (res.r[0] - x1) * (phase >= 2 ? 1 : g);
-        var y2 = y1 + (res.r[1] - y1) * (phase >= 2 ? 1 : g);
-        ctx.strokeStyle = "rgba(21,122,67,0.55)"; ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.moveTo(px(x1), py(y1)); ctx.lineTo(px(x2), py(y2)); ctx.stroke();
+      for (var i = 0; i < pts.length; i++) {
+        var fresh = i === pts.length - 1;
+        dot(pts[i], fresh ? GREEN : DEEP, fresh ? 4 : 3);
       }
-      if (phase >= 2) {
-        dot(res.r, "rgba(15,20,18,0.45)", 2.8);
-        var g2 = Math.min(tAnim, 1);
-        var yv = res.r[1] + (res.sum[1] - res.r[1]) * (phase >= 3 ? 1 : g2);
-        ctx.strokeStyle = "rgba(21,196,106,0.5)";
-        ctx.setLineDash([3, 3]); ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.moveTo(px(res.r[0]), py(res.r[1]));
-        ctx.lineTo(px(res.r[0]), py(yv)); ctx.stroke();
-        ctx.setLineDash([]);
+    }
+
+    function advance() {
+      for (var tries = 0; tries < 40; tries++) {
+        var P = pick(), Q = pick();
+        if (Math.abs(P[0] - Q[0]) < 0.25) continue;
+        var r = addP(P, Q);
+        if (!r || !inView(r.pt) || !inView(r.via)) continue;
+        step = { from: P, other: Q, via: r.via, pt: r.pt };
+        pts.push(r.pt.slice());
+        if (pts.length > 8) pts.shift();
+        return;
       }
-      if (phase >= 3) dot(res.sum, GREEN, 3.6);
+      restart();
     }
 
     function frame() {
-      tAnim += 0.022;
-      if (tAnim >= 1.35) {
-        tAnim = 0; phase++;
-        if (phase > 4) {
-          phase = 0;
-          P = res.sum[1] > -4 && Math.abs(res.sum[0]) < 3 ? [res.sum[0], -res.sum[1]] : onCurve(-1.4);
-          Q = onCurve(0.35 + (Math.abs(P[0]) % 0.9) * 0.5);
-          res = add(P, Q);
-          if (!isFinite(res.sum[0]) || !isFinite(res.sum[1])) { P = onCurve(-1.4); Q = onCurve(0.35); res = add(P, Q); }
-        }
-      }
+      tAnim += 0.018;
+      if (tAnim >= 1.25) { tAnim = 0; advance(); }
       paint();
       raf = requestAnimationFrame(frame);
     }
 
-    if (REDUCED) { phase = 3; tAnim = 1; paint(); return { stop: function () {} }; }
+    if (REDUCED) {
+      for (var k = 0; k < 7; k++) advance();
+      step = null; paint();
+      return { stop: function () {} };
+    }
+    advance();
     raf = requestAnimationFrame(frame);
     return { stop: function () { cancelAnimationFrame(raf); } };
   }
