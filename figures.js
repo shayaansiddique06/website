@@ -679,35 +679,45 @@
 
   /* ------------------------------------------------------- rate bars
 
-     The bars ship at width 0 and grow to their data-w when the figure comes
-     into view, so the chart reads as a measurement being taken rather than a
-     static graphic. Reduced motion gets the final widths immediately. */
+     The bars carry their final width in the markup, so the chart is correct
+     with no JavaScript at all. The growth is added on top: collapse them at
+     load, then restore when the chart scrolls into view. If a transition never
+     runs -- a hidden tab freezes them, as it freezes requestAnimationFrame --
+     the reader still sees the data rather than seven empty tracks. */
 
   (function () {
     var fig = document.querySelector(".rates");
     if (!fig) return;
-    var bars = Array.prototype.slice.call(fig.querySelectorAll(".rb"));
-    if (!bars.length) return;
+    var bars = Array.prototype.slice.call(fig.querySelectorAll(".rt i"));
+    if (!bars.length || REDUCED) return;
 
-    function grow() {
-      bars.forEach(function (b, i) {
-        b.style.transitionDelay = (i * 70) + "ms";
-        b.setAttribute("width", b.getAttribute("data-w"));
-      });
-    }
-    if (REDUCED) {
-      bars.forEach(function (b) {
-        b.style.transition = "none";
-        b.setAttribute("width", b.getAttribute("data-w"));
-      });
-      return;
-    }
+    var finals = bars.map(function (b) { return b.style.width; });
+    bars.forEach(function (b) { b.style.width = "0%"; });
+
     var done = false;
     watchers.push(function (vh) {
       if (done) return;
       var r = fig.getBoundingClientRect();
-      if (r.top < vh * 0.88 && r.bottom > 0) { done = true; grow(); }
+      if (r.top < vh * 0.9 && r.bottom > 0) {
+        done = true;
+        bars.forEach(function (b, i) {
+          b.style.transitionDelay = (i * 80) + "ms";
+          b.style.width = finals[i];
+        });
+        fig.classList.add("is-grown");
+      }
     });
+
+    /* Failsafe: if the bars are still collapsed a beat after they should have
+       grown, put them straight to their final width. */
+    setTimeout(function () {
+      if (done) return;
+      var r = fig.getBoundingClientRect();
+      if (r.top < (window.innerHeight || 0) * 1.5) {
+        done = true;
+        bars.forEach(function (b, i) { b.style.transition = "none"; b.style.width = finals[i]; });
+      }
+    }, 4000);
   })();
 
   /* Kick everything once the layout exists, and again after fonts settle. */

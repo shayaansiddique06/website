@@ -14,7 +14,7 @@
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="onepage.css?v=8">
+<link rel="stylesheet" href="onepage.css?v=11">
 </head>
 <body>
 
@@ -74,7 +74,7 @@
       <h2 class="reveal">One method. <em>Three fields.</em></h2>
 
       <div class="note reveal">
-        <p>A formal statement can be perfectly correct and still say the wrong thing. The machine that checks it cannot tell the difference.</p>
+        <p>A formal statement can be perfectly correct and still say the wrong thing.<br>The machine that checks it cannot tell the difference.</p>
       </div>
 
       <ol class="rows" data-stagger>
@@ -131,38 +131,31 @@
             </p>
           </li>
         </ol>
-
-        <figure class="rates reveal">
-          <figcaption>Share of statements flagged unfaithful</figcaption>
-          <svg viewBox="0 0 360 250" role="img"
-               aria-label="Share of statements flagged unfaithful by corpus and by autoformalizer">
-            <text class="rg" x="0" y="10">benchmarks</text>
-            <text class="rl" x="0" y="32">miniF2F</text>
-            <rect class="rb" x="96" y="22" width="0" height="12" rx="2" data-w="99"/>
-            <text class="rv" x="201" y="32">28.3%</text>
-            <text class="rl" x="0" y="58">miniF2F v2</text>
-            <rect class="rb" x="96" y="48" width="0" height="12" rx="2" data-w="70"/>
-            <text class="rv" x="172" y="58">20.1%</text>
-            <text class="rl" x="0" y="84">ProofNet#</text>
-            <rect class="rb" x="96" y="74" width="0" height="12" rx="2" data-w="85"/>
-            <text class="rv" x="187" y="84">24.3%</text>
-
-            <text class="rg" x="0" y="128">autoformalizers</text>
-            <text class="rl" x="0" y="150">Goedel V2</text>
-            <rect class="rb rs" x="96" y="140" width="0" height="12" rx="2" data-w="76"/>
-            <text class="rv" x="178" y="150">21.7%</text>
-            <text class="rl" x="0" y="176">StepFun</text>
-            <rect class="rb rs" x="96" y="166" width="0" height="12" rx="2" data-w="115"/>
-            <text class="rv" x="217" y="176">32.6%</text>
-            <text class="rl" x="0" y="202">Kimina</text>
-            <rect class="rb rs" x="96" y="192" width="0" height="12" rx="2" data-w="119"/>
-            <text class="rv" x="221" y="202">34.0%</text>
-            <text class="rl" x="0" y="228">Herald</text>
-            <rect class="rb rs" x="96" y="218" width="0" height="12" rx="2" data-w="194"/>
-            <text class="rv" x="296" y="228">55.5%</text>
-          </svg>
-        </figure>
       </div>
+
+      <figure class="rates reveal">
+        <figcaption>Share of statements flagged unfaithful</figcaption>
+        <div class="rate-cols">
+          <div class="rate-col">
+            <p class="rate-head">Benchmarks</p>
+            <ul class="rate-list">
+              <li><span class="rn">miniF2F</span><span class="rt"><i data-p="28.3" style="width:43.87%"></i></span><span class="rp">28.3%</span></li>
+              <li><span class="rn">miniF2F v2</span><span class="rt"><i data-p="20.1" style="width:31.16%"></i></span><span class="rp">20.1%</span></li>
+              <li><span class="rn">ProofNet#</span><span class="rt"><i data-p="24.3" style="width:37.66%"></i></span><span class="rp">24.3%</span></li>
+            </ul>
+          </div>
+          <div class="rate-col">
+            <p class="rate-head">Autoformalizers</p>
+            <ul class="rate-list rate-list--sys">
+              <li><span class="rn">Goedel V2</span><span class="rt"><i data-p="21.7" style="width:33.63%"></i></span><span class="rp">21.7%</span></li>
+              <li><span class="rn">StepFun</span><span class="rt"><i data-p="32.6" style="width:50.53%"></i></span><span class="rp">32.6%</span></li>
+              <li><span class="rn">Kimina</span><span class="rt"><i data-p="34.0" style="width:52.70%"></i></span><span class="rp">34.0%</span></li>
+              <li><span class="rn">Herald</span><span class="rt"><i data-p="55.5" style="width:86.03%"></i></span><span class="rp">55.5%</span></li>
+            </ul>
+          </div>
+        </div>
+      </figure>
+
     </div>
   </section>
 
@@ -177,8 +170,7 @@
       <h2 class="reveal">We produce <em>novel research.</em></h2>
 
       <p class="body reveal">
-        Work on Erdős problems and on quantum foundations, published openly, with
-        every step checked by machine rather than taken on trust.
+        Work on Erdős problems and quantum foundations, every step machine-checked.
       </p>
 
       <ol class="papers" data-stagger>
@@ -279,6 +271,6 @@
   </div>
 </footer>
 
-<script src="figures.js?v=12" defer></script>
+<script src="figures.js?v=15" defer></script>
 </body>
 </html>
