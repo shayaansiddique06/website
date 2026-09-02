@@ -14,7 +14,7 @@
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="onepage.css?v=3">
+<link rel="stylesheet" href="onepage.css?v=4">
 </head>
 <body>
 
@@ -105,33 +105,74 @@
       <h2 class="reveal">The kernel checks proofs.<br><em>Nobody checks statements.</em></h2>
 
       <p class="body reveal">
-        Every benchmark in formal mathematics scores a model against reference
-        statements somebody wrote by hand. We went through those references. In
-        each one we found statements that do not say what they claim to.
+        A formal statement can compile and still say the wrong thing. We read the
+        references the field scores itself against, one statement at a time, and
+        verified every flag by hand.
       </p>
 
-      <ul class="facts" data-stagger>
-        <li class="reveal">
-          <span class="fig">23</span>
-          <span class="cap">faithfulness defects in miniF2F v2, filed publicly</span>
-        </li>
-        <li class="reveal">
-          <span class="fig">16</span>
-          <span class="cap">verified defects across all 672 PutnamBench problems</span>
-        </li>
-        <li class="reveal">
-          <span class="fig">10</span>
-          <span class="cap">reference defects in ProofNetVerif</span>
-        </li>
-        <li class="reveal">
-          <span class="fig">85<span class="of">/161</span></span>
-          <span class="cap">CLEVER specifications flagged, five with machine-checked vacuity certificates</span>
-        </li>
-      </ul>
+      <div class="vgrid">
+        <ol class="vrows" data-stagger>
+          <li class="reveal">
+            <h3>Benchmark audits</h3>
+            <p>
+              1,347 statements across three corpora, 76 confirmed defects. All
+              three filings are public:
+              <a href="https://huggingface.co/datasets/cat-searcher/minif2f-lean4/discussions/2" target="_blank" rel="noopener">miniF2F</a>,
+              <a href="https://github.com/roozbeh-mohit/miniF2F_v2/issues/2" target="_blank" rel="noopener">miniF2F&nbsp;v2</a> and
+              <a href="https://huggingface.co/datasets/PAug/ProofNetSharp/discussions/2" target="_blank" rel="noopener">ProofNet#</a>.
+            </p>
+          </li>
+          <li class="reveal">
+            <h3>Cross-system audits</h3>
+            <p>
+              Four open autoformalizers, the same 488 problems, each with its own
+              prompts. Failure rates ran from 21.7% to 55.5%. A compile check
+              catches none of it.
+            </p>
+          </li>
+          <li class="reveal">
+            <h3>Specification gaming</h3>
+            <p>
+              59 pairs satisfy the checker and two frontier judges, then fail
+              human review. Three of those failure classes now have mechanical
+              detectors.
+            </p>
+          </li>
+        </ol>
 
-      <div class="pull reveal">
-        <p>We audited the Lean FRO's own evaluation set. Kim Morrison, who maintains Lean, merged the fixes.</p>
+        <figure class="rates reveal">
+          <figcaption>Share of statements flagged unfaithful</figcaption>
+          <svg viewBox="0 0 360 250" role="img"
+               aria-label="Share of statements flagged unfaithful by corpus and by autoformalizer">
+            <text class="rg" x="0" y="10">benchmarks</text>
+            <text class="rl" x="0" y="32">miniF2F</text>
+            <rect class="rb" x="96" y="22" width="0" height="12" rx="2" data-w="99"/>
+            <text class="rv" x="201" y="32">28.3%</text>
+            <text class="rl" x="0" y="58">miniF2F v2</text>
+            <rect class="rb" x="96" y="48" width="0" height="12" rx="2" data-w="70"/>
+            <text class="rv" x="172" y="58">20.1%</text>
+            <text class="rl" x="0" y="84">ProofNet#</text>
+            <rect class="rb" x="96" y="74" width="0" height="12" rx="2" data-w="85"/>
+            <text class="rv" x="187" y="84">24.3%</text>
+
+            <text class="rg" x="0" y="128">autoformalizers</text>
+            <text class="rl" x="0" y="150">Goedel V2</text>
+            <rect class="rb rs" x="96" y="140" width="0" height="12" rx="2" data-w="76"/>
+            <text class="rv" x="178" y="150">21.7%</text>
+            <text class="rl" x="0" y="176">StepFun</text>
+            <rect class="rb rs" x="96" y="166" width="0" height="12" rx="2" data-w="115"/>
+            <text class="rv" x="217" y="176">32.6%</text>
+            <text class="rl" x="0" y="202">Kimina</text>
+            <rect class="rb rs" x="96" y="192" width="0" height="12" rx="2" data-w="119"/>
+            <text class="rv" x="221" y="202">34.0%</text>
+            <text class="rl" x="0" y="228">Herald</text>
+            <rect class="rb rs" x="96" y="218" width="0" height="12" rx="2" data-w="194"/>
+            <text class="rv" x="296" y="228">55.5%</text>
+          </svg>
+        </figure>
       </div>
+
+      <p class="vfoot reveal">Automated screens may only reject. Only a person certifies.</p>
     </div>
   </section>
 
@@ -242,6 +283,6 @@
   </div>
 </footer>
 
-<script src="figures.js?v=7" defer></script>
+<script src="figures.js?v=8" defer></script>
 </body>
 </html>

@@ -297,47 +297,90 @@ h3{
   .rows li{ grid-template-columns: 1fr; gap: 8px; }
 }
 
-/* ------------------------------- facts ---------------------------------- */
+/* --------------------------- verification -------------------------------- */
 
-.facts{
-  list-style: none; margin: 0 0 54px; padding: 0;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+.vgrid{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  gap: 56px;
+  align-items: start;
+  margin-bottom: 48px;
 }
-.facts li{
-  background: var(--bg);
-  padding: 30px 24px 26px;
-  display: flex; flex-direction: column; gap: 10px;
+
+.vrows{ list-style: none; margin: 0; padding: 0; }
+.vrows li{
+  padding: 26px 0;
+  border-top: 1px solid var(--border);
 }
-.facts .fig{
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 2.6rem;
-  line-height: 1;
-  letter-spacing: -0.03em;
+.vrows li:last-child{ border-bottom: 1px solid var(--border); }
+.vrows h3{ margin: 0 0 8px; }
+.vrows p{ margin: 0; color: var(--text-muted); font-size: 15.5px; }
+
+.vrows a{
   color: var(--accent-deep);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 1px;
+  transition: background-size 200ms var(--ease);
 }
-.facts .of{ font-size: 1.35rem; color: var(--text-faint); letter-spacing: 0; }
-.facts .cap{
-  font-size: 14px; line-height: 1.45; color: var(--text-muted);
-}
+.vrows a:hover{ background-size: 100% 1.5px; }
 
-@media (max-width: 900px){ .facts{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px){ .facts{ grid-template-columns: 1fr; } }
-
-.pull{
-  border-top: 1px solid var(--border-strong);
-  padding-top: 30px;
-  max-width: 60ch;
-}
-.pull p{
+.rates{
   margin: 0;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 24px 24px 20px;
+}
+.rates figcaption{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 20px;
+}
+.rates svg{ display: block; width: 100%; height: auto; overflow: visible; }
+
+.rates .rg{
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--text-faint);
+}
+.rates .rl{
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  fill: var(--text-muted);
+}
+.rates .rv{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--text);
+}
+.rates .rb{
+  fill: var(--accent-deep);
+  transition: width 900ms var(--ease);
+}
+.rates .rb.rs{ fill: var(--accent); }
+
+@media (max-width: 900px){
+  .vgrid{ grid-template-columns: 1fr; gap: 40px; }
+  .rates{ max-width: 460px; }
+}
+
+.vfoot{
+  margin: 0;
+  padding-top: 26px;
+  border-top: 1px solid var(--border-strong);
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.62rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
   line-height: 1.35;
   letter-spacing: -0.015em;
+  max-width: 46ch;
 }
 
 /* ------------------------------ papers ---------------------------------- */

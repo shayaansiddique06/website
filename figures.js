@@ -526,6 +526,39 @@
     }, { passive: true });
   });
 
+  /* ------------------------------------------------------- rate bars
+
+     The bars ship at width 0 and grow to their data-w when the figure comes
+     into view, so the chart reads as a measurement being taken rather than a
+     static graphic. Reduced motion gets the final widths immediately. */
+
+  (function () {
+    var fig = document.querySelector(".rates");
+    if (!fig) return;
+    var bars = Array.prototype.slice.call(fig.querySelectorAll(".rb"));
+    if (!bars.length) return;
+
+    function grow() {
+      bars.forEach(function (b, i) {
+        b.style.transitionDelay = (i * 70) + "ms";
+        b.setAttribute("width", b.getAttribute("data-w"));
+      });
+    }
+    if (REDUCED) {
+      bars.forEach(function (b) {
+        b.style.transition = "none";
+        b.setAttribute("width", b.getAttribute("data-w"));
+      });
+      return;
+    }
+    var done = false;
+    watchers.push(function (vh) {
+      if (done) return;
+      var r = fig.getBoundingClientRect();
+      if (r.top < vh * 0.88 && r.bottom > 0) { done = true; grow(); }
+    });
+  })();
+
   /* Kick everything once the layout exists, and again after fonts settle. */
   schedule();
   setTimeout(schedule, 60);
