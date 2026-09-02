@@ -20,7 +20,7 @@
 
   --ease:  cubic-bezier(0.16, 1, 0.3, 1);
   --nav-h: 68px;
-  --wrap:  1080px;
+  --wrap:  min(1320px, 92vw);
 }
 
 *,*::before,*::after{ box-sizing: border-box; }
@@ -36,7 +36,7 @@ body{
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: clamp(17px, 0.55vw + 14px, 19px);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -150,7 +150,7 @@ a{ color: inherit; }
 h1{
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2.55rem, 6.4vw, 4.6rem);
+  font-size: clamp(2.55rem, 6vw, 5.5rem);
   line-height: 1.04;
   letter-spacing: -0.028em;
   margin: 0;
@@ -159,7 +159,7 @@ h1{
 h2{
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.95rem, 4.2vw, 3.05rem);
+  font-size: clamp(1.95rem, 4vw, 3.7rem);
   line-height: 1.1;
   letter-spacing: -0.022em;
   margin: 0 0 26px;
@@ -191,16 +191,16 @@ h3{
   font-size: clamp(1.08rem, 1.9vw, 1.32rem);
   line-height: 1.55;
   color: var(--text-muted);
-  max-width: 56ch;
-  margin: 26px 0 0;
+  max-width: 60ch;
+  margin: 28px 0 0;
   text-wrap: pretty;
 }
 
 .body{
   font-size: 1.06rem;
   color: var(--text-muted);
-  max-width: 70ch;
-  margin: 0 0 40px;
+  max-width: 74ch;
+  margin: 0 0 44px;
   text-wrap: pretty;
 }
 
@@ -289,7 +289,7 @@ h3{
   padding: 30px 0;
   border-top: 1px solid var(--border);
   display: grid;
-  grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
   gap: 12px 48px;
   align-items: start;
 }
@@ -305,7 +305,7 @@ h3{
 
 .vgrid{
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
   gap: 64px;
   align-items: center;
 }

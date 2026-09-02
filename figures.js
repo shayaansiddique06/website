@@ -544,9 +544,99 @@
     return { stop: function () { cancelAnimationFrame(raf); } };
   }
 
+  /* ------------------------------------------- figure 5 · travelling salesman
+
+     A tour through every city, improved by 2-opt: take two edges, reverse the
+     path between them, keep the swap if the tour got shorter. Finding the
+     shortest tour is NP-hard, and whether that can ever be done efficiently is
+     what P versus NP asks.
+     ---------------------------------------------------------------------- */
+
+  function tsp(canvas) {
+    var d = fit(canvas), ctx = d.ctx, w = d.w, h = d.h;
+    var N = w > 1100 ? 34 : (w > 700 ? 26 : 18);
+    var padX = w * 0.06, padY = h * 0.16;
+    var seed = 987654321;
+    function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+
+    var cities, tour, raf = 0, settled = 0;
+
+    function build() {
+      cities = [];
+      for (var i = 0; i < N; i++) {
+        cities.push([padX + rnd() * (w - padX * 2), padY + rnd() * (h - padY * 2)]);
+      }
+      tour = cities.map(function (_, i) { return i; });
+      for (var k = tour.length - 1; k > 0; k--) {          // shuffle into a tangle
+        var j = Math.floor(rnd() * (k + 1));
+        var t = tour[k]; tour[k] = tour[j]; tour[j] = t;
+      }
+      settled = 0;
+    }
+    build();
+
+    function dist(a, b) {
+      var dx = cities[a][0] - cities[b][0], dy = cities[a][1] - cities[b][1];
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    /* one 2-opt improvement per call; returns false when none is left */
+    function improve() {
+      var n = tour.length;
+      for (var i = 0; i < n - 1; i++) {
+        var a = tour[i], b = tour[(i + 1) % n];
+        for (var j = i + 2; j < n; j++) {
+          if (i === 0 && j === n - 1) continue;
+          var c = tour[j], e = tour[(j + 1) % n];
+          if (dist(a, c) + dist(b, e) + 1e-9 < dist(a, b) + dist(c, e)) {
+            for (var lo = i + 1, hi = j; lo < hi; lo++, hi--) {
+              var t2 = tour[lo]; tour[lo] = tour[hi]; tour[hi] = t2;
+            }
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function paint() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineWidth = 1.4; ctx.lineJoin = "round";
+      ctx.strokeStyle = settled ? DEEP : "rgba(21,122,67,0.45)";
+      ctx.beginPath();
+      for (var i = 0; i <= tour.length; i++) {
+        var p = cities[tour[i % tour.length]];
+        i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]);
+      }
+      ctx.stroke();
+      for (var k = 0; k < cities.length; k++) {
+        ctx.fillStyle = settled ? GREEN : "rgba(15,20,18,0.55)";
+        ctx.beginPath(); ctx.arc(cities[k][0], cities[k][1], 2.8, 0, 6.2832); ctx.fill();
+      }
+    }
+
+    function frame() {
+      if (!settled) {
+        if (!improve()) { settled = 1; setTimeout(build, 2600); }
+      }
+      paint();
+      raf = requestAnimationFrame(frame);
+    }
+
+    if (REDUCED) {
+      var guard = 0;
+      while (improve() && guard++ < 4000) {}
+      settled = 1; paint();
+      return { stop: function () {} };
+    }
+    paint();
+    raf = requestAnimationFrame(frame);
+    return { stop: function () { cancelAnimationFrame(raf); } };
+  }
+
   /* ------------------------------------------------------- figure wiring */
 
-  var BUILDERS = { zeta: zeta, elliptic: elliptic, flow: flow, shorten: shorten };
+  var BUILDERS = { zeta: zeta, elliptic: elliptic, flow: flow, shorten: shorten, tsp: tsp };
 
   Array.prototype.forEach.call(document.querySelectorAll(".band"), function (band) {
     var canvas = band.querySelector("canvas");
