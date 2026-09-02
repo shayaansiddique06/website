@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Millennium Research · We check the work</title>
-<meta name="description" content="Millennium Research checks whether formal statements say what they are meant to say, across mathematics, software and quantum.">
+<meta name="description" content="Millennium Research checks whether formal statements say what they were meant to say, across mathematics, software and quantum.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light">
 <meta property="og:title" content="Millennium Research">
@@ -14,80 +14,83 @@
 <link rel="preload" href="fonts/fraunces-P2Xz5cwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/geist-WNOITdwoff2.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="styles.css?v=18">
-<link rel="stylesheet" href="home.css?v=57">
-<noscript><style>[]{opacity:1 !important;transform:none !important}</style></noscript>
+<link rel="stylesheet" href="onepage.css?v=2">
 </head>
-<body class="mr-page mr-light">
+<body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#hero">Skip to content</a>
 
-<header class="site-nav is-solid" id="site-nav">
-  <div class="nav-inner">
-    <a class="wordmark" href="index.html" aria-label="Millennium Research home">
-      <img class="mark-img" src="assets/logo-nav.png" alt="" width="160" height="110" aria-hidden="true">
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="mark" href="#hero" aria-label="Millennium Research">
+      <img src="assets/logo-nav.png" alt="" width="160" height="110" aria-hidden="true">
       <span>Millennium&nbsp;Research</span>
     </a>
-    <nav class="nav-links" aria-label="Primary">
+    <nav class="nav-links" aria-label="Sections">
       <ul>
-        <li><a href="verification.html">Verification</a></li>
-        <li><a href="dataset.html">Dataset</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="contact.html">Access</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#verification">Verification</a></li>
+        <li><a href="#papers">Papers</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#waitlist">Waiting list</a></li>
       </ul>
     </nav>
-    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="menu-overlay" aria-label="Open menu">
-      <span class="nav-toggle-line" aria-hidden="true"></span>
-      <span class="nav-toggle-line" aria-hidden="true"></span>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </div>
-  <div class="menu-overlay" id="menu-overlay" hidden>
-    <nav aria-label="Mobile">
-      <ul>
-        <li><a href="verification.html">Verification</a></li>
-        <li><a href="dataset.html">Dataset</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="contact.html">Access</a></li>
-      </ul>
-    </nav>
+  <div class="menu" id="menu" hidden>
+    <ul>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#verification">Verification</a></li>
+      <li><a href="#papers">Papers</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#waitlist">Waiting list</a></li>
+    </ul>
   </div>
 </header>
 
-<main id="main">
+<main>
 
-  <!-- ================================ HERO ================================ -->
-  <section class="mr-hero mr-hero--plain" aria-label="Introduction">
-    <div class="mr-figure mr-figure--spiral" aria-hidden="true"></div>
-    <div class="mr-wrap mr-hero-inner">
-      <h1>Machines are doing more of the work.<br><em>Someone has to check it.</em></h1>
-      <p class="mr-hero-sub">
-        We check whether a formal statement says what it was meant to say.
-      </p>
-      <div class="mr-hero-cta">
-        <a class="mr-btn mr-btn--solid" href="contact.html">Get in touch</a>
-        <a class="mr-btn" href="#phases">What we do</a>
+  <!-- ============================= 1 · HERO ============================= -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <h1 class="reveal">Machines are doing more of the work.<br><em>Someone has to check it.</em></h1>
+      <p class="lede reveal">We check whether a formal statement says what it was meant to say.</p>
+      <div class="cta reveal">
+        <a class="btn btn-solid" href="#waitlist">Join the waiting list</a>
+        <a class="btn" href="#method">What we do</a>
       </div>
     </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
   </section>
 
-  <!-- ============================== PHASES ================================ -->
-  <section class="mr-section" id="phases" aria-label="What we verify">
-    <div class="mr-figure mr-figure--fourier" aria-hidden="true"></div>
-    <div class="mr-wrap">
-      <p class="mr-statement">
-        One method. <em>Three fields.</em>
-      </p>
+  <!-- divider: sieve of Eratosthenes -->
+  <div class="band" data-fig="sieve" aria-hidden="true">
+    <canvas></canvas>
+    <p class="band-cap">The sieve of Eratosthenes. Strike out every multiple and the primes are what is left.</p>
+  </div>
 
-      <ol class="mr-rows">
-        <li>
+  <!-- ============================ 2 · METHOD =========================== -->
+  <section class="sec" id="method">
+    <div class="wrap">
+      <p class="kicker reveal">Method</p>
+      <h2 class="reveal">One method.<br><em>Three fields.</em></h2>
+
+      <div class="note reveal">
+        <p>A formal statement can be perfectly correct and still say the wrong thing. The machine that checks it cannot tell the difference.</p>
+      </div>
+
+      <ol class="rows" data-stagger>
+        <li class="reveal">
           <h3>Mathematics</h3>
           <p>Formal proofs of mathematical results, checked one statement at a time. This is where the method was built, and it is what we do today.</p>
         </li>
-        <li>
+        <li class="reveal">
           <h3>Software</h3>
-          <p>The same check, applied to code. Whether a program&rsquo;s formal specification says what the program is actually meant to do.</p>
+          <p>The same check applied to code. Whether a program's specification says what the program was actually meant to do.</p>
         </li>
-        <li>
+        <li class="reveal">
           <h3>Quantum</h3>
           <p>Quantum algorithms and protocols, where testing your way to confidence is not an option and proof has to carry the weight.</p>
         </li>
@@ -95,161 +98,162 @@
     </div>
   </section>
 
-  <div class="zeta-divider" role="presentation"></div>
+  <!-- divider: Fourier epicycles -->
+  <div class="band" data-fig="fourier" aria-hidden="true">
+    <canvas></canvas>
+    <p class="band-cap">Rotating circles. Add enough of them and they draw any closed curve.</p>
+  </div>
 
-  <!-- ============================ WHAT WE'VE DONE ========================= -->
-  <section class="mr-section" id="record" aria-label="What we have done">
-    <div class="mr-wrap">
-      <p class="mr-statement">
-        We don&rsquo;t only check the field&rsquo;s work.<br>
-        <em>We close problems of our own.</em>
+  <!-- ========================= 3 · VERIFICATION ======================== -->
+  <section class="sec" id="verification">
+    <div class="wrap">
+      <p class="kicker reveal">Verification</p>
+      <h2 class="reveal">The kernel checks proofs.<br><em>Nobody checks statements.</em></h2>
+
+      <p class="body reveal">
+        Every benchmark in formal mathematics scores a model against reference
+        statements somebody wrote by hand. We went through those references. In
+        each one we found statements that do not say what they claim to.
       </p>
 
-      <ol class="mr-rows">
-        <li>
-          <h3>We settle open questions</h3>
-          <p>We publish papers on Erd&#337;s problems, some open for decades, with every step checked by machine rather than taken on trust.</p>
+      <ul class="facts" data-stagger>
+        <li class="reveal">
+          <span class="fig">23</span>
+          <span class="cap">faithfulness defects in miniF2F v2, filed publicly</span>
         </li>
-        <li>
-          <h3>We find what the field missed</h3>
-          <p>We go through the benchmarks and libraries everyone builds on and find real mistakes. The fixes get accepted, including by the group behind Lean itself.</p>
+        <li class="reveal">
+          <span class="fig">16</span>
+          <span class="cap">verified defects across all 672 PutnamBench problems</span>
         </li>
-        <li>
-          <h3>What we are building next</h3>
-          <p>Proofs ordered by logical strength rather than pass or fail, so a machine can be aimed at questions nobody has closed and measured on how much it actually proved.</p>
+        <li class="reveal">
+          <span class="fig">10</span>
+          <span class="cap">reference defects in ProofNetVerif</span>
+        </li>
+        <li class="reveal">
+          <span class="fig">85<span class="of">/161</span></span>
+          <span class="cap">CLEVER specifications flagged, five with machine-checked vacuity certificates</span>
+        </li>
+      </ul>
+
+      <div class="pull reveal">
+        <p>We audited the Lean FRO's own evaluation set. Kim Morrison, who maintains Lean, merged the fixes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- divider: Lorenz attractor -->
+  <div class="band" data-fig="lorenz" aria-hidden="true">
+    <canvas></canvas>
+    <p class="band-cap">The Lorenz attractor. Two paths starting a hair apart end up nowhere near each other.</p>
+  </div>
+
+  <!-- ============================ 4 · PAPERS =========================== -->
+  <section class="sec" id="papers">
+    <div class="wrap">
+      <p class="kicker reveal">Papers</p>
+      <h2 class="reveal">We close problems<br><em>of our own.</em></h2>
+
+      <p class="body reveal">
+        Erdős problems, some open for decades, with every step checked by machine
+        rather than taken on trust.
+      </p>
+
+      <ol class="papers" data-stagger>
+        <li class="reveal">
+          <span class="pnum">01</span>
+          <div>
+            <h3><a href="https://arxiv.org/abs/2607.25628">Kernel-Checked Exclusions for the Erdős–Selfridge Odd Covering Problem</a></h3>
+            <p>Any odd covering of the integers has least common multiple exceeding 10<sup>4</sup>. The search and the certificate are both machine-checked.</p>
+            <span class="meta">arXiv:2607.25628</span>
+          </div>
+        </li>
+        <li class="reveal">
+          <span class="pnum">02</span>
+          <div>
+            <h3><a href="https://arxiv.org/abs/2607.26413">Machine-Checked Certificates for the Geometric Half of the Minimum Kochen–Specker Bound</a></h3>
+            <p>A quantum foundations result, reduced to certificates a proof kernel can verify without trusting the search that produced them.</p>
+            <span class="meta">arXiv:2607.26413</span>
+          </div>
+        </li>
+        <li class="reveal">
+          <span class="pnum">03</span>
+          <div>
+            <h3><a href="https://arxiv.org/abs/2608.17880">A Kernel-Checked Exclusion Certificate for Erdős Problem 647</a></h3>
+            <p>An exclusion carried to 10<sup>9</sup>, with every witness archived and independently reproducible from source.</p>
+            <span class="meta">arXiv:2608.17880</span>
+          </div>
         </li>
       </ol>
     </div>
   </section>
 
-  <div class="zeta-divider" role="presentation"></div>
+  <!-- divider: residue covering lattice -->
+  <div class="band band--tall" data-fig="covering" aria-hidden="true">
+    <canvas></canvas>
+    <p class="band-cap">A covering system. Each row is one modulus; together they must leave no integer uncovered.</p>
+  </div>
 
-  <!-- ============================== THE METHOD ============================ -->
-  <section class="mr-section" id="method" aria-label="The method">
-    <div class="mr-figure mr-figure--lorenz" aria-hidden="true"></div>
-    <div class="mr-wrap">
-      <p class="mr-statement">
-        The subject changes.<br><em>The question doesn&rsquo;t.</em>
-      </p>
-      <div class="mr-method-note">
-        <p>
-          A formal statement can be perfectly correct and still say the wrong
-          thing. The machine that checks it cannot tell the difference.
-        </p>
+  <!-- ============================= 5 · TEAM ============================ -->
+  <section class="sec" id="team">
+    <div class="wrap">
+      <p class="kicker reveal">Team</p>
+      <h2 class="reveal">Two founders.<br><em>Mathematicians first.</em></h2>
+
+      <div class="people" data-stagger>
+        <article class="person reveal">
+          <h3>Shayaan Siddique</h3>
+          <span class="role">Co-founder &amp; CTO</span>
+          <p>Highest Putnam score of any sophomore in the nation. Built a fine-tuned Putnam-solving model that drew inbound interest from Anthropic and xAI.</p>
+        </article>
+        <article class="person reveal">
+          <h3>Ibrahim Mian</h3>
+          <span class="role">Co-founder &amp; CEO</span>
+          <p>Built an emergency response platform deployed in Middle Eastern universities. Discovered a theorem solving any integral with denominator x<sup>n</sup>&nbsp;±&nbsp;x<sup>n−1</sup> and polynomial numerator.</p>
+        </article>
       </div>
-      <div class="mr-waitlist">
-        <h3 class="wl-title">Join the waiting list</h3>
-        <p class="wl-blurb">Updates and new releases, sent when there is something worth reading. No more than that.</p>
-        <form class="wl-form" id="wl-form" novalidate>
-          <label class="wl-label" for="wl-email">Email address</label>
-          <div class="wl-row">
-            <input class="wl-input" id="wl-email" name="email" type="email" required
-                   autocomplete="email" placeholder="you@lab.org" aria-describedby="wl-status">
-            <button class="mr-btn mr-btn--solid wl-submit" type="submit">Join</button>
-          </div>
-          <input class="wl-trap" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="wl-status" id="wl-status" role="status"></p>
-        </form>
-      </div>
+
+      <p class="backing reveal">Pre-seed backed by 3kVC and Pareto.</p>
+    </div>
+  </section>
+
+  <!-- =========================== 6 · WAITLIST ========================== -->
+  <section class="sec sec--wl" id="waitlist">
+    <div class="wrap">
+      <h2 class="reveal">Join the waiting list</h2>
+      <p class="lede reveal">Updates and new releases, sent when there is something worth reading. No more than that.</p>
+
+      <form class="wl" id="wl-form" novalidate>
+        <label class="sr" for="wl-email">Email address</label>
+        <div class="wl-row">
+          <input id="wl-email" name="email" type="email" required autocomplete="email"
+                 placeholder="you@lab.org" aria-describedby="wl-status">
+          <button class="btn btn-solid" type="submit">Join</button>
+        </div>
+        <input class="trap" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="wl-status" id="wl-status" role="status"></p>
+      </form>
     </div>
   </section>
 
 </main>
 
-<!-- ================================ FOOTER ================================ -->
-<footer class="mr-footer">
-  <div class="mr-wrap">
-    <div class="mr-footer-grid">
-      <div>
-        <div class="fmark">
-          <img src="assets/logo-mark.png" alt="">
-          <span>Millennium&nbsp;Research</span>
-        </div>
-        <p class="ftag">We check whether formal statements say what they were meant to say.</p>
-      </div>
-      <div class="mr-footer-cta">
-        <a class="mr-btn mr-btn--solid" href="contact.html">Get in touch</a>
-      </div>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <span class="foot-mark">
+        <img src="assets/logo-mark.png" alt="" width="160" height="110" aria-hidden="true">
+        <span>Millennium&nbsp;Research</span>
+      </span>
+      <p class="foot-tag">We check whether formal statements say what they were meant to say.</p>
     </div>
-    <div class="mr-footer-legal">
-      <span>&copy; 2026 Millennium Research</span>
-      <span>Re(s) = 1/2, until proven otherwise.</span>
+    <div class="foot-meta">
+      <a href="mailto:ibrahimnmian@gmail.com">ibrahimnmian@gmail.com</a>
+      <span>© 2026 Millennium Research</span>
+      <span class="foot-note">Re(s) = 1/2, until proven otherwise.</span>
     </div>
   </div>
 </footer>
 
-<script>
-  // Minimal nav toggle for this page (main.js is not loaded here).
-  (function () {
-    var btn = document.getElementById('nav-toggle');
-    var overlay = document.getElementById('menu-overlay');
-    if (!btn || !overlay) return;
-    btn.addEventListener('click', function () {
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      overlay.hidden = open;
-      document.documentElement.classList.toggle('menu-open', !open);
-    });
-  })();
-
-</script>
-
-
-<script>
-/* Waiting list.
-   Set WAITLIST_ENDPOINT to a URL that accepts a JSON POST of {email} and the
-   form submits to it. Leave it empty and the form falls back to opening a
-   pre-addressed mail draft, so the page works with nothing else set up. */
-(function () {
-  var WAITLIST_ENDPOINT = "";
-  var FALLBACK_TO = "shayaan@millenniumresearch.ai,ibrahimnmian@gmail.com";
-
-  var form = document.getElementById("wl-form");
-  if (!form) return;
-  var input = document.getElementById("wl-email");
-  var status = document.getElementById("wl-status");
-  var button = form.querySelector(".wl-submit");
-
-  function say(msg, ok) {
-    status.textContent = msg;
-    status.classList.toggle("is-ok", ok === true);
-    status.classList.toggle("is-err", ok === false);
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (form.company.value) return;            // honeypot; bots fill it, people do not
-    var email = input.value.trim();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      say("That does not look like an email address.", false);
-      input.focus();
-      return;
-    }
-    if (!WAITLIST_ENDPOINT) {
-      window.location.href = "mailto:" + FALLBACK_TO +
-        "?subject=" + encodeURIComponent("Waiting list") +
-        "&body=" + encodeURIComponent("Please add " + email + " to the waiting list.");
-      say("Opening your mail app to send the request.", true);
-      return;
-    }
-    button.disabled = true;
-    say("Adding you...");
-    fetch(WAITLIST_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({ email: email })
-    }).then(function (r) {
-      if (!r.ok) throw new Error(r.status);
-      form.reset();
-      say("You are on the list. We will be in touch.", true);
-    }).catch(function () {
-      say("That did not go through. Email us instead and we will add you by hand.", false);
-    }).then(function () {
-      button.disabled = false;
-    });
-  });
-})();
-</script>
-
+<script src="figures.js?v=5" defer></script>
 </body>
 </html>
