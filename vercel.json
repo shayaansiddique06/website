@@ -1,5 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/leanscreen", "destination": "/leanscreen.html" }
+  "redirects": [
+    { "source": "/(team|contact|dataset|research|thesis|verification|leanscreen|millennium-research)(\\.html)?", "destination": "/", "permanent": false }
   ]
 }
